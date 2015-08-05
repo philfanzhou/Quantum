@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="eb13812e-3f06-4f0e-a7c5-208091864728" name="FilterEngine" linkedPackageId="2a9dd486-4b2f-44ce-bb59-909d866462d4" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="446be478-704c-4850-bc0e-79afe52514e0" name="FilterTaskStatus" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="2ccb1c0a-f6e6-4210-8e70-eac15af2992f" />
+        <ownedLiterals>
+          <enumerationLiteral Id="ee3fb13d-6b1c-4ef7-87e1-96a7093f04ef" name="Preparing">
+            <elementDefinition Id="7a8ac790-39e8-4c43-9fef-b72754b70c71" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="ce4ce541-80b0-4356-bc38-84aa8ca9fdc0" name="Queuing">
+            <elementDefinition Id="da442cdf-523b-44ff-bd56-8dff0dec99bc" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="06b12e62-20ec-46c6-9c93-4d10a0c472f2" name="Running">
+            <elementDefinition Id="4363b6a9-06c8-4acd-af15-8ff1879af290" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="420664b3-4c53-41f9-b6e4-f8ee9ff9c225" name="Completed ">
+            <elementDefinition Id="ed20df9b-0260-4b0a-a164-5cd3be37d321" />
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="922315c7-4c81-4bb3-ac79-99978a28e5de" name="FilterResult" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="87def554-1025-4c78-87fb-413dfc295f9a" />
+        <ownedAttributesInternal>
+          <property Id="a30e0556-88a4-4285-b00e-d8132c39e831" name="Stocks" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="69460db4-aa34-4dd8-9f5b-60f84c816c31" />
+          </property>
+          <property Id="02938ac9-309b-49cd-b03f-5411bd90e029" name="ExecStartTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5f9d576f-8126-4106-ac3e-f279668e8ecb" />
+          </property>
+          <property Id="fe80dad7-034b-494e-9479-44b951822884" name="ExecEndTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="03fb934a-1829-4062-8521-f69eaf74258d" />
+          </property>
+          <property Id="bcfa3efc-1d5c-485c-81f7-5819127107bb" name="ConditionId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="94f9da96-1fc5-4360-9607-0ecb784079af" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="193535a4-3f1b-4cb7-aae6-70ca4cb93f46" LastKnownName="Guid" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="985f30af-60e4-4ace-b272-2b22eb42796f" name="FilterSchedule" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="68ea8d2b-133c-4e64-8929-f9dd50064347" />
+        <suppliersInternal>
+          <dependency Id="432369c6-d49f-46de-971e-d93e3d2d9bb5">
+            <enumerationMoniker Id="a3e48892-e5f5-4a4c-968a-edd6bcaf8296" LastKnownName="FilterCycle" />
+            <elementDefinition Id="1a7e1cb2-96cc-49d9-b8f9-d7b5b6881575" />
+          </dependency>
+        </suppliersInternal>
+        <ownedAttributesInternal>
+          <property Id="344410a3-76d1-4bc2-b4de-787f6617c7d8" name="ExecTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5f97932d-873f-45c4-a63c-774963e90b25" />
+          </property>
+          <property Id="cbfa9cbb-5c46-4f03-8d3a-5ec137df1fdf" name="Cycle" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="211dc84d-67fd-4202-83a2-53c01b4d6144" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="da1f5164-34bd-4939-a9f9-a34513d30790" LastKnownName="FilterCycle" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="473ff18e-dc6a-47e5-a49e-62df13fd7098" name="FilterTask" isAbstract="true" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="a7f251c2-e076-499d-887e-c323951bc986" />
+        <suppliersInternal>
+          <dependency Id="9a46246c-d438-4e98-acfa-f1b3eefda362">
+            <enumerationMoniker Id="446be478-704c-4850-bc0e-79afe52514e0" LastKnownName="FilterTaskStatus" />
+            <elementDefinition Id="ce22ca18-d108-4eb2-b705-8c5eaa011a49" />
+          </dependency>
+          <dependency Id="0cea0a79-3575-43f2-bf69-ef0a8655ff97">
+            <interfaceMoniker Id="ac32ef8f-7b9e-4ac0-9bef-800e9456f76c" LastKnownName="IFilterCondition" />
+            <elementDefinition Id="048128b2-9643-40e4-a853-59d6285e5133" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association Id="16729293-b0dc-46d0-bb44-5ca7cefe4973" isDerived="false" sourceEndRoleName="FilterTask" targetEndRoleName="FilterResult" isLeaf="false" isAbstract="false">
+            <classMoniker Id="922315c7-4c81-4bb3-ac79-99978a28e5de" LastKnownName="FilterResult" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="59fc59d9-9bcf-4f51-b146-0999d3c63b80" name="FilterTask" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="032c32f0-3dbe-4d0f-8bd2-3e856d89c65f" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6940278e-1af8-40a1-aa95-6197bc880ed8" name="FilterResult" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="cb597f0a-b6b8-4377-a529-0301c6c77296" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="5150b16d-8820-4c7b-adb9-13a643f0566a" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="5f971341-94d4-4258-ab74-d1b1891c1568" name="ConditionId" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="1fabb85e-b632-42d3-907a-3d210faed1df" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="520ac132-dcc1-485c-9664-aa8ab206237e" LastKnownName="Guid" />
+            </type_NamedElement>
+          </property>
+          <property Id="dd13b54d-4973-49f8-b907-846c3d1b7fa3" name="Result" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="219b671a-39b9-40b0-99ca-3737fc5bbbc9" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="e362a185-ab70-45ed-9e61-83ab365f44df" LastKnownName="FilterResult" />
+            </type_NamedElement>
+          </property>
+          <property Id="21cb273c-3f1f-4ec4-a9ce-daf1df7cdb32" name="Status" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="38378246-b3de-44e0-8ce6-4b35f4222572" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="e9540381-f698-4ae0-8cc2-5e258f1c6b14" LastKnownName="FilterTaskStatus" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="e9540381-f698-4ae0-8cc2-5e258f1c6b14" name="FilterTaskStatus" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::FilterTaskStatus">
+        <elementDefinition Id="2ccb1c0a-f6e6-4210-8e70-eac15af2992f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="e362a185-ab70-45ed-9e61-83ab365f44df" name="FilterResult" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::FilterResult">
+        <elementDefinition Id="87def554-1025-4c78-87fb-413dfc295f9a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="a3e48892-e5f5-4a4c-968a-edd6bcaf8296" name="FilterCycle" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a168551b-a74a-4089-a205-a342e9e271c3" />
+        <ownedLiterals>
+          <enumerationLiteral Id="8b32cd9c-a801-4586-8eaa-bf8eb444a7ab" name="OpenDay">
+            <elementDefinition Id="75983e00-ff1d-4671-b7ab-0f41ab4b92dc" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="fa46bac5-6587-4200-80c8-0f8a82970d4b" name="Once">
+            <elementDefinition Id="02b43fe4-6a62-47da-8c0d-e3758e4040ba" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="173766e0-439d-4b91-8782-60a023b0f1fc" name="Weekly">
+            <elementDefinition Id="9e8977c8-c524-448e-8f19-c6a52e4dac0b" />
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="da1f5164-34bd-4939-a9f9-a34513d30790" name="FilterCycle" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::FilterCycle">
+        <elementDefinition Id="a168551b-a74a-4089-a205-a342e9e271c3" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="ac32ef8f-7b9e-4ac0-9bef-800e9456f76c" name="IFilterCondition" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4d1d3d4c-e0bd-4018-85d6-c8c042e7b50a" />
+        <ownedAttributes>
+          <property Id="5e4d17e5-246c-4aef-8c41-2a81a8ee5293" name="DataEndTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="72968493-6a88-4d16-94f9-f37e3255eae2" />
+          </property>
+          <property Id="9d0219a2-49b6-419c-8772-58b04552a3d2" name="DataStartTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9806a6ac-ca5d-4b40-afa7-2216827cd7a0" />
+          </property>
+        </ownedAttributes>
+        <ownedOperations>
+          <operation Id="0117d128-c649-42f3-b429-49a96d80163b" name="Filter" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="dc076e0c-360d-4ba3-911f-5f75985885d1" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="40e1ecec-b86e-4395-8b9a-42934d05c11a" direction="Return">
+                  <elementDefinition Id="3aa9e719-297b-468f-aa9e-6d9524642aa7" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="df2199be-c254-48ab-afa4-9ba1d428abe7" LastKnownName="bool" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperations>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="df2199be-c254-48ab-afa4-9ba1d428abe7" name="bool" isAbstract="false" isLeaf="false" cachedFullName="bool">
+        <elementDefinition Id="e233fc99-413c-42d7-9f73-30203404432d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="520ac132-dcc1-485c-9664-aa8ab206237e" name="Guid" isAbstract="false" isLeaf="false" cachedFullName="Guid">
+        <elementDefinition Id="fdd97ec6-3706-493f-b51f-3c1df6c257f9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="193535a4-3f1b-4cb7-aae6-70ca4cb93f46" name="Guid" isAbstract="false" isLeaf="false" cachedFullName="Guid">
+        <elementDefinition Id="fdd97ec6-3706-493f-b51f-3c1df6c257f9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="0d2826c1-de9c-4b65-9eb4-3f08b7716436" name="ImmediatlyFilterTask" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="19acd55b-2c97-4bdc-b87b-da5d38577ebd" />
+        <generalsInternal>
+          <generalization Id="5233f45d-72d3-43c0-b3e6-1e724e7f08bb" isSubstitutable="false">
+            <classMoniker Id="473ff18e-dc6a-47e5-a49e-62df13fd7098" LastKnownName="FilterTask" />
+            <elementDefinition Id="df7c2204-65ac-436b-968b-03d3f3c2d8c7" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="4d2fefa4-705c-47f1-adc8-a66e754ee962" name="DraftFilterTask" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9ce94146-8eb1-497d-958f-d2ea1a24bc21" />
+        <generalsInternal>
+          <generalization Id="85260362-6050-459a-9438-da75f69412c9" isSubstitutable="false">
+            <classMoniker Id="473ff18e-dc6a-47e5-a49e-62df13fd7098" LastKnownName="FilterTask" />
+            <elementDefinition Id="55022954-dfdc-479f-b24e-a5dd82780329" />
+          </generalization>
+        </generalsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="020ef852-a0ec-483f-a52b-8fa8b0439f15" name="ScheduledFilterTask" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="bc1132cd-eb46-41c9-8220-a875e3c3437a" />
+        <generalsInternal>
+          <generalization Id="5c52474e-f646-404a-a126-d684266fee5f" isSubstitutable="false">
+            <classMoniker Id="473ff18e-dc6a-47e5-a49e-62df13fd7098" LastKnownName="FilterTask" />
+            <elementDefinition Id="99aca830-5338-447c-8bc2-4911a3872ccc" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association Id="42bc3d15-a340-46e1-8c31-aff514b736d6" isDerived="false" sourceEndRoleName="ScheduledFilterTask" targetEndRoleName="FilterSchedule" isLeaf="false" isAbstract="false">
+            <classMoniker Id="985f30af-60e4-4ace-b272-2b22eb42796f" LastKnownName="FilterSchedule" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="71656ba2-2c9e-4756-a304-84f91f90412a" name="ScheduledFilterTask" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="828eee74-9b71-40e8-b1e4-bae93ccf73f4" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6d5954b7-1ab5-4122-8d7d-a0e3752f3623" name="FilterSchedule" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="5bf2f7a7-f9b5-4858-9e2b-7b7f290f2ffe" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="251cc161-ab1e-4b78-8b9a-81a872e1bc02" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="c16edee8-6a14-4901-a0bd-1376db55312a" name="Schedule" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e5e4f6ec-fd1f-48e4-b008-e02778e9b477" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="e4cf9b66-5a89-43dd-b31d-032971354a1d" LastKnownName="FilterSchedule" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="e4cf9b66-5a89-43dd-b31d-032971354a1d" name="FilterSchedule" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::FilterSchedule">
+        <elementDefinition Id="68ea8d2b-133c-4e64-8929-f9dd50064347" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="2a9dd486-4b2f-44ce-bb59-909d866462d4" name="PredictFutureModeling">
+    <elementDefinition Id="b964c0b2-8a55-469d-857d-ceb074956f16" />
+    <profileInstances>
+      <packageHasProfileInstances Id="5df2c2ce-7edd-4ed3-ab77-936a64901989">
+        <profileInstance Id="f4f2c2f2-2faf-46a5-b42f-558496ecdcd1" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="c4c96250-d958-4f30-890d-3bfa51070423">
+        <profileInstance Id="bedd79aa-cd62-4658-9764-d8f269d94986" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

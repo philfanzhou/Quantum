@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{65CB8B4E-C1E3-49E4-AA34-F03547140DD7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PF.DistributedService</RootNamespace>
+    <AssemblyName>PF.DistributedService</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Core.Application.UserContext, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Application.UserContext.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Application.UserContext.Dto, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Application.UserContext.Dto.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.DistributedServices">
+      <HintPath>..\..\Library\Core.DistributedServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Domain, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Domain.UserContext, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Domain.UserContext.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Crosscutting, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Infrastructure.Crosscutting.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Crosscutting.Service">
+      <HintPath>..\..\Library\Core.Infrastructure.Crosscutting.Service.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Impl.Crosscutting, Version=1.0.0.3, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Infrastructure.Impl.Crosscutting.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Impl.Test.DbConfig">
+      <HintPath>..\..\Library\Core.Infrastructure.Impl.Test.DbConfig.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Impl.Test.DtoAdapter">
+      <HintPath>..\..\Library\Core.Infrastructure.Impl.Test.DtoAdapter.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AuthenticationService.cs" />
+    <Compile Include="CrosscuttingService.cs" />
+    <Compile Include="FinanceDataService.cs" />
+    <Compile Include="ServiceInitialize.cs" />
+    <Compile Include="OAuth2AuthorizationServer.cs" />
+    <Compile Include="PriceDataService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\3_Application\PF.Application.AppService\PF.Application.StockData.csproj">
+      <Project>{75BD354D-E513-4645-952F-9CBE89B73DCD}</Project>
+      <Name>PF.Application.StockData</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3_Application\PF.Application.Dto\PF.Application.Dto.csproj">
+      <Project>{9E8B66AB-D59F-4A14-B134-09060B963F79}</Project>
+      <Name>PF.Application.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3_Application\PF.Application.UserContext\PF.Application.UserContext.csproj">
+      <Project>{86d03160-72f7-48ca-99b9-f2cbc596d63c}</Project>
+      <Name>PF.Application.UserContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\PF.Infrastructure.Impl.DbConfig\PF.Infrastructure.Impl.DbConfig.csproj">
+      <Project>{911532df-f0a2-4ff5-87b5-d9ad63007223}</Project>
+      <Name>PF.Infrastructure.Impl.DbConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\PF.Infrastructure.Impl.DtoAdapter\PF.Infrastructure.Impl.DtoAdapter.csproj">
+      <Project>{322597ed-a65e-43ce-bb3b-98266ed42129}</Project>
+      <Name>PF.Infrastructure.Impl.DtoAdapter</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF.DistributedService.Contracts\PF.DistributedService.Contracts.csproj">
+      <Project>{9eab8823-fd8a-4a0c-8028-068da610fb80}</Project>
+      <Name>PF.DistributedService.Contracts</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

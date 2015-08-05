@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="GetCandleSticks">
+  <activityRootModelMoniker Id="38eb42b5-c2ef-428c-a401-35c279a255b3" />
+  <nestedChildShapes>
+    <initialNodeShape Id="ba137be5-0047-4b4b-98c9-23ecaf7b74f1" absoluteBounds="2.625, 1, 0.125, 0.125" customColor="89, 89, 89">
+      <initialNodeMoniker Id="119f1545-ef62-4a30-af96-73cd1e26b1c9" LastKnownName="Initial1" />
+    </initialNodeShape>
+    <lineShape Id="97e14f11-257e-446b-aaa3-dc9d8e43a278" absoluteBounds="0.5, 2.875, 5.25, 0.03125" outlineColor="83, 134, 191" outlineThickness="0.03125" orientation="Horizontal" />
+    <objectNodeShape Id="454fac01-3afd-4a47-b69f-c0eed9a5fc61" absoluteBounds="0.5, 1.75, 1.125, 0.375" customColor="White">
+      <objectNodeMoniker Id="e16e02f0-f2e4-4adc-968e-03a4689e32ab" LastKnownName="Client" />
+    </objectNodeShape>
+    <objectNodeShape Id="9c70900f-326e-4a56-8c11-9dc95f70da5c" absoluteBounds="0.5, 3.75, 1.125, 0.375" customColor="White">
+      <objectNodeMoniker Id="be923dfb-736c-46ce-9d34-cb27922d5a09" LastKnownName="AppService" />
+    </objectNodeShape>
+    <actionShape Id="85f860e8-34b4-4036-a1bd-6c2d7e8bda2c" absoluteBounds="1.875, 1.75, 1.625, 0.625" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="b63af9f1-d1dd-41db-94a3-75539a13703c" LastKnownName="Request for PriceData, provide stock symbol and date range" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(2.6875 : 1.125); (2.6875 : 1.75)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="Black">
+      <controlFlowMoniker Id="3a9a449d-9a01-4039-b968-29c69d6a4594" />
+      <relativeChildShapes />
+      <nodes>
+        <initialNodeShapeMoniker Id="ba137be5-0047-4b4b-98c9-23ecaf7b74f1" />
+        <actionShapeMoniker Id="85f860e8-34b4-4036-a1bd-6c2d7e8bda2c" />
+      </nodes>
+    </controlFlowConnector>
+    <actionShape Id="9d7bdf1e-b474-4516-8c6f-7dfc9a4c7185" absoluteBounds="2.125, 3.75, 1.125, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="7d962576-e7b0-452f-bcc6-894892dad07f" LastKnownName="Find Stock based on symbol" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(2.6875 : 2.375); (2.6875 : 3.75)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="Black">
+      <controlFlowMoniker Id="18ed11e6-94cc-4790-8a20-fe871f9d3ab7" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="85f860e8-34b4-4036-a1bd-6c2d7e8bda2c" />
+        <actionShapeMoniker Id="9d7bdf1e-b474-4516-8c6f-7dfc9a4c7185" />
+      </nodes>
+    </controlFlowConnector>
+    <actionShape Id="b35ff21d-f645-420e-9075-0e1521bcdf9e" absoluteBounds="4.125, 3.625, 1.125, 0.75" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="b972972e-f8a2-4214-a8dd-99716bf6d20e" LastKnownName="Fetch PriceData based on stock and date range" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(3.25 : 3.9375); (4.125 : 3.9375)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="c6fde8d5-1f81-40ec-aba7-77124265c75e" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="9d7bdf1e-b474-4516-8c6f-7dfc9a4c7185" />
+        <actionShapeMoniker Id="b35ff21d-f645-420e-9075-0e1521bcdf9e" />
+      </nodes>
+    </controlFlowConnector>
+    <actionShape Id="b662dee8-425a-48cf-b311-a92c119a2d21" absoluteBounds="4.25, 1.875, 1.125, 0.375" customColor="161, 199, 231">
+      <opaqueActionMoniker Id="6da872d2-59c9-4815-8cc6-010af0249e98" LastKnownName="Show Data on chart" />
+    </actionShape>
+    <controlFlowConnector edgePoints="[(4.75 : 3.625); (4.75 : 2.25)]" fixedFrom="Algorithm" fixedTo="Algorithm" customColor="Black">
+      <controlFlowMoniker Id="516fada9-59de-417b-a1a8-100d59e13f45" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="b35ff21d-f645-420e-9075-0e1521bcdf9e" />
+        <actionShapeMoniker Id="b662dee8-425a-48cf-b311-a92c119a2d21" />
+      </nodes>
+    </controlFlowConnector>
+    <activityFinalNodeShape Id="c5bc20c9-2301-413e-9756-d15aa7cd26f8" absoluteBounds="4.75, 1.25, 0.125, 0.125" customColor="89, 89, 89">
+      <activityFinalNodeMoniker Id="55b6ceb0-9ac4-4362-ab1b-5df4e6f218b7" LastKnownName="ActivityFinal1" />
+    </activityFinalNodeShape>
+    <controlFlowConnector edgePoints="[(4.8125 : 1.875); (4.8125 : 1.375)]" fixedFrom="NotFixed" fixedTo="NotFixed" customColor="Black">
+      <controlFlowMoniker Id="6834772d-ed55-4ac7-a1ef-f10265c133a4" />
+      <relativeChildShapes />
+      <nodes>
+        <actionShapeMoniker Id="b662dee8-425a-48cf-b311-a92c119a2d21" />
+        <activityFinalNodeShapeMoniker Id="c5bc20c9-2301-413e-9756-d15aa7cd26f8" />
+      </nodes>
+    </controlFlowConnector>
+  </nestedChildShapes>
+</activityDiagram>

@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Core.Expression</name>
+    </assembly>
+    <members>
+        <member name="T:Core.Expression.IExpressionContext">
+            <summary> 定义运算算数表达式的上下文
+            </summary>
+        </member>
+        <member name="M:Core.Expression.IExpressionContext.Evaluate(System.String,Core.Expression.ExpressionParam[])">
+            <summary> 计算表达式的值
+            </summary>
+            <param name="expression"></param>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.Expression.IExpressionContext.CreateEvaluator(Core.Expression.Expression)">
+            <summary> 根据表达式创建对应的求值器
+            </summary>
+            <param name="expression"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Core.Expression.IExpressionContext.Accuracy">
+            <summary> 获取或设置double比较运算所允许的误差范围
+            </summary>
+        </member>
+        <member name="M:Core.Expression.StackExt.IsEmpty``1(System.Collections.Generic.Stack{``0})">
+            <summary> 判断堆栈是否为空
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="me"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.GreaterOrEqual">
+            <summary>大于等于
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.LessOrEqual">
+            <summary>小于等于
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Greater">
+            <summary>大于
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Less">
+            <summary>小于
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Addition">
+            <summary>加
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Subtraction">
+            <summary>减
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Division">
+            <summary>除
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Multiplication">
+            <summary>乘
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.LeftBracket">
+            <summary>左括号
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.RightBracket">
+            <summary>右括号
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.And">
+            <summary>条件与
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorConst.Or">
+            <summary>条件或
+            </summary>
+        </member>
+        <member name="T:Core.Expression.DoubleExt">
+            <summary> 定义double类型的扩展
+            </summary>
+        </member>
+        <member name="M:Core.Expression.DoubleExt.EqualTo(System.Double,System.Double,System.Double)">
+            <summary> 根据指定的精度进行比较
+            </summary>
+            <param name="a"></param>
+            <param name="value">参与比较的值</param>
+            <param name="e"> 比较的精度 </param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.Expression.DoubleExt.GreaterThan(System.Double,System.Double,System.Double)">
+            <summary> 按照指定精度进行大于比较
+            </summary>
+            <param name="a"></param>
+            <param name="value">参与比较的值</param>
+            <param name="e">比较的精度 </param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.Expression.DoubleExt.LessThan(System.Double,System.Double,System.Double)">
+            <summary> 按照指定精度进行小于比较
+            </summary>
+            <param name="a"></param>
+            <param name="value">参与比较的值</param>
+            <param name="e">比较的精度</param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.Expression.DoubleExt.GreaterThanOrEqualTo(System.Double,System.Double,System.Double)">
+            <summary> 按照指定精度进行大于等于比较
+            </summary>
+            <param name="a"></param>
+            <param name="value">参与比较的值</param>
+            <param name="e">比较的精度</param>
+            <returns></returns>
+        </member>
+        <member name="M:Core.Expression.DoubleExt.LessThanOrEqualTo(System.Double,System.Double,System.Double)">
+            <summary> 按照指定精度进行大于等于比较
+            </summary>
+            <param name="a"></param>
+            <param name="value">参与比较的值</param>
+            <param name="e">比较的精度</param>
+            <returns></returns>
+        </member>
+        <member name="T:Core.Expression.PostfixTranslator">
+            <summary> 后缀表达式翻译器
+            </summary>
+        </member>
+        <member name="M:Core.Expression.PostfixTranslator.Translate(System.Collections.Generic.IEnumerable{Core.Expression.ExpressionItem})">
+            <summary> 将表达式集合翻译为后缀表达式集合
+            </summary>
+            <param name="expressionItems"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Core.Expression.IEvaluator">
+            <summary> 对指定表达式进行编译后的计算器
+            </summary>
+        </member>
+        <member name="M:Core.Expression.IEvaluator.Evaluate(System.Collections.Generic.IEnumerable{Core.Expression.ExpressionParam})">
+            <summary> 计算表达式的值
+            </summary>
+            <param name="parameters"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Core.Expression.IEvaluator.Accuracy">
+            <summary> 获取double运算所允许的误差范围
+            </summary>
+        </member>
+        <member name="P:Core.Expression.Evaluator.Accuracy">
+            <summary> 获取或设置double比较运算所允许的误差范围
+            </summary>
+        </member>
+        <member name="T:Core.Expression.OperatorMethod">
+            <summary>封装运算符相关操作
+            </summary>
+        </member>
+        <member name="F:Core.Expression.OperatorMethod.OperatorTable">
+            <summary>操作符集合
+            </summary>
+        </member>
+        <member name="M:Core.Expression.OperatorMethod.IsOperator(System.String)">
+            <summary> 判断指定字符串是否为运算符
+            </summary>
+            <param name="stringValue"></param>
+            <returns>字符串为运算符返回true</returns>
+        </member>
+        <member name="T:Core.Expression.ExpressionSpliter">
+            <summary> 算数表达式的拆分器
+            </summary>
+        </member>
+    </members>
+</doc>

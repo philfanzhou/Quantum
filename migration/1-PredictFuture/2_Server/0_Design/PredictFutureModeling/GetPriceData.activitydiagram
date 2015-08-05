@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" xmlns:dm11="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" dslVersion="1.0.0.0" Id="38eb42b5-c2ef-428c-a401-35c279a255b3" name="GetPriceData" linkedPackageId="79ca0f7b-6c6a-44e6-97a7-cfe341e22bd1" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="b8bd3b62-cde6-4a50-bc81-8e71b741c939" name="GetPriceData" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="266b5a2b-31a5-407b-b55a-0644fbf36acb" />
+        <nodes>
+          <initialNode Id="119f1545-ef62-4a30-af96-73cd1e26b1c9" name="Initial1" isLeaf="false">
+            <elementDefinition Id="733a5e08-7af7-4e99-b651-5f16c81992fa" />
+            <flowNodeTargets>
+              <controlFlow Id="3a9a449d-9a01-4039-b968-29c69d6a4594" isLeaf="false">
+                <opaqueActionMoniker Id="b63af9f1-d1dd-41db-94a3-75539a13703c" LastKnownName="Request for PriceData, provide stock symbol and date range" />
+                <elementDefinition Id="c2ffe546-34ff-4c32-abf6-1f0728e2b120" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <objectNode Id="e16e02f0-f2e4-4adc-968e-03a4689e32ab" name="Client" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="b4b871de-e6f6-40a6-bb3a-4a048093fdc4" />
+            <upperBound>
+              <literalInteger Id="676ecbec-ca7f-4e6b-9e2b-4ddc949d23f9" name="2147483647" value="2147483647">
+                <elementDefinition Id="e2ef69a1-60ca-471e-9cb4-096278ddd840" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="be923dfb-736c-46ce-9d34-cb27922d5a09" name="AppService" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="21c5ce46-2ebe-4c94-8e4b-d8ce42a71324" />
+            <upperBound>
+              <literalInteger Id="5ecc413e-4389-4e7f-8de3-9aaa352d98cb" name="2147483647" value="2147483647">
+                <elementDefinition Id="7c0f596e-f77a-4682-9bf7-7bc7bf979378" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="b63af9f1-d1dd-41db-94a3-75539a13703c" name="Request for PriceData, provide stock symbol and date range" isLeaf="false">
+            <elementDefinition Id="7c5f8821-a812-4cac-adcd-cd6e2c86a8b0" />
+            <flowNodeTargets>
+              <controlFlow Id="18ed11e6-94cc-4790-8a20-fe871f9d3ab7" isLeaf="false">
+                <opaqueActionMoniker Id="7d962576-e7b0-452f-bcc6-894892dad07f" LastKnownName="Find Stock based on symbol" />
+                <elementDefinition Id="92aa6f8f-7729-4cfd-a3a9-ff5b3750cfc0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="7d962576-e7b0-452f-bcc6-894892dad07f" name="Find Stock based on symbol" isLeaf="false">
+            <elementDefinition Id="7bff2c01-0379-429a-a67d-36b9e66ccb83" />
+            <flowNodeTargets>
+              <controlFlow Id="c6fde8d5-1f81-40ec-aba7-77124265c75e" isLeaf="false">
+                <opaqueActionMoniker Id="b972972e-f8a2-4214-a8dd-99716bf6d20e" LastKnownName="Fetch PriceData based on stock and date range" />
+                <elementDefinition Id="35cd65f0-9481-4d4f-a9e8-31a9f1876c5d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="b972972e-f8a2-4214-a8dd-99716bf6d20e" name="Fetch PriceData based on stock and date range" isLeaf="false">
+            <elementDefinition Id="7d3e8336-8e8c-42a9-83da-94cd33ff8d17" />
+            <flowNodeTargets>
+              <controlFlow Id="516fada9-59de-417b-a1a8-100d59e13f45" isLeaf="false">
+                <opaqueActionMoniker Id="6da872d2-59c9-4815-8cc6-010af0249e98" LastKnownName="Show Data on chart" />
+                <elementDefinition Id="2801c4d6-5fd7-4f65-980d-4e8d882edde7" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="6da872d2-59c9-4815-8cc6-010af0249e98" name="Show Data on chart" isLeaf="false">
+            <elementDefinition Id="31aecccf-1032-4305-896c-17b2d03c301f" />
+            <flowNodeTargets>
+              <controlFlow Id="6834772d-ed55-4ac7-a1ef-f10265c133a4" isLeaf="false">
+                <activityFinalNodeMoniker Id="55b6ceb0-9ac4-4362-ab1b-5df4e6f218b7" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="f0ebf6c5-6223-46ff-9829-1e80ef5ca2a0" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode Id="55b6ceb0-9ac4-4362-ab1b-5df4e6f218b7" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="25d07ffd-7bba-49db-962b-41513dc1d759" />
+          </activityFinalNode>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="79ca0f7b-6c6a-44e6-97a7-cfe341e22bd1" name="PredictFutureModeling">
+    <elementDefinition Id="b964c0b2-8a55-469d-857d-ceb074956f16" />
+    <profileInstances>
+      <packageHasProfileInstances Id="3819be78-2796-458c-8e99-108e234b6954">
+        <profileInstance Id="121ffd85-3433-4b83-981d-da07c49eaf56" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="310403f0-2083-4a39-89a5-5bc736b58548">
+        <profileInstance Id="02227b28-4c39-43b9-86e2-5635875af87a" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</activityRootModel>

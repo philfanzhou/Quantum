@@ -1,0 +1,92 @@
+﻿@model IEnumerable<PF.Application.Dto.StockData.DailyPriceDataItemDto>
+
+@{
+    ViewBag.Title = "DaylineGrid";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Dayline Grid</h2>
+
+<p>
+    @using (Html.BeginForm())
+    {
+        <script src="/Scripts/calendar4.js" type="text/javascript"></script>
+        <table class="table">
+            <tr>
+                <td>Stock Symbol: </td>
+                <td>@Html.TextBox("StockSymbol")</td>
+            </tr>
+            <tr>
+                <td>Start Date: </td>
+                <td><input id="StartDate" name="StartDate" type="text" value="" onfocus="MyCalendar.SetDate(this, document.getElementById('StartDate'))"></td>
+            </tr>
+            <tr>
+                <td>End Date: </td>
+                <td><input id="EndDate" name="EndDate" type="text" value="" onfocus="MyCalendar.SetDate(this, document.getElementById('EndDate'))"></td>
+            </tr>
+        </table>
+    <p>
+        <input type="submit" value="Filter" />
+    </p>
+    }
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StockSymbol)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Open)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.High)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Low)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Close)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Amount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Volume)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockSymbol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Open)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.High)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Low)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Close)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Volume)
+            </td>
+        </tr>
+    }
+
+</table>

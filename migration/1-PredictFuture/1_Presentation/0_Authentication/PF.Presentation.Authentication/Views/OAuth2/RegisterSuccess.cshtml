@@ -1,0 +1,9 @@
+﻿<h2>Mail Verification</h2>
+@if (ViewBag.MailSent)
+{
+    <h4>An e-mail has been sent to @ViewBag.UserMail, please follow it to complete verification.</h4>
+}
+else
+{
+    <h4>Failed to send verification e-mail send failed to @ViewBag.UserMail.</h4>
+}

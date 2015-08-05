@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44104222-8A79-424F-B4DE-57DB55ED8D45}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PF.Application.StockFilter</RootNamespace>
+    <AssemblyName>PF.Application.StockFilter</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Core.Application">
+      <HintPath>..\..\Library\Core.Application.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Domain">
+      <HintPath>..\..\Library\Core.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Crosscutting">
+      <HintPath>..\..\Library\Core.Infrastructure.Crosscutting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FilterEngineAppService.cs" />
+    <Compile Include="FilterTaskAppService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\4_Domain\PF.Domain.FilterCondition\PF.Domain.FilterCondition.csproj">
+      <Project>{ec9deea1-2a69-42d7-b94a-13b0dc88e420}</Project>
+      <Name>PF.Domain.FilterCondition</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\PF.Domain.FilterEngine\PF.Domain.FilterEngine.csproj">
+      <Project>{3d3527b7-eec0-44ef-92de-9d131c47c07a}</Project>
+      <Name>PF.Domain.FilterEngine</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\PF.Domain.FilterTasks\PF.Domain.FilterTasks.csproj">
+      <Project>{45448af0-2d63-4149-97af-2b6091a6bb67}</Project>
+      <Name>PF.Domain.FilterTasks</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\PF.Domain.Indicator\PF.Domain.Indicator.csproj">
+      <Project>{1f213249-0b50-47c1-8273-40e7aecc62f5}</Project>
+      <Name>PF.Domain.Indicator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF.Application.Dto\PF.Application.Dto.csproj">
+      <Project>{9e8b66ab-d59f-4a14-b134-09060b963f79}</Project>
+      <Name>PF.Application.Dto</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

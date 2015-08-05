@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" xmlns:dm11="http://schemas.microsoft.com/VisualStudio/TeamArchitect/SequenceDesigner" dslVersion="1.0.0.0" Id="f6bcf8c2-0b42-4ece-8f3b-697db09d4f90" name="Stock" linkedPackageId="63ccc839-85fd-49dc-8550-6fa0c7bf3750" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <ownedCommentsInternal>
+    <comment Id="a9fe1d49-f860-4ecb-949f-0405b01e8a94">
+      <elementDefinition Id="0982a540-8d56-4af8-83ab-e11180bb523e" />
+      <body>Stock Id and Date treat as composite primary key</body>
+      <annotatedElements>
+        <classMoniker Id="c5a43d89-d468-4a1d-8c41-8ea15bf62d9d" LastKnownName="DailyPriceDataItem" />
+      </annotatedElements>
+    </comment>
+    <comment Id="7cdb5126-bd0e-4e64-b74b-20d099cec233">
+      <elementDefinition Id="f2eb1ebd-cc41-45e3-b85b-bec27a75b572" />
+      <body>Stock Id and Date treat as composite primary key</body>
+      <annotatedElements>
+        <classMoniker Id="dabb93fc-8abe-4e90-b549-6bd77682a533" LastKnownName="DividendDataItem" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a34e07be-10e7-4014-9f3d-6246ba1debbb" name="Stock" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="feab42f1-a842-446e-9304-ad95e7bf525f" />
+        <ownedAttributesInternal>
+          <property Id="e4770b7c-6cb3-4e08-a7b6-cabebe7395fd" name="Name" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="eec46d79-f143-494c-9499-8cf6de7dff89" />
+          </property>
+          <property Id="6c5126cc-15ca-4caa-9b8e-41e911872a02" name="Symbol" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="04b8e771-3ed8-4c3e-87a4-32af363dd532" />
+          </property>
+          <property Id="41cdc7fa-6911-4875-9ad2-78b6ccb63ebe" name="Id" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="d8393847-1109-4fcc-8528-19d9649bcf50" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="cd84ff6a-e779-4890-bf6d-3831ecb95130" name="PriceDataItem" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="68c4c986-25c7-43fa-9fc6-54e634ebc60a" />
+        <ownedAttributesInternal>
+          <property Id="5cc1bc1a-0072-4653-90dd-a99fa4802ee7" name="Date" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="030c38f5-c1fa-4d03-b06a-dd411c558883" />
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="dabb93fc-8abe-4e90-b549-6bd77682a533" name="DividendDataItem" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="731f41c7-59d4-41f8-80e5-7c069c51d846" />
+        <targetEnds>
+          <association Id="a33d1c53-5efd-4074-adcb-9002a364b09a" isDerived="false" sourceEndRoleName="DividendDataItem" targetEndRoleName="Stock" isLeaf="false" isAbstract="false">
+            <classMoniker Id="a34e07be-10e7-4014-9f3d-6246ba1debbb" LastKnownName="Stock" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c2d4197f-6757-4889-82db-75e539d46478" name="DividendDataItem" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="a4c152ea-5e9a-487f-8e00-fae19879a93d" name="Lower" value="*">
+                      <elementDefinition Id="0ca62943-0d31-4d80-b611-334d0269d630" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="cb593df4-45d4-4522-a1ba-39d7e9b73cfe" name="Upper" value="*">
+                      <elementDefinition Id="f001cce0-56ff-4794-97b6-64fb58c47483" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="1dd550e7-f0a2-4800-a0be-e402456f4b06" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e0284541-737e-41d5-950c-62b49842f6b8" name="Stock" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="619cae0b-41ce-4b36-acb2-594996823c8a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4dd3a50a-8e84-4f42-a3c5-dbea7c1c2a7b" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="8e8bd91b-5caf-43ca-bef4-1ac1980d8893" name="Date" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="3f81575f-cedd-431f-95d7-ada2d564b4bc" />
+          </property>
+          <property Id="d4fda145-9760-453c-9941-33a1f9112c42" name="Stock" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9522a806-55bd-4504-a41e-35876ad0d583" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="8423c039-91d6-46d0-9600-213a5443ab6e" LastKnownName="Stock" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="c5a43d89-d468-4a1d-8c41-8ea15bf62d9d" name="DailyPriceDataItem" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="9d0ccda4-90c4-4db1-b0d6-473f1bde2788" />
+        <generalsInternal>
+          <generalization Id="df5d5cb0-36d8-4520-a043-ad5225a54ade" isSubstitutable="false">
+            <classMoniker Id="cd84ff6a-e779-4890-bf6d-3831ecb95130" LastKnownName="PriceDataItem" />
+            <elementDefinition Id="fe23e1f3-07c6-40dd-b0b6-e163a5ab0b80" />
+          </generalization>
+        </generalsInternal>
+        <targetEnds>
+          <association Id="4c8155ad-ccac-4728-ae7e-4f86cc500236" isDerived="false" sourceEndRoleName="DailyPriceDataItem" targetEndRoleName="Stock" isLeaf="false" isAbstract="false">
+            <classMoniker Id="a34e07be-10e7-4014-9f3d-6246ba1debbb" LastKnownName="Stock" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="7b565ab6-bd01-40a5-a5fa-a52db0b9ef24" name="DailyPriceDataItem" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="1a0cef2e-aacb-4fbb-8f02-98bada4d9889" name="Lower" value="*">
+                      <elementDefinition Id="e221b153-d5fd-48f8-814f-080530b15b6f" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="0e8c0c81-7318-4806-91c2-725a6beee678" name="Upper" value="*">
+                      <elementDefinition Id="4a42dfc8-a155-47c5-894b-85ae0d983cbe" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="fc9254fd-3bfd-4234-bc17-7068d7a2ad4a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="79346396-3fb3-4f13-b42e-bab62659722b" name="Stock" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="25323220-aceb-4745-864e-ac717051daa1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="a9a3c5e9-2dc1-461f-b35c-632c2c2e9361" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="619eecb1-e7f6-4883-a6cc-953bd9182c11" name="Date" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="9fa344a8-b0f9-4c3e-aba7-0ae17ab86741" />
+          </property>
+          <property Id="c13f62ed-5b29-4e9c-8f52-5e43ebb6d3be" name="Stock" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="3120c999-8384-4cbf-aef7-921d66e44895" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="8423c039-91d6-46d0-9600-213a5443ab6e" LastKnownName="Stock" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="8423c039-91d6-46d0-9600-213a5443ab6e" name="Stock" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::Stock">
+        <elementDefinition Id="feab42f1-a842-446e-9304-ad95e7bf525f" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="63ccc839-85fd-49dc-8550-6fa0c7bf3750" name="PredictFutureModeling">
+    <elementDefinition Id="b964c0b2-8a55-469d-857d-ceb074956f16" />
+    <profileInstances>
+      <packageHasProfileInstances Id="1709b1e2-6ce2-4af5-b02d-7d3a5b0cd5fe">
+        <profileInstance Id="a009393e-f400-4172-b784-4060f4db8ea4" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="6c9300f4-0d09-4bc0-9d29-2eb524c14fc2">
+        <profileInstance Id="01f99fde-285d-4382-9d5a-ea8b08cd9e55" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

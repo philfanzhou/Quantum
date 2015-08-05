@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{EC9DEEA1-2A69-42D7-B94A-13B0DC88E420}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PF.Domain.FilterConditions</RootNamespace>
+    <AssemblyName>PF.Domain.FilterConditions</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Core.Domain">
+      <HintPath>..\..\Library\Core.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Expression, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Library\Core.Expression.dll</HintPath>
+    </Reference>
+    <Reference Include="Core.Infrastructure.Crosscutting">
+      <HintPath>..\..\Library\Core.Infrastructure.Crosscutting.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Condition\ConditionResult.cs" />
+    <Compile Include="Repository\FilterConditionRepository.cs" />
+    <Compile Include="FilterConditionService.cs" />
+    <Compile Include="Condition\ConditionIndicatorItem.cs" />
+    <Compile Include="Condition\ConditionOperatorItem.cs" />
+    <Compile Include="Condition\ConditionValueItem.cs" />
+    <Compile Include="Condition\FilterExpression.cs" />
+    <Compile Include="Condition\IConditionItem.cs" />
+    <Compile Include="Condition\FilterCondition.cs" />
+    <Compile Include="Condition\OperatorType.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\PF.Domain.Indicator\PF.Domain.Indicator.csproj">
+      <Project>{1f213249-0b50-47c1-8273-40e7aecc62f5}</Project>
+      <Name>PF.Domain.Indicator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PF.Domain.StockData\PF.Domain.StockData.csproj">
+      <Project>{85a9500d-2c70-46d8-b5b5-43aa5d8b2f31}</Project>
+      <Name>PF.Domain.StockData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

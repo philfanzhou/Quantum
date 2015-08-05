@@ -1,0 +1,8 @@
+V100R02B04
+Release data:2014.03.23
+1. update data repository
+
+V100R02B03
+Release data:2014.03.07
+1. log file format by utf-8
+2. fixed bug(ID:13,14,15,16)

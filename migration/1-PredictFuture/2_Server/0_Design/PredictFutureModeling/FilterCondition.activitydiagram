@@ -1,0 +1,189 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<activityRootModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/LogicalClassDesigner" xmlns:dm10="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="3f4a6b7e-3201-41b4-b678-219394928531" name="FilterCondition" linkedPackageId="5f1eacf7-0dca-40e5-946c-0e5e56b533cc" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner">
+  <profileInstances>
+    <packageHasProfileInstances Id="70e50cb7-3601-48b5-8f82-3166ce4f8462">
+      <profileInstance Id="4c693676-2f2a-409e-b9e7-384f33f0bfd7" name="StandardProfileL2">
+        <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+      </profileInstance>
+      <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances Id="9b885a9e-a299-4ef2-92d6-3a17f460be89">
+      <profileInstance Id="4e55d9eb-aa3d-433c-a319-0fbfcdb8087a" name="StandardProfileL3">
+        <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+      </profileInstance>
+      <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <activityRootModelHasActivity>
+      <activity Id="5e5365ba-377d-4cd2-b20a-1953118d7597" name="FilterCondition" isAbstract="false" isLeaf="false" isActiveClass="false" isReentrant="false" isReadOnly="false" isSingleExecution="false">
+        <elementDefinition Id="d3d653a5-8280-439e-9ac4-c4e0c1b16d0c" />
+        <nodes>
+          <objectNode Id="f65c31ef-68b0-418d-ab64-49d1222691ea" name="FilterTask" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="8fe047e5-aaa5-414d-b706-dd868bd08032" />
+            <upperBound>
+              <literalInteger Id="c55f8386-d6e6-4bb1-904a-d27802695106" name="2147483647" value="2147483647">
+                <elementDefinition Id="4505b885-bf8d-4a0a-b625-8c25f8af07c9" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <objectNode Id="d0c36331-0849-466d-90c0-0ac829dda821" name="FilterCondition" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="6c82efdc-a0d1-46a7-a2f5-ea4b6d328adb" />
+            <upperBound>
+              <literalInteger Id="244417ce-b681-4636-a34c-03b5df7c277a" name="2147483647" value="2147483647">
+                <elementDefinition Id="34637a76-d23d-4061-b304-ab4943d2b6e4" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <initialNode Id="ba3cc3ae-e44c-48d9-a38f-da95ec6301d4" name="Initial1" isLeaf="false">
+            <elementDefinition Id="4444bf7f-7f22-42f3-a655-8f5c7cfd75aa" />
+            <flowNodeTargets>
+              <controlFlow Id="ab4e7e54-4339-439d-ac0d-c4eb7556e493" isLeaf="false">
+                <opaqueActionMoniker Id="1e409fdf-dca9-48f5-b057-2a68c6f8108f" LastKnownName="Task started by user or on scheduled time." />
+                <elementDefinition Id="17a630bc-0712-46ec-b604-ae46018d669e" />
+              </controlFlow>
+            </flowNodeTargets>
+          </initialNode>
+          <opaqueAction Id="1e409fdf-dca9-48f5-b057-2a68c6f8108f" name="Task started by user or on scheduled time." isLeaf="false">
+            <elementDefinition Id="4ff94c08-e948-4e5e-b846-7044453b64bb" />
+            <flowNodeTargets>
+              <controlFlow Id="4bead7dd-c121-4a6c-b800-00dd4b4f2b24" isLeaf="false">
+                <opaqueActionMoniker Id="b2b1fe85-15b8-4129-b989-920963703c99" LastKnownName="Traverse stocks, apply condition to each one" />
+                <elementDefinition Id="efaad831-7fbf-4c9b-9203-5f63357a3096" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="ea79e7ac-013b-41aa-ac3b-9cab6483b94d" name="Traverse indicators, pass stock symbol and cutoff time to each one for evaluation" isLeaf="false">
+            <elementDefinition Id="6032efc3-9dab-4848-aa22-ef54b17dbff6" />
+            <flowNodeTargets>
+              <controlFlow Id="d42ca0e4-aa25-4815-8556-5b5dfa62187a" isLeaf="false">
+                <opaqueActionMoniker Id="a76146e0-3d1f-4b75-aef4-d625a524698f" LastKnownName="Fetch stock data from services" />
+                <elementDefinition Id="2bfa2789-c774-4384-8599-edc3c6d5c826" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="b2b1fe85-15b8-4129-b989-920963703c99" name="Traverse stocks, apply condition to each one" isLeaf="false">
+            <elementDefinition Id="04a64c7f-f8a4-4158-b69c-974a93ebd58e" />
+            <flowNodeTargets>
+              <controlFlow Id="ee22b597-5cea-4463-8d0b-5d5309efe272" isLeaf="false">
+                <opaqueActionMoniker Id="ea79e7ac-013b-41aa-ac3b-9cab6483b94d" LastKnownName="Traverse indicators, pass stock symbol and cutoff time to each one for evaluation" />
+                <elementDefinition Id="433f5fee-4efc-42ef-891f-45b1fff13d2b" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <objectNode Id="75cd29c6-29ba-4b8d-bfb5-2d03b0864b8d" name="Indicator" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="c799a33f-af66-4d99-b5d8-38406f18cb1b" />
+            <upperBound>
+              <literalInteger Id="4a80393e-95dd-471b-bc53-aaa87f5997eb" name="2147483647" value="2147483647">
+                <elementDefinition Id="67fb88c2-3760-4e6c-9e83-7025c922bd74" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="a76146e0-3d1f-4b75-aef4-d625a524698f" name="Fetch stock data from services" isLeaf="false">
+            <elementDefinition Id="d7b10981-c4d2-4747-8ebc-c1bea150177f" />
+            <flowNodeTargets>
+              <controlFlow Id="d1318588-1ce8-48b7-8709-21352a66b836" isLeaf="false">
+                <opaqueActionMoniker Id="eed3c47d-38a1-41ee-968d-9e42b5cf72e8" LastKnownName="Query data from store" />
+                <elementDefinition Id="2d23e783-4b3c-4a59-a572-4a563d7fc16d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <objectNode Id="7a02b79b-fd38-4916-bf80-1697c9e339b5" name="StockDataServices" isLeaf="false" ordering="Unordered" isControlType="false">
+            <elementDefinition Id="d44c8eb4-207d-4414-9d79-7249197a841f" />
+            <upperBound>
+              <literalInteger Id="359fcb3c-e8d7-4a8c-91df-08c1ded25ff7" name="2147483647" value="2147483647">
+                <elementDefinition Id="104154fe-2e8e-4560-b309-25e63765878b" />
+              </literalInteger>
+            </upperBound>
+          </objectNode>
+          <opaqueAction Id="eed3c47d-38a1-41ee-968d-9e42b5cf72e8" name="Query data from store" isLeaf="false">
+            <elementDefinition Id="89a87fd1-491a-43a3-86bd-84fa01fefed9" />
+            <flowNodeTargets>
+              <controlFlow Id="120cf9c6-e8b7-45af-8dfa-646e16c1ed7d" isLeaf="false">
+                <opaqueActionMoniker Id="7e1da393-736b-4a97-bff5-396ce0b84c82" LastKnownName="Calculate" />
+                <elementDefinition Id="5730e404-865c-4436-9a05-2c59b6d884f1" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="7e1da393-736b-4a97-bff5-396ce0b84c82" name="Calculate" isLeaf="false">
+            <elementDefinition Id="31c611d7-ecca-44ad-9219-785c62677ab7" />
+            <flowNodeTargets>
+              <controlFlow Id="5ef68bf8-005f-4b6c-b995-f50b4b68a10a" isLeaf="false">
+                <opaqueActionMoniker Id="8fa435ac-938d-4e9c-80c7-e5c85b57f169" LastKnownName="Put values into expression, determine whether certain stock satisfy the condition" />
+                <elementDefinition Id="88a30fb2-f869-401b-8d4d-496c085bf6df" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <opaqueAction Id="8fa435ac-938d-4e9c-80c7-e5c85b57f169" name="Put values into expression, determine whether certain stock satisfy the condition" isLeaf="false">
+            <elementDefinition Id="9a75736b-f7e3-43dd-95de-e88927217cd6" />
+            <flowNodeTargets>
+              <controlFlow Id="3b564ed8-efd1-4db2-b13a-0bc49420f63f" isLeaf="false">
+                <decisionNodeMoniker Id="5af414c3-b409-42d2-b4a8-7e4d0bdeb03c" LastKnownName="Decision1" />
+                <elementDefinition Id="e5b46bff-7918-47bc-b1fd-386ecfda5d53" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <activityFinalNode Id="921a2b53-161a-476a-b04b-358d3138db3f" name="ActivityFinal1" isLeaf="false">
+            <elementDefinition Id="cf3b5e76-345e-4be0-9e0d-7bc3a2b589df" />
+          </activityFinalNode>
+          <decisionNode Id="5af414c3-b409-42d2-b4a8-7e4d0bdeb03c" name="Decision1" isLeaf="false">
+            <elementDefinition Id="8dcbf714-c9e9-44e9-a544-7752fa6a1c87" />
+            <flowNodeTargets>
+              <controlFlow Id="c9e7f9e8-c61b-496b-a081-63fc6faee66a" guard="Condition satisfied" isLeaf="false">
+                <opaqueActionMoniker Id="5d77beeb-2c84-4bbb-bdb4-f96d8ab9251a" LastKnownName="Add stock to result" />
+                <elementDefinition Id="6af30344-5c5d-4a24-a3f7-ca2ad3fb6961" />
+              </controlFlow>
+              <controlFlow Id="2fff9c04-a586-44bb-88bb-78e6446d13f3" guard="Condition disatisfied" isLeaf="false">
+                <mergeNodeMoniker Id="75730ed9-7056-4df9-93e6-c0f4b2d2b737" LastKnownName="Merge1" />
+                <elementDefinition Id="4bb37838-98fb-4019-8125-9dbd504edacd" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="5d77beeb-2c84-4bbb-bdb4-f96d8ab9251a" name="Add stock to result" isLeaf="false">
+            <elementDefinition Id="a065a527-5645-4dc0-8bd0-d057287fc564" />
+            <flowNodeTargets>
+              <controlFlow Id="503fe1c9-866b-4e94-bb63-e7fac894ea56" isLeaf="false">
+                <mergeNodeMoniker Id="75730ed9-7056-4df9-93e6-c0f4b2d2b737" LastKnownName="Merge1" />
+                <elementDefinition Id="16de7b04-e4f1-4a8a-9003-b84a32740320" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+          <mergeNode Id="75730ed9-7056-4df9-93e6-c0f4b2d2b737" name="Merge1" isLeaf="false">
+            <elementDefinition Id="79d3debb-b42b-4d69-8477-60f95f0840f5" />
+            <flowNodeTargets>
+              <controlFlow Id="6eb67e89-7ccf-4442-bffd-16326929740f" isLeaf="false">
+                <decisionNodeMoniker Id="45456622-cbc0-47ab-a2b7-6355ec279176" LastKnownName="Decision2" />
+                <elementDefinition Id="2be0b0ea-861a-4c51-9c0c-1db184c00a7d" />
+              </controlFlow>
+            </flowNodeTargets>
+          </mergeNode>
+          <decisionNode Id="45456622-cbc0-47ab-a2b7-6355ec279176" name="Decision2" isLeaf="false">
+            <elementDefinition Id="faa22661-aa14-4915-a550-1d9093cce2eb" />
+            <flowNodeTargets>
+              <controlFlow Id="60fd6386-c039-4850-96a7-0b0167d3eec8" guard="Traverse finished" isLeaf="false">
+                <opaqueActionMoniker Id="df0acdd7-0f5d-488d-9442-a74ff599293f" LastKnownName="output result" />
+                <elementDefinition Id="e8e0446f-c1cf-4704-8952-70db1efa436f" />
+              </controlFlow>
+              <controlFlow Id="ac7ff43f-6f81-41e8-8a6c-c06c51548e76" isLeaf="false">
+                <opaqueActionMoniker Id="b2b1fe85-15b8-4129-b989-920963703c99" LastKnownName="Traverse stocks, apply condition to each one" />
+                <elementDefinition Id="6ffd81af-2c0d-4f6c-9444-f2216d8f2d18" />
+              </controlFlow>
+            </flowNodeTargets>
+          </decisionNode>
+          <opaqueAction Id="df0acdd7-0f5d-488d-9442-a74ff599293f" name="output result" isLeaf="false">
+            <elementDefinition Id="c5af6789-71f8-4e28-92aa-feca08b1ab23" />
+            <flowNodeTargets>
+              <controlFlow Id="17c334f9-0ded-4dc1-9eed-de10a34f0262" isLeaf="false">
+                <activityFinalNodeMoniker Id="921a2b53-161a-476a-b04b-358d3138db3f" LastKnownName="ActivityFinal1" />
+                <elementDefinition Id="5c66073e-b5ba-4999-9b74-41133b446ddc" />
+              </controlFlow>
+            </flowNodeTargets>
+          </opaqueAction>
+        </nodes>
+      </activity>
+    </activityRootModelHasActivity>
+  </packagedElements>
+  <package Id="5f1eacf7-0dca-40e5-946c-0e5e56b533cc" name="PredictFutureModeling">
+    <elementDefinition Id="b964c0b2-8a55-469d-857d-ceb074956f16" />
+  </package>
+</activityRootModel>

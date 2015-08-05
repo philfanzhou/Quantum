@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MySql.Data.Entity.EF6</id>
+    <version>6.8.3</version>
+    <authors>Oracle Corporation</authors>
+    <owners>Oracle Corporation</owners>
+    <licenseUrl>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</licenseUrl>
+    <projectUrl>http://www.mysql.com/downloads/connector/net/</projectUrl>
+    <iconUrl>http://www.mysql.com/common/logos/logo-mysql-110x57.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Temporary package for MySQL and Entity Framework 6 until the primary packages (MySql.Data and MySql.Data.Entity) are updated.</description>
+    <copyright>Copyright 2013</copyright>
+    <tags>mysql ef6 entity-framework entity framework</tags>
+    <dependencies>
+      <dependency id="MySql.Data" version="6.8.3" />
+    </dependencies>
+  </metadata>
+</package>

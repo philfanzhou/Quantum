@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" xmlns:dm9="http://schemas.microsoft.com/dsltools/SimpleShapesModel" xmlns:dm10="http://schemas.microsoft.com/VisualStudio/TeamArchitect/ActivityDesigner" dslVersion="1.0.0.0" Id="97a7de77-7ce3-4f72-8f6a-e0f799c9d5b5" name="FilterCondition" linkedPackageId="312b4924-5527-4ef9-b908-5d9581698772" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <ownedCommentsInternal>
+    <comment Id="5293e12c-99e3-448a-a3f4-8695096eaf7e">
+      <elementDefinition Id="290ea9cc-3d73-41f7-b136-fa1883a3f03e" />
+      <body>CollectionValue won't be saved to store</body>
+      <annotatedElements>
+        <classMoniker Id="6ba260b1-b5e6-447f-a933-0af26ba3c01a" LastKnownName="FilterExpression" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="a3c41506-f383-494b-9dc2-86598ba713fa" name="FilterIndicator" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8efcf5f5-2cd5-42b0-ae40-36716fa591af" />
+        <ownedOperationsInternal>
+          <operation Id="25c679b0-9ae2-444d-b232-1b97cf0bd33a" name="CalcValue" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="6e2db380-eba5-4086-bbd2-915a17403657" />
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="04185336-6081-40a0-8132-358f1d7cdecc" name="FilterTask" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="8b33e273-a629-4a79-aea5-29fdd76b130f" />
+        <targetEnds>
+          <association Id="4e6f14cb-472e-400e-b43e-04179c8ac840" isDerived="false" sourceEndRoleName="FilterTask" targetEndRoleName="FilterCondition" isLeaf="false" isAbstract="false">
+            <classMoniker Id="e4e5db32-b53d-4ea1-9112-0f5bd092d681" LastKnownName="FilterCondition" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="e4058bc6-8ba6-4a01-8cf2-5a4a5a4f136c" name="FilterTask" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="5b2fee63-3c9e-4c59-adef-af506f4f5c72" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2add62f0-ff70-4f2f-8dfd-051c728e558f" name="FilterCondition" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="55f0b291-71d9-4b4d-8661-93e86b056b7d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="71fcc130-bc69-45a3-8413-b7e72c30f4bc" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="339de7d7-1230-4c4e-852d-44f1fd6ca7e3" name="ScheduledTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="68ff7f09-2182-4937-912c-4af69c6d0a83" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="e5b50a3b-5829-46d9-951d-4fc9c50d9ca7" LastKnownName="DateTime" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="dd133c1c-1320-4123-bc29-1d5492f74014" name="ApplyCondition" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="150f3559-42fe-4a5c-bdfa-985b6281d03e" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="acf6538c-e988-4433-9c96-7515c2582477" direction="Return">
+                  <elementDefinition Id="e1f94109-dbfd-4cb2-acf7-5d38acb5f634" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="54772ccc-3560-4d53-b717-3c0cd427d1ea" LastKnownName="FilterResult" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="e4e5db32-b53d-4ea1-9112-0f5bd092d681" name="FilterCondition" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="1895f431-4197-4ba9-97d2-6c39cb23ea30" />
+        <targetEnds>
+          <association Id="e0514f00-541a-4cec-8f8f-c387c3cfe9ca" isDerived="false" sourceEndRoleName="FilterCondition" targetEndRoleName="FilterIndicator" isLeaf="false" isAbstract="false">
+            <classMoniker Id="a3c41506-f383-494b-9dc2-86598ba713fa" LastKnownName="FilterIndicator" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="eaefaa29-c352-4f2e-9796-c1487a429ea0" name="FilterCondition" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="69317d02-a0f6-436b-af1c-550c76a551e7" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="42ffcc56-714d-4132-befd-351e6aa106db" name="FilterIndicator" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="07ae3c0b-5369-44eb-a281-f29159b406ac" name="Lower" value="*">
+                      <elementDefinition Id="c1c130fe-bcce-4d14-8c51-470338d46621" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="58230d19-a1f8-45c1-ad2a-89fe0f6843d8" name="Upper" value="*">
+                      <elementDefinition Id="b82c6126-f457-4698-b75c-a72453936b24" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="c8ff433d-7a58-4480-a3cf-5b5fdcb369f6" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="0e8e2f77-7c7c-4cf2-bef1-5b661f20816c" />
+          </association>
+          <association Id="4a74f8ab-3759-43a9-9b6a-595f7e60fcba" isDerived="false" sourceEndRoleName="FilterCondition" targetEndRoleName="FilterExpression" isLeaf="false" isAbstract="false">
+            <classMoniker Id="6ba260b1-b5e6-447f-a933-0af26ba3c01a" LastKnownName="FilterExpression" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="86bf42f5-3e80-4d0b-8e3c-c91d91a9240b" name="FilterCondition" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="9a16757f-af1c-4df6-b403-4f6ef0f0f4a1" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="248f310e-2bd7-4830-9c1b-031de6436f8d" name="FilterExpression" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="12c29dff-8b6e-4fbb-a25c-f8bc951c15d5" name="Lower" value="1">
+                      <elementDefinition Id="537ca75e-597a-4fa5-82c9-22108a9ce471" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="ec87f7bc-1594-4ef6-9475-c5866c1a9bd6" name="Upper" value="1">
+                      <elementDefinition Id="63b8ee3b-dec3-4281-91c4-7f006d69c6eb" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="da550ae9-61a6-4dbf-9c8e-7724cf983ff9" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="1b7631bf-ff06-44d5-972c-dcb8e0000205" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="d44fa0ed-51ea-494a-b2e6-6fc55dcb3606" name="CutOffTime" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="61958b32-c47f-4186-b1cf-6324b4f7987e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="e5b50a3b-5829-46d9-951d-4fc9c50d9ca7" LastKnownName="DateTime" />
+            </type_NamedElement>
+          </property>
+          <property Id="3a146f47-e504-4646-99e4-f4b9ce16e917" name="Expression" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="a5c07a01-ad2d-4739-ab0d-4e741ca3f9e4" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="4847cf07-ccee-4adb-a67d-aee6440f0592" LastKnownName="FilterExpression" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+        <ownedOperationsInternal>
+          <operation Id="a395096a-0ab0-4340-87b3-9abbbc01d148" name="IsSatisfiedBy" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="60355ca1-a9ab-48c4-85a4-0d6b07ac0d2d" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="43767344-5b3b-42b4-bb8b-bc32d451f29c" direction="Return">
+                  <elementDefinition Id="569fca2a-9363-4c31-8b31-a5acb5fc877d" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="007553f0-523c-4b24-b546-90ad7c4a42b0" LastKnownName="Boolean" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="1e5b325d-7d60-4708-a6e0-63d89b978f64" name="stock" direction="In">
+                  <elementDefinition Id="094e145b-e629-41d5-bbc6-7a34aa9048d3" />
+                  <type_NamedElement>
+                    <referencedTypeMoniker Id="28ab1da6-4ed5-4578-bf20-d824ce749f2d" LastKnownName="Stock" />
+                  </type_NamedElement>
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+        </ownedOperationsInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="e5b50a3b-5829-46d9-951d-4fc9c50d9ca7" name="DateTime" isAbstract="false" isLeaf="false" cachedFullName="DateTime">
+        <elementDefinition Id="534793df-2dae-4c3c-82dd-f37f4c9a429b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="7cde644a-0178-4dcc-b4bc-4d186aadc9f0" name="FilterResult" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="c4837842-247a-437f-abb4-fc601a56e6da" />
+        <targetEnds>
+          <association Id="5b1ea575-9614-4d85-9023-67f26c176f17" isDerived="false" sourceEndRoleName="FilterResult" targetEndRoleName="FilterCondition" isLeaf="false" isAbstract="false">
+            <classMoniker Id="e4e5db32-b53d-4ea1-9112-0f5bd092d681" LastKnownName="FilterCondition" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="56915b6b-f145-4347-ac2d-5e8680ba086d" name="FilterResult" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="ef8f25a5-537a-40ed-bdb7-0821ac6bcaa5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="31f4d196-de2c-469e-b972-0956cf90f82a" name="FilterCondition" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="64a43aed-ff8b-406f-8284-7f2efe64d695" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="ee148d06-8608-4059-8da7-18edae708681" />
+          </association>
+        </targetEnds>
+        <ownedAttributesInternal>
+          <property Id="87d0a835-d069-4eb4-ade8-b435cacfea35" name="SelectedStocks" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e756aebd-70c4-4f8d-9f92-b18c669b9579" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="268170db-359b-41f1-bcc4-7cb74dfb4866" LastKnownName="List&lt;Stock&gt;" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="268170db-359b-41f1-bcc4-7cb74dfb4866" name="List&lt;Stock&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;Stock&gt;">
+        <elementDefinition Id="0b110fa0-4416-425f-993e-587e078bfb4d" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="007553f0-523c-4b24-b546-90ad7c4a42b0" name="Boolean" isAbstract="false" isLeaf="false" cachedFullName="Boolean">
+        <elementDefinition Id="8943dc84-709e-4f62-b15a-a3273aa6f165" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="28ab1da6-4ed5-4578-bf20-d824ce749f2d" name="Stock" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::Stock">
+        <elementDefinition Id="feab42f1-a842-446e-9304-ad95e7bf525f" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="54772ccc-3560-4d53-b717-3c0cd427d1ea" name="FilterResult" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::FilterResult">
+        <elementDefinition Id="87def554-1025-4c78-87fb-413dfc295f9a" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <class Id="6ba260b1-b5e6-447f-a933-0af26ba3c01a" name="FilterExpression" isAbstract="false" isLeaf="false" isActiveClass="false">
+        <elementDefinition Id="495b7edc-12e1-4680-9ffb-78363a04bfee" />
+        <ownedAttributesInternal>
+          <property Id="9b48a22e-ddbd-4e2f-9855-97e2413bfe90" name="InfixCollectionValue" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="bca10190-daa5-4825-a58e-032abfd680a2" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="9b2a5e99-e797-4a70-8c81-b2ce42ef9587" LastKnownName="List&lt;object&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="e1d84838-e940-44d8-af90-6d48fc2ad50e" name="InfixSerializedValue" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="77adbb4e-9c81-4831-9b0c-6ff655305cd0" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="c1ecd7ac-238d-4fb4-8d26-4da1143b280b" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+          <property Id="3257bccd-1f3a-4f98-bf1b-5880455b4a1b" name="PostfixCollectionValue1" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="27da1e88-981a-4c92-b36e-0d7845a8253e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="fdf63059-2c08-4551-9eca-e12ec0e6e28a" LastKnownName="List&lt;object&gt;" />
+            </type_NamedElement>
+          </property>
+          <property Id="6ff9a50e-e83e-4ab1-af43-38bd4d1a8e3e" name="PostfixSerializedValue1" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="49fc03b0-0c77-4b73-98fb-f19b2efe838d" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="26667e5b-4950-4b54-bfa0-0fe4ff15a3c2" LastKnownName="string" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributesInternal>
+      </class>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="4847cf07-ccee-4adb-a67d-aee6440f0592" name="FilterExpression" isAbstract="false" isLeaf="false" cachedFullName="PredictFutureModeling::FilterExpression">
+        <elementDefinition Id="495b7edc-12e1-4680-9ffb-78363a04bfee" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="9b2a5e99-e797-4a70-8c81-b2ce42ef9587" name="List&lt;object&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;object&gt;">
+        <elementDefinition Id="b4260fd4-e959-4601-8d4f-18dd27f766bc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="c1ecd7ac-238d-4fb4-8d26-4da1143b280b" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d63addfc-4ccd-4c84-8aac-76efa80195a1" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="fdf63059-2c08-4551-9eca-e12ec0e6e28a" name="List&lt;object&gt;" isAbstract="false" isLeaf="false" cachedFullName="List&lt;object&gt;">
+        <elementDefinition Id="b4260fd4-e959-4601-8d4f-18dd27f766bc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="26667e5b-4950-4b54-bfa0-0fe4ff15a3c2" name="string" isAbstract="false" isLeaf="false" cachedFullName="string">
+        <elementDefinition Id="d63addfc-4ccd-4c84-8aac-76efa80195a1" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="312b4924-5527-4ef9-b908-5d9581698772" name="PredictFutureModeling">
+    <elementDefinition Id="b964c0b2-8a55-469d-857d-ceb074956f16" />
+    <profileInstances>
+      <packageHasProfileInstances Id="542a1923-0dfe-455f-9839-99add63ed608">
+        <profileInstance Id="16c7d8ea-c2aa-4014-83c7-f3474ab247cc" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="c9600579-894c-4d60-afc8-088ef58941bc">
+        <profileInstance Id="1f988e2f-a5c5-4705-843a-faa1d75cc649" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

@@ -1,0 +1,93 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.IFS.TongHuaDataReader.Test", "PF.IFS.TongHuaDataReader.Test\PF.IFS.TongHuaDataReader.Test.csproj", "{B461B548-B4E7-454A-8F67-E4116FD1752C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.IFS.TongHua.Presentation.WinForm", "PF.IFS.TongHua.Presentation.WinForm\PF.IFS.TongHua.Presentation.WinForm.csproj", "{F5800767-16D6-4F48-8E3B-0A47258C920E}"
+EndProject
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "Modeling", "Modeling\Modeling.modelproj", "{39358CAF-D55F-4CE2-AD84-B0509574DBE0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1-Presentation", "1-Presentation", "{F4AA2ED9-CE96-4B5E-945E-B99A047CD8F3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2-Application", "2-Application", "{3E3E64ED-2A29-40DA-AC38-D866F525E2C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3-Domain", "3-Domain", "{DFE42F19-BF44-4356-A418-0573CBED7716}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0-Design", "0-Design", "{EE0D48C6-6419-4811-B3B5-FD6E8F800A52}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4-Infrastructure", "4-Infrastructure", "{5B6FC4E6-5446-4AFB-B1A7-6FBE139A0102}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5-Test", "5-Test", "{49655C8B-A8C4-42A9-9CCA-533EBCD53796}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.DataImport.Console", "PF.DataImport.Console\PF.DataImport.Console.csproj", "{77F6FCC0-E57A-466A-A7FF-2B21B87635CE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.DataImport.AppService", "PF.DataImport.AppService\PF.DataImport.AppService.csproj", "{F2B3AFA6-E496-4B98-B71F-C26D4C2FB86D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.DataImport.Domain", "PF.DataImport.Domain\PF.DataImport.Domain.csproj", "{C7BF7C54-E606-4118-AE2A-7AD106B9FCEB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.IFS.TongHua.DataReader", "PF.IFS.TongHua.DataReader\PF.IFS.TongHua.DataReader.csproj", "{20F48ABB-C15D-4034-BAAF-A1BE3F085737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.Infrastructure.Impl.DataImport.DbConfig", "PF.Infrastructure.Impl.DataImport.DbConfig\PF.Infrastructure.Impl.DataImport.DbConfig.csproj", "{72DA8274-39BE-4A5C-AFDE-9D8B0034A76F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PF.Infrastructure.Impl.DataImport.System", "PF.Infrastructure.Impl.DataImport.System\PF.Infrastructure.Impl.DataImport.System.csproj", "{E13D0FFB-13D4-42E3-9D07-F59FAC202DAE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B461B548-B4E7-454A-8F67-E4116FD1752C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B461B548-B4E7-454A-8F67-E4116FD1752C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B461B548-B4E7-454A-8F67-E4116FD1752C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B461B548-B4E7-454A-8F67-E4116FD1752C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5800767-16D6-4F48-8E3B-0A47258C920E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5800767-16D6-4F48-8E3B-0A47258C920E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5800767-16D6-4F48-8E3B-0A47258C920E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5800767-16D6-4F48-8E3B-0A47258C920E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39358CAF-D55F-4CE2-AD84-B0509574DBE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39358CAF-D55F-4CE2-AD84-B0509574DBE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39358CAF-D55F-4CE2-AD84-B0509574DBE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39358CAF-D55F-4CE2-AD84-B0509574DBE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77F6FCC0-E57A-466A-A7FF-2B21B87635CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77F6FCC0-E57A-466A-A7FF-2B21B87635CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77F6FCC0-E57A-466A-A7FF-2B21B87635CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77F6FCC0-E57A-466A-A7FF-2B21B87635CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2B3AFA6-E496-4B98-B71F-C26D4C2FB86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2B3AFA6-E496-4B98-B71F-C26D4C2FB86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2B3AFA6-E496-4B98-B71F-C26D4C2FB86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2B3AFA6-E496-4B98-B71F-C26D4C2FB86D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7BF7C54-E606-4118-AE2A-7AD106B9FCEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7BF7C54-E606-4118-AE2A-7AD106B9FCEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7BF7C54-E606-4118-AE2A-7AD106B9FCEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7BF7C54-E606-4118-AE2A-7AD106B9FCEB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20F48ABB-C15D-4034-BAAF-A1BE3F085737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20F48ABB-C15D-4034-BAAF-A1BE3F085737}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20F48ABB-C15D-4034-BAAF-A1BE3F085737}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20F48ABB-C15D-4034-BAAF-A1BE3F085737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72DA8274-39BE-4A5C-AFDE-9D8B0034A76F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DA8274-39BE-4A5C-AFDE-9D8B0034A76F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DA8274-39BE-4A5C-AFDE-9D8B0034A76F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DA8274-39BE-4A5C-AFDE-9D8B0034A76F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E13D0FFB-13D4-42E3-9D07-F59FAC202DAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E13D0FFB-13D4-42E3-9D07-F59FAC202DAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E13D0FFB-13D4-42E3-9D07-F59FAC202DAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E13D0FFB-13D4-42E3-9D07-F59FAC202DAE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B461B548-B4E7-454A-8F67-E4116FD1752C} = {49655C8B-A8C4-42A9-9CCA-533EBCD53796}
+		{F5800767-16D6-4F48-8E3B-0A47258C920E} = {F4AA2ED9-CE96-4B5E-945E-B99A047CD8F3}
+		{77F6FCC0-E57A-466A-A7FF-2B21B87635CE} = {F4AA2ED9-CE96-4B5E-945E-B99A047CD8F3}
+		{39358CAF-D55F-4CE2-AD84-B0509574DBE0} = {EE0D48C6-6419-4811-B3B5-FD6E8F800A52}
+		{F2B3AFA6-E496-4B98-B71F-C26D4C2FB86D} = {3E3E64ED-2A29-40DA-AC38-D866F525E2C1}
+		{C7BF7C54-E606-4118-AE2A-7AD106B9FCEB} = {DFE42F19-BF44-4356-A418-0573CBED7716}
+		{20F48ABB-C15D-4034-BAAF-A1BE3F085737} = {5B6FC4E6-5446-4AFB-B1A7-6FBE139A0102}
+		{72DA8274-39BE-4A5C-AFDE-9D8B0034A76F} = {5B6FC4E6-5446-4AFB-B1A7-6FBE139A0102}
+		{E13D0FFB-13D4-42E3-9D07-F59FAC202DAE} = {5B6FC4E6-5446-4AFB-B1A7-6FBE139A0102}
+	EndGlobalSection
+EndGlobal

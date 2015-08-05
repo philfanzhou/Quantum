@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3DDEC2B1-10A3-4017-B358-4B7CE448F386}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Framework.Test</RootNamespace>
+    <AssemblyName>Core.Framework.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
+    <IsCodedUITest>False</IsCodedUITest>
+    <TestProjectType>UnitTest</TestProjectType>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Choose>
+    <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+      </ItemGroup>
+    </When>
+    <Otherwise>
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+      </ItemGroup>
+    </Otherwise>
+  </Choose>
+  <ItemGroup>
+    <Compile Include="Adapters\RoleEntityAdapterTest.cs" />
+    <Compile Include="Adapters\UserEntityAdapterTest.cs" />
+    <Compile Include="Adapters\UserRoleEntityAdapterTest.cs" />
+    <Compile Include="Dto\RoleDtoTest.cs" />
+    <Compile Include="Dto\UserDtoTest.cs" />
+    <Compile Include="Md5EncryptorTest.cs" />
+    <Compile Include="Performance\RegistAndLoginPerformanceTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Service\RegisterServiceTest.cs" />
+    <Compile Include="Service\AuthenticationServiceTest.cs" />
+    <Compile Include="Service\RoleManageAppServiceTest.cs" />
+    <Compile Include="Crosscutting\CaptchaTest.cs" />
+    <Compile Include="Service\UserLoginAppServiceTest.cs" />
+    <Compile Include="Service\UserManageAppServiceTest.cs" />
+    <Compile Include="Service\UserRegisterAppServiceTest.cs" />
+    <Compile Include="Service\UserSecurityAppServiceTest.cs" />
+    <Compile Include="TestsInitialize.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\3_Application\Core.Application.UserContext.Dto\Core.Application.UserContext.Dto.csproj">
+      <Project>{ded2ac3e-a144-4813-9c31-92c9ce083b71}</Project>
+      <Name>Core.Application.UserContext.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3_Application\Core.Application.UserContext\Core.Application.UserContext.csproj">
+      <Project>{b9577507-67cf-4f2b-9e8e-279da1ef38af}</Project>
+      <Name>Core.Application.UserContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\3_Application\Core.Application\Core.Application.csproj">
+      <Project>{778d512c-c48e-4fbf-a50e-d11af0fd6a7f}</Project>
+      <Name>Core.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\Core.Domain.UserContext\Core.Domain.UserContext.csproj">
+      <Project>{fb390781-f54f-48c4-acca-bce58e8ca9f9}</Project>
+      <Name>Core.Domain.UserContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\Core.Domain\Core.Domain.csproj">
+      <Project>{9b6236f9-ac06-4f8d-adae-31bd1227b9f2}</Project>
+      <Name>Core.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\Core.Infrastructure.Crosscutting\Core.Infrastructure.Crosscutting.csproj">
+      <Project>{4316a358-fa2a-4d5d-bc6e-c7698dbeb803}</Project>
+      <Name>Core.Infrastructure.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\Core.Infrastructure.Impl.Crosscutting\Core.Infrastructure.Impl.Crosscutting.csproj">
+      <Project>{1ac5125d-ae71-4cd1-b8a0-58def149441a}</Project>
+      <Name>Core.Infrastructure.Impl.Crosscutting</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Infrastructure.Impl.Test.DbConfig\Core.Infrastructure.Impl.Test.DbConfig.csproj">
+      <Project>{f3e5c726-9a4c-4664-8468-244f6486e5fd}</Project>
+      <Name>Core.Infrastructure.Impl.Test.DbConfig</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Infrastructure.Impl.Test.DtoAdapter\Core.Infrastructure.Impl.Test.DtoAdapter.csproj">
+      <Project>{2e38fd1f-2d70-4c26-b878-185d741acdec}</Project>
+      <Name>Core.Infrastructure.Impl.Test.DtoAdapter</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Choose>
+    <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
+      <ItemGroup>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.CodedUITestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Common, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITest.Extension, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+        <Reference Include="Microsoft.VisualStudio.TestTools.UITesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+          <Private>False</Private>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
+  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

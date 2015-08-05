@@ -1,0 +1,39 @@
+﻿V1.1.0.0
+Release date:
+1：增加了分布式服务层的WCF实现
+2：增加了表现层的WCF客户端实现
+
+v1.0.0.4
+Release date:
+1:更改了Json序列化实现方式，解决不能序列化私有成员的问题。
+
+
+V1.0.0.3
+Release date:2014.5.5
+1：SqlServer的配置采用代码完成，为加密连接字符串做好准备，并解决了客户代码需要引用EF的问题。
+2：框架支持Mysql链接，提供基于SqlServer和Mysql的DbContext，简化客户代码
+3：移除了type adapter上的构造函数约束
+
+V1.0.0.2
+Release date:2014.04.24
+1:框架提供加载器基类
+2:隐藏ContainerHelper的Set方法
+3:合并了一些基础结构的实现程序集
+
+V1.0.0.1
+Release date:2014.04.18
+1:在RepositoryContext基类上提供了获取RepositoryContext的静态方法，简化用户代码，避免调用IOC接口。
+2：在IRepositoryContext上提供了获取Repository的接口，避免在用户代码中直接调用具体类的构造函数。
+3：通过重构，使Repository与UnitOfWork的职责更加清晰。
+
+V100R04B01
+Release date:2014.03.31
+1：重构了Specification的实现方式，使Spec使用上更为简洁，避免多过类的产生。
+2：将Automapper，EF，Unity，DataAnnotations，等技术细节，隐藏在Infrastructure中实现，避免APP与Domain对具体技术的依赖。
+3：去除App层的Automapper的引用。
+4：去除Domain层的DataAnnotations引用。
+5：提供封装后的IOC抽象类，简化对象构造，隐藏技术细节。
+6：提供SystemInitializer，统一IOC与Automapper的装载过程。
+7：所有的Repository实现移动到了Domain层，并且实现了Repository与具体底层实现无关。
+8：大幅度降低了Project之间的引用复杂度，Server和DataImport注意清理各自项目的引用。
+9：重构了Infrastructure，定义清楚了哪些底层是可以直接引用，哪些只能IOC注入。

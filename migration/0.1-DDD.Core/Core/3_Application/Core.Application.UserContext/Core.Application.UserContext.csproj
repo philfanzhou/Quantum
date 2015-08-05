@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{B9577507-67CF-4F2B-9E8E-279DA1EF38AF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Core.Application.UserContext</RootNamespace>
+    <AssemblyName>Core.Application.UserContext</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RegisterService.cs" />
+    <Compile Include="AuthenticationService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RoleManageAppService.cs" />
+    <Compile Include="UserLoginAppService.cs" />
+    <Compile Include="UserManageAppService.cs" />
+    <Compile Include="UserRegisterAppService.cs" />
+    <Compile Include="UserSecurityAppService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core.Application.UserContext.Dto\Core.Application.UserContext.Dto.csproj">
+      <Project>{ded2ac3e-a144-4813-9c31-92c9ce083b71}</Project>
+      <Name>Core.Application.UserContext.Dto</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core.Application\Core.Application.csproj">
+      <Project>{778d512c-c48e-4fbf-a50e-d11af0fd6a7f}</Project>
+      <Name>Core.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\Core.Domain.UserContext\Core.Domain.UserContext.csproj">
+      <Project>{fb390781-f54f-48c4-acca-bce58e8ca9f9}</Project>
+      <Name>Core.Domain.UserContext</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\Core.Domain\Core.Domain.csproj">
+      <Project>{9b6236f9-ac06-4f8d-adae-31bd1227b9f2}</Project>
+      <Name>Core.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\Core.Infrastructure.Crosscutting\Core.Infrastructure.Crosscutting.csproj">
+      <Project>{4316a358-fa2a-4d5d-bc6e-c7698dbeb803}</Project>
+      <Name>Core.Infrastructure.Crosscutting</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
