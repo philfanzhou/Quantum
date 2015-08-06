@@ -5,7 +5,7 @@ namespace Quantum.Data.DataReader
     {
         public static IRealTimeDataReader Create()
         {
-            return new SinaDataReader();
+            return new SinaDataReader(); 
         }
     }
 }
