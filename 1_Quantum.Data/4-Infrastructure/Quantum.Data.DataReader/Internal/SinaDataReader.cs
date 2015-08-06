@@ -11,6 +11,12 @@ namespace Quantum.Data.DataReader
     {
         private const string WebApiAddress = @"http://hq.sinajs.cn/list=";
 
+        /// <summary>
+        /// 获取单个分时数据
+        /// </summary>
+        /// <param name="code"></param>
+        /// <example>code = "sh600036"</example>
+        /// <returns></returns>
         public IRealTimeData GetData(string code)
         {
             string url = WebApiAddress + code;
