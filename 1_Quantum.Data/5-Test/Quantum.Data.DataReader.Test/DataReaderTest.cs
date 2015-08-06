@@ -12,7 +12,7 @@ namespace Quantum.Data.DataReader.Test
         [TestMethod]
         public void SinaRealTimeDataConstructorTest()
         {
-            SinaDataReader reader = new SinaDataReader();
+            IRealTimeDataReader reader = DataReaderCreator.Create();
             IRealTimeData data = reader.GetData("sh600036");
             Assert.IsNotNull(data);
         }
@@ -21,7 +21,7 @@ namespace Quantum.Data.DataReader.Test
         public void GetMultipleDataTest()
         {
             string[] codes = new string[] { "sh600036","sz150209","sh600518","sz300118","sh600298","sh601009","sh601933","sh600660","sh600196" };
-            SinaDataReader reader = new SinaDataReader();
+            IRealTimeDataReader reader = DataReaderCreator.Create();
             IEnumerable<IRealTimeData> datas = reader.GetData(codes);
 
             Assert.IsNotNull(datas);

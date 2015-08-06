@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataReaderCreator.cs" />
+    <Compile Include="IRealTimeDataReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SinaDataReader.cs" />
-    <Compile Include="SinaRealTimeData.cs" />
+    <Compile Include="Internal\SinaDataReader.cs" />
+    <Compile Include="Internal\SinaRealTimeData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\3-Domain\Quantum.Data.Metadata\Quantum.Data.Metadata.csproj">

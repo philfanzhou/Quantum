@@ -2,14 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Data.DataReader
 {
-    public class SinaDataReader
+    internal class SinaDataReader : IRealTimeDataReader
     {
         private const string WebApiAddress = @"http://hq.sinajs.cn/list=";
 
