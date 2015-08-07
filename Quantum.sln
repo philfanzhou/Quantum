@@ -3,8 +3,70 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_Infrastructure", "5_Infrastructure", "{62C38694-8444-485D-A615-5F4919609C19}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_Domain", "4_Domain", "{56845ADD-52CD-4833-8710-FD891D785702}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6_Test", "6_Test", "{FA8DA51D-6844-4857-A0BE-F1F8FA258CA5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Domain.Trading", "4_Domain\Quantum.Domain.Trading\Quantum.Domain.Trading.csproj", "{2BFB63C0-2D7A-425A-B284-A34C5297ED2B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Application", "3_Application", "{A23268CD-DFBE-418E-9F61-5A1C5A50714D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Application.Trading", "3_Application\Quantum.Application.Trading\Quantum.Application.Trading.csproj", "{200F4EC6-3814-40F2-89A9-93F54535DA65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Infrastructure.Trading.Repository", "5_Infrastructure\Quantum.Infrastructure.Trading.Repository\Quantum.Infrastructure.Trading.Repository.csproj", "{47FB5AA3-10BD-438C-93A4-50694179A95B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1_Trading", "1_Trading", "{A32AE480-F20C-4511-B91E-667C6736E0D9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0_Framework", "0_Framework", "{FDC87144-18E0-4824-94BE-C2C5338BD952}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_Infrastructure", "5_Infrastructure", "{A01144FC-1906-4EC6-A18A-57A3CF3351C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Infrastructure.Repository", "5_Infrastructure\Framework.Infrastructure.Repository\Framework.Infrastructure.Repository.csproj", "{EC6C563D-04AC-4EB0-B570-4C458746F230}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework.Infrastructure.Container", "5_Infrastructure\Framework.Infrastructure.Container\Framework.Infrastructure.Container.csproj", "{F3290E90-FF3B-41E3-9369-2DD497A6054B}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2BFB63C0-2D7A-425A-B284-A34C5297ED2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2BFB63C0-2D7A-425A-B284-A34C5297ED2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2BFB63C0-2D7A-425A-B284-A34C5297ED2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2BFB63C0-2D7A-425A-B284-A34C5297ED2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{200F4EC6-3814-40F2-89A9-93F54535DA65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{200F4EC6-3814-40F2-89A9-93F54535DA65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{200F4EC6-3814-40F2-89A9-93F54535DA65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{200F4EC6-3814-40F2-89A9-93F54535DA65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47FB5AA3-10BD-438C-93A4-50694179A95B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47FB5AA3-10BD-438C-93A4-50694179A95B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47FB5AA3-10BD-438C-93A4-50694179A95B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47FB5AA3-10BD-438C-93A4-50694179A95B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC6C563D-04AC-4EB0-B570-4C458746F230}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC6C563D-04AC-4EB0-B570-4C458746F230}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC6C563D-04AC-4EB0-B570-4C458746F230}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC6C563D-04AC-4EB0-B570-4C458746F230}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F3290E90-FF3B-41E3-9369-2DD497A6054B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F3290E90-FF3B-41E3-9369-2DD497A6054B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F3290E90-FF3B-41E3-9369-2DD497A6054B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F3290E90-FF3B-41E3-9369-2DD497A6054B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{47FB5AA3-10BD-438C-93A4-50694179A95B} = {62C38694-8444-485D-A615-5F4919609C19}
+		{2BFB63C0-2D7A-425A-B284-A34C5297ED2B} = {56845ADD-52CD-4833-8710-FD891D785702}
+		{200F4EC6-3814-40F2-89A9-93F54535DA65} = {A23268CD-DFBE-418E-9F61-5A1C5A50714D}
+		{A23268CD-DFBE-418E-9F61-5A1C5A50714D} = {A32AE480-F20C-4511-B91E-667C6736E0D9}
+		{56845ADD-52CD-4833-8710-FD891D785702} = {A32AE480-F20C-4511-B91E-667C6736E0D9}
+		{62C38694-8444-485D-A615-5F4919609C19} = {A32AE480-F20C-4511-B91E-667C6736E0D9}
+		{FA8DA51D-6844-4857-A0BE-F1F8FA258CA5} = {A32AE480-F20C-4511-B91E-667C6736E0D9}
+		{A01144FC-1906-4EC6-A18A-57A3CF3351C5} = {FDC87144-18E0-4824-94BE-C2C5338BD952}
+		{EC6C563D-04AC-4EB0-B570-4C458746F230} = {A01144FC-1906-4EC6-A18A-57A3CF3351C5}
+		{F3290E90-FF3B-41E3-9369-2DD497A6054B} = {A01144FC-1906-4EC6-A18A-57A3CF3351C5}
 	EndGlobalSection
 EndGlobal
