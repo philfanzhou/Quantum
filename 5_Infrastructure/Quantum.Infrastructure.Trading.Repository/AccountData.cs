@@ -5,8 +5,6 @@ namespace Quantum.Infrastructure.Trading.Repository
 {
     public class AccountData : Entity
     {
-        public string Id { get; set; }
-
         public string Name { get; set; }
 
         /// <summary>

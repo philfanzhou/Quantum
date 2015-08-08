@@ -12,28 +12,11 @@
         // EF Needed
         protected Entity() { }
 
-        protected Entity(string id)
-        {
-            if (string.IsNullOrWhiteSpace(id))
-            {
-                throw new ArgumentNullException("id");
-            }
-
-            this.Id = id;
-        }
-
         #endregion
 
         #region Properties
 
-        /// <summary>
-        /// Get the persisten object identifier
-        /// </summary>
-        public string Id
-        {
-            get;
-            private set;
-        }
+        public string Id { get; set; }
 
         #endregion
 
