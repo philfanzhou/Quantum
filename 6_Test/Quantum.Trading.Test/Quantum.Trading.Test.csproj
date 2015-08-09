@@ -57,8 +57,6 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Env\AccountDataConfig.cs" />
-    <Compile Include="Env\AccountDbContext.cs" />
     <Compile Include="TestsInitialize.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -79,6 +77,10 @@
     <ProjectReference Include="..\..\5_Infrastructure\Framework.Infrastructure.Repository\Framework.Infrastructure.Repository.csproj">
       <Project>{ec6c563d-04ac-4eb0-b570-4c458746f230}</Project>
       <Name>Framework.Infrastructure.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.EntityFramework.Configuration\Quantum.Infrastructure.EntityFramework.Configuration.csproj">
+      <Project>{fa7ff6a0-20af-4f26-a66d-6eb3d62f32b3}</Project>
+      <Name>Quantum.Infrastructure.EntityFramework.Configuration</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.Trading.Repository\Quantum.Infrastructure.Trading.Repository.csproj">
       <Project>{47fb5aa3-10bd-438c-93a4-50694179a95b}</Project>

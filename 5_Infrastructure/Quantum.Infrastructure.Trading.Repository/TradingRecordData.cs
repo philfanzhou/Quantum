@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quantum.Infrastructure.Trading.Metadata
+namespace Quantum.Infrastructure.Trading.Repository
 {
     public class TradingRecordData
     {

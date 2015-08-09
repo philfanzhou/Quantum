@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading;
 
-    public class EntityFrameworkRepositoryContext<TDbContext> : RepositoryContext
+    internal class EntityFrameworkRepositoryContext<TDbContext> : RepositoryContext
         where TDbContext : DbContext
     {
         #region Fields

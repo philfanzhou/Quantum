@@ -6,7 +6,7 @@
     [DbConfigurationType(typeof(SqlServerDbConfiguration))] 
     public class SqlServerDbContext : DbContext
     {
-        public SqlServerDbContext(DbConnection dbConnection)
+        public SqlServerDbContext(ConnectionConfig dbConnection)
             : base(dbConnection.ToString())
         {
         }

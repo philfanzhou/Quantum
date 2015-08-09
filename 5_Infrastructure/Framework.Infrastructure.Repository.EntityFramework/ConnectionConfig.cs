@@ -2,7 +2,7 @@
 {
     using System.Text;
 
-    public class DbConnection
+    public class ConnectionConfig
     {
         public string Server { get; set; }
         public string Port { get; set; }

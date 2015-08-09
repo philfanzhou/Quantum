@@ -1,13 +1,6 @@
-﻿using Framework.Infrastructure.Container;
-using Framework.Infrastructure.Repository;
-using Framework.Infrastructure.Repository.EntityFramework;
+﻿using Framework.Infrastructure.Repository.EntityFramework;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Quantum.Trading.Test.Env;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Quantum.Infrastructure.EntityFramework.Configuration;
 
 namespace Quantum.Trading.Test
 {
@@ -18,12 +11,11 @@ namespace Quantum.Trading.Test
         public static void Initialize(TestContext context)
         {
             // 映射依赖具体技术的RepositoryContext
-            ContainerHelper.Instance.RegisterType<IRepositoryContext, EntityFrameworkRepositoryContext<AccountDbContext>>();
+            DatabaseHelper.RegistDbContext<QuantumDbContext>();
 
             /***************testCode*************************/
-            AccountDbContext dbContext = new AccountDbContext();
-            dbContext.Database.Delete();
-            dbContext.Database.Create();
+            QuantumDbContext dbContext = new QuantumDbContext();
+            DatabaseHelper.RebuildDatabase(dbContext);
             /***************testCode*************************/
         }
     }
