@@ -10,15 +10,11 @@ namespace Quantum.Domain.Trading
 {
     internal class Account : IAccount
     {
-        private AccountData accountData;
+        private string accountId;
 
         public Account(string Id)
         {
-            using (IRepositoryContext context = RepositoryContext.Create())
-            {
-                var repository = context.GetRepository<Repository<AccountData>>();
-                accountData = repository.Get(Id);
-            }
+            this.accountId = Id;
         }
 
         public bool Buy(string code, double price, int quantity)

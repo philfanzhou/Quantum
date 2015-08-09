@@ -1,16 +1,12 @@
 ﻿using Framework.Infrastructure.Repository;
 using Quantum.Infrastructure.Trading.Repository;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.Trading
 {
-    public class Broker
+    public static class Broker
     {
-        public AccountData CreateAccount(string name)
+        public static AccountData CreateAccount(string name)
         {
             AccountData account = new AccountData();
             account.Id = GetNewAccountId();
@@ -25,7 +21,16 @@ namespace Quantum.Domain.Trading
             return account;
         }
 
-        private string GetNewAccountId()
+        public static AccountData GetAccount(string id)
+        {
+            using (IRepositoryContext context = RepositoryContext.Create())
+            {
+                var repository = context.GetRepository<Repository<AccountData>>();
+                return repository.Get(id);
+            }
+        }
+
+        private static string GetNewAccountId()
         {
             return Guid.NewGuid().ToString();
         }

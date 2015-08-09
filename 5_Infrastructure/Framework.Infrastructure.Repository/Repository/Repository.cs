@@ -15,7 +15,7 @@
 
         #region Constructor
 
-        protected Repository(IRepositoryContext context)
+        public Repository(IRepositoryContext context)
         {
             if (null == context)
             {
