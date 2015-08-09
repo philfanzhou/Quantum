@@ -46,8 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="ConnectionConfig.cs" />
+    <Compile Include="DbContextHelper.cs" />
     <Compile Include="EntityFrameworkRepositoryContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlServerDbContext.cs" />

@@ -3,7 +3,7 @@ using System.Data.Entity;
 
 namespace Quantum.Infrastructure.EntityFramework.Configuration
 {
-    public sealed class QuantumDbContext : SqlServerDbContext
+    internal sealed class QuantumDbContext : SqlServerDbContext
     {
         private static readonly ConnectionConfig sqlServer = new ConnectionConfig
         {
@@ -12,14 +12,14 @@ namespace Quantum.Infrastructure.EntityFramework.Configuration
             TrustedConnection = true
         };
 
-        private static readonly ConnectionConfig mySql = new ConnectionConfig
-        {
-            Server = "localhost",
-            Port = "3306",
-            Database = "UserContextDb",
-            Uid = "root",
-            Password = "123456"
-        };
+        //private static readonly ConnectionConfig mySql = new ConnectionConfig
+        //{
+        //    Server = "localhost",
+        //    Port = "3306",
+        //    Database = "UserContextDb",
+        //    Uid = "root",
+        //    Password = "123456"
+        //};
 
         public QuantumDbContext()
             //: base(mySql)
@@ -31,6 +31,7 @@ namespace Quantum.Infrastructure.EntityFramework.Configuration
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new AccountDataConfig());
+            //modelBuilder.Configurations.Add(new OtherConfigType());
         }
     }
 }

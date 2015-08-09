@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseConfig\QuantumDbContext.cs" />
     <Compile Include="MetadataConfig\Trading\AccountDataConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

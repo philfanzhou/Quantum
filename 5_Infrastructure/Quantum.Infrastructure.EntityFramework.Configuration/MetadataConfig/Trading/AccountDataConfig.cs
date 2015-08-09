@@ -3,7 +3,7 @@ using System.Data.Entity.ModelConfiguration;
 
 namespace Quantum.Infrastructure.EntityFramework.Configuration
 {
-    public class AccountDataConfig : EntityTypeConfiguration<AccountData>
+    internal class AccountDataConfig : EntityTypeConfiguration<AccountData>
     {
         public AccountDataConfig()
         {
