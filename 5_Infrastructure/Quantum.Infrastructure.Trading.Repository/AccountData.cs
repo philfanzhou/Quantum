@@ -8,6 +8,11 @@ namespace Quantum.Infrastructure.Trading.Repository
         public string Name { get; set; }
 
         /// <summary>
+        /// 本金
+        /// </summary>
+        public Decimal Principal { get; set; }
+
+        /// <summary>
         /// 余额
         /// </summary>
         public Decimal Balance { get; set; }

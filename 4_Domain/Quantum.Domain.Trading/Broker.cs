@@ -11,6 +11,8 @@ namespace Quantum.Domain.Trading
             AccountData account = new AccountData();
             account.Id = GetNewAccountId();
             account.Name = name;
+            account.Principal = 0;
+            account.Balance = 0;
 
             using (IRepositoryContext context = RepositoryContext.Create())
             {

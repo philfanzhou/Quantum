@@ -13,6 +13,9 @@ namespace Quantum.Infrastructure.EntityFramework.Configuration
                 .HasMaxLength(20)
                 .IsRequired();
 
+            this.Property(account => account.Principal)
+                .IsRequired();
+
             this.Property(account => account.Balance)
                 .IsRequired();
         }

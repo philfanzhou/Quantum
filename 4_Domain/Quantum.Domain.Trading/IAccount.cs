@@ -3,16 +3,16 @@ namespace Quantum.Domain.Trading
 {
     public interface IAccount
     {
-        bool Buy(string code, double price, int quantity);
+        void Buy(string code, double price, int quantity);
 
-        int AvailableQuantityToBuy(string code, double price);
+        int AvailableQuantityToBuy(double price);
 
-        bool Sell(string code, double price, int quantity);
+        void Sell(string code, double price, int quantity);
 
         int AvailableQuantityToSell(string code);
 
-        bool TransferIn(double amount);
+        void TransferIn(decimal amount);
 
-        bool TransferOut(double amount);
+        void TransferOut(decimal amount);
     }
 }
