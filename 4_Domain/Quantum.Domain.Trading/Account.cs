@@ -22,12 +22,12 @@ namespace Quantum.Domain.Trading
             this.accountId = Id;
         }
 
-        public void Buy(string code, double price, int quantity)
+        public bool Buy(string code, double price, int quantity)
         {
             throw new NotImplementedException();
         }
 
-        public int AvailableQuantityToBuy(double price)
+        public int AvailableQuantityToBuy(string code, double price)
         {
             decimal balance;
             using (IRepositoryContext context = RepositoryContext.Create())
@@ -50,7 +50,7 @@ namespace Quantum.Domain.Trading
             }
         }
 
-        public void Sell(string code, double price, int quantity)
+        public bool Sell(string code, double price, int quantity)
         {
             throw new NotImplementedException();
         }

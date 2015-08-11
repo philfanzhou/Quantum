@@ -3,11 +3,11 @@ namespace Quantum.Domain.Trading
 {
     public interface IAccount
     {
-        void Buy(string code, double price, int quantity);
+        bool Buy(string code, double price, int quantity);
 
-        int AvailableQuantityToBuy(double price);
+        int AvailableQuantityToBuy(string code, double price);
 
-        void Sell(string code, double price, int quantity);
+        bool Sell(string code, double price, int quantity);
 
         int AvailableQuantityToSell(string code);
 
