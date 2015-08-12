@@ -30,7 +30,12 @@ namespace Quantum.Infrastructure.EntityFramework.Configuration
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            // Trading Models
             modelBuilder.Configurations.Add(new AccountDataConfig());
+            modelBuilder.Configurations.Add(new HoldingsRecordDataConfig());
+            modelBuilder.Configurations.Add(new TradingRecordDataConfig());
+
+            // TO DO : Add others
             //modelBuilder.Configurations.Add(new OtherConfigType());
         }
     }

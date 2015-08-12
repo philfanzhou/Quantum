@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Framework.Infrastructure.Repository;
 
 namespace Quantum.Infrastructure.Trading.Repository
 {
-    public class HoldingsRecordData
+    public class HoldingsRecordData : Entity
     {
         public string AccountId { get; set; }
 

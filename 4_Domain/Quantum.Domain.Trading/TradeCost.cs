@@ -14,19 +14,19 @@ namespace Quantum.Domain.Trading
         /// <summary>
         /// 佣金费率
         /// </summary>
-        private decimal commissionRate = 0.0003m;
+        private static decimal commissionRate = 0.0003m;
 
         /// <summary>
         /// 印花税率
         /// </summary>
-        private decimal stampDutyRate = 0.001m;
+        private static decimal stampDutyRate = 0.001m;
 
         /// <summary>
         /// 交易费率
         /// </summary>
-        private decimal transferFeesRate = 0.00002m;
+        private static decimal transferFeesRate = 0.00002m;
 
-        public decimal GetCommission(decimal price, int quantity)
+        public static decimal GetCommission(decimal price, int quantity)
         {
             decimal amount = price * quantity;
             decimal fee = amount * commissionRate;
@@ -41,7 +41,7 @@ namespace Quantum.Domain.Trading
             }
         }
 
-        public decimal GetStampDuty(string code, decimal price, int quantity)
+        public static decimal GetStampDuty(string code, decimal price, int quantity)
         {
             if(!IsStock(code))
             {
@@ -51,7 +51,7 @@ namespace Quantum.Domain.Trading
             return price * quantity * stampDutyRate;
         }
 
-        public decimal GetTransferFees(string code, decimal price, int quantity)
+        public static decimal GetTransferFees(string code, decimal price, int quantity)
         {
             if (!IsStock(code))
             {
@@ -68,12 +68,12 @@ namespace Quantum.Domain.Trading
             }
         }
 
-        private bool IsStock(string code)
+        private static bool IsStock(string code)
         {
             return IsShanghaiStock(code) || IsShenzhenStock(code);
         }
 
-        private bool IsShanghaiStock(string code)
+        private static bool IsShanghaiStock(string code)
         {
             if (code.Length != 6)
             {
@@ -90,7 +90,7 @@ namespace Quantum.Domain.Trading
             return true;
         }
 
-        private bool IsShenzhenStock(string code)
+        private static bool IsShenzhenStock(string code)
         {
             if (code.Length != 6)
             {

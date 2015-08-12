@@ -1,47 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Framework.Infrastructure.Repository;
+using System;
 
 namespace Quantum.Infrastructure.Trading.Repository
 {
-    public class TradingRecordData
+    public class TradingRecordData : Entity
     {
         public string AccountId { get; set; }
 
-        DateTime Date { get; set; }
+        public DateTime Date { get; set; }
 
-        TradeType Type { get; set; }
+        public TradeType Type { get; set; }
 
-        string StockCode { get; set; }
+        public string StockCode { get; set; }
 
-        int Quantity { get; set; }
+        public int Quantity { get; set; }
 
         /// <summary>
         /// 成交价
         /// </summary>
-        double Price { get; set; }
+        public decimal Price { get; set; }
 
         /// <summary>
         /// 佣金
         /// </summary>
-        double Commissions { get; set; }
+        public decimal Commissions { get; set; }
 
         /// <summary>
         /// 印花税
         /// </summary>
-        double StampDuty { get; set; }
+        public decimal StampDuty { get; set; }
 
         /// <summary>
         /// 过户费
         /// </summary>
-        double TransferFees { get; set; }
+        public decimal TransferFees { get; set; }
 
         /// <summary>
         /// 结算费
         /// </summary>
-        double FeesSettlement { get; set; }
+        public decimal FeesSettlement { get; set; }
+
+        public TradingRecordData()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
     }
 
     public enum TradeType

@@ -50,6 +50,8 @@
     <Compile Include="DatabaseHelper.cs" />
     <Compile Include="DatabaseConfig\QuantumDbContext.cs" />
     <Compile Include="MetadataConfig\Trading\AccountDataConfig.cs" />
+    <Compile Include="MetadataConfig\Trading\HoldingsRecordDataConfig.cs" />
+    <Compile Include="MetadataConfig\Trading\TradingRecordDataConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
