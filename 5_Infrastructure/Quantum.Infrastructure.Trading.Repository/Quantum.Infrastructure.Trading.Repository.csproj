@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AccountData.cs" />
     <Compile Include="HoldingsRecordData.cs" />
+    <Compile Include="HoldingsRecordRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TradingRecordData.cs" />
   </ItemGroup>

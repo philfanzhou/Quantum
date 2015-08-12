@@ -1,4 +1,5 @@
 ﻿using Framework.Infrastructure.Repository;
+using System;
 
 namespace Quantum.Infrastructure.Trading.Repository
 {
@@ -12,5 +13,10 @@ namespace Quantum.Infrastructure.Trading.Repository
         /// 持仓数量
         /// </summary>
         public int Quantity { get; set; }
+
+        public HoldingsRecordData()
+        {
+            this.Id = Guid.NewGuid().ToString();
+        }
     }
 }

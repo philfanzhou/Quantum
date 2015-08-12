@@ -57,16 +57,33 @@ namespace Quantum.Domain.Trading
                         TransferFees = transferFees,
                         FeesSettlement = 0m
                     };
-                context.UnitOfWork.RegisterModified(tradingRecord);
+                context.UnitOfWork.RegisterNew(tradingRecord);
 
+                var holdingsRecordRepository
+                    = context.GetRepository<HoldingsRecordRepository>();
+                var holdingsRecord
+                    = holdingsRecordRepository
+                    .GetHoldingsRecordByAccountAndCode(accountData.Id, code);
+                if(holdingsRecord == null)
+                {
+                    holdingsRecord = new HoldingsRecordData()
+                    {
+                        AccountId = this.accountId,
+                        StockCode = code,
+                        Quantity = quantity
+                    };
+                    context.UnitOfWork.RegisterNew(holdingsRecord);
+                }
+                else
+                {
+                    holdingsRecord.Quantity += quantity;
+                    context.UnitOfWork.RegisterModified(holdingsRecord);
+                }
 
-
+                context.UnitOfWork.Commit();
             }
             
-
-
-
-            throw new NotImplementedException();
+            return false;
         }
 
         public int AvailableQuantityToBuy(string code, decimal price)
