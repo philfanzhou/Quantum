@@ -46,7 +46,7 @@ namespace Quantum.Domain.Trading
 
                 TradingRecordData tradingRecord = new TradingRecordData()
                     {
-                        AccountId = accountData.Id,
+                        AccountId = this.accountId,
                         Date = DateTime.Now,
                         Type = TradeType.Buy,
                         StockCode = code,
@@ -63,7 +63,7 @@ namespace Quantum.Domain.Trading
                     = context.GetRepository<HoldingsRecordRepository>();
                 var holdingsRecord
                     = holdingsRecordRepository
-                    .GetHoldingsRecordByAccountAndCode(accountData.Id, code);
+                    .GetHoldingsRecordByAccountAndCode(this.accountId, code);
                 if(holdingsRecord == null)
                 {
                     holdingsRecord = new HoldingsRecordData()
@@ -83,7 +83,7 @@ namespace Quantum.Domain.Trading
                 context.UnitOfWork.Commit();
             }
             
-            return false;
+            return true;
         }
 
         public int AvailableQuantityToBuy(string code, decimal price)
