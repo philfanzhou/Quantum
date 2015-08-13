@@ -73,23 +73,6 @@ namespace Quantum.Domain.Trading
             return IsShanghaiStock(code) || IsShenzhenStock(code);
         }
 
-        private static bool IsShanghaiStock(string code)
-        {
-            if (code.Length != 6)
-            {
-                return false;
-            }
-
-            if (!code.StartsWith("000") &&
-                !code.StartsWith("001") &&
-                !code.StartsWith("002") &&
-                !code.StartsWith("300"))
-            {
-                return false;
-            }
-            return true;
-        }
-
         private static bool IsShenzhenStock(string code)
         {
             if (code.Length != 6)
@@ -97,14 +80,31 @@ namespace Quantum.Domain.Trading
                 return false;
             }
 
-            if (!code.StartsWith("600") &&
-                !code.StartsWith("601") &&
-                !code.StartsWith("603"))
+            if (code.StartsWith("000") ||
+                code.StartsWith("001") ||
+                code.StartsWith("002") ||
+                code.StartsWith("300"))
+            {
+                return true;
+            }
+            return false;
+        }
+
+        private static bool IsShanghaiStock(string code)
+        {
+            if (code.Length != 6)
             {
                 return false;
             }
 
-            return true;
+            if (code.StartsWith("600") ||
+                code.StartsWith("601") ||
+                code.StartsWith("603"))
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }

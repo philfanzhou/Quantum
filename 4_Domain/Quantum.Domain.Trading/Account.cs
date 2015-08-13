@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Quantum.Domain.Trading
 {
-    internal class Account : IAccount
+    public class Account : IAccount
     {
         /// <summary>
         /// 一手股票包含100股
@@ -61,10 +61,8 @@ namespace Quantum.Domain.Trading
 
                 var holdingsRecordRepository
                     = context.GetRepository<HoldingsRecordRepository>();
-                var holdingsRecord
-                    = holdingsRecordRepository
-                    .GetHoldingsRecordByAccountAndCode(this.accountId, code);
-                if(holdingsRecord == null)
+                HoldingsRecordData holdingsRecord = null;
+                if(holdingsRecordRepository.ExistHoldingsRecord(this.accountId, code) == false)
                 {
                     holdingsRecord = new HoldingsRecordData()
                     {
@@ -76,6 +74,8 @@ namespace Quantum.Domain.Trading
                 }
                 else
                 {
+                    holdingsRecord = holdingsRecordRepository
+                    .GetHoldingsRecordByAccountAndCode(this.accountId, code);
                     holdingsRecord.Quantity += quantity;
                     context.UnitOfWork.RegisterModified(holdingsRecord);
                 }
