@@ -3,7 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Quantum.Domain.Trading;
 using Quantum.Infrastructure.Trading.Repository;
 
-namespace Quantum.Trading.Test
+namespace Quantum.UnitTest.Trading
 {
     [TestClass]
     public class BrokerTest
