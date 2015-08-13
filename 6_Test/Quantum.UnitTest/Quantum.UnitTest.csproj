@@ -54,6 +54,7 @@
     <Compile Include="TestsInitialize.cs" />
     <Compile Include="Trading\BrokerTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trading\AccountTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\4_Domain\Quantum.Domain.Trading\Quantum.Domain.Trading.csproj">
