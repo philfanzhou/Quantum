@@ -12,6 +12,13 @@ namespace Quantum.Infrastructure.EntityFramework.Configuration
             TrustedConnection = true
         };
 
+        //private static readonly ConnectionConfig sqlServer = new ConnectionConfig
+        //{
+        //    Server = @"CMNCPS-35\SQLEXPRESS",
+        //    Database = "Trading",
+        //    TrustedConnection = true
+        //};
+
         //private static readonly ConnectionConfig mySql = new ConnectionConfig
         //{
         //    Server = "localhost",

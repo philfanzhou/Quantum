@@ -14,23 +14,23 @@ namespace Quantum.Infrastructure.Trading.Repository
         {
         }
 
-        public IEnumerable<TradingRecordData> GetTradingRecordByAccount(string accountId)
+        public IEnumerable<TradingRecordData> GetByAccount(string accountId)
         {
-            var accountSpec = Specification<TradingRecordData>
-                .Eval(data => data.AccountId == accountId);
-
-            return this.GetAll(accountSpec);
+            return this.GetAll().Where(p => p.AccountId == accountId);
         }
 
-        public IEnumerable<TradingRecordData> GetTradingRecordByAccountAndCode(string accountId, string code)
+        public IEnumerable<TradingRecordData> GetBuyRecord(string accountId, string code, DateTime now)
         {
-            var accountSpec = Specification<TradingRecordData>
-                .Eval(data => data.AccountId == accountId);
-            var stockSpec = Specification<TradingRecordData>
-                .Eval(dta => dta.StockCode == code);
-            var condition = new AndSpecification<TradingRecordData>(accountSpec, stockSpec);
+            return this.GetByAccountAndCode(accountId, code)
+                .Where(p => 
+                    p.Date.Day == now.Day &&
+                    p.Type == TradeType.Buy);
+        }
 
-            return this.GetAll(condition);
+        public IEnumerable<TradingRecordData> GetByAccountAndCode(string accountId, string code)
+        {
+            return this.GetByAccount(accountId)
+                .Where(p => p.StockCode == code);
         }
     }
 }

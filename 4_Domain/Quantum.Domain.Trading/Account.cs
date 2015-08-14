@@ -1,10 +1,7 @@
 ﻿using Framework.Infrastructure.Repository;
 using Quantum.Infrastructure.Trading.Repository;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.Trading
 {
@@ -47,7 +44,7 @@ namespace Quantum.Domain.Trading
                 TradingRecordData tradingRecord = new TradingRecordData()
                     {
                         AccountId = this.accountId,
-                        Date = DateTime.Now,
+                        Date = Market.Time,
                         Type = TradeType.Buy,
                         StockCode = code,
                         Quantity = quantity,
@@ -59,10 +56,9 @@ namespace Quantum.Domain.Trading
                     };
                 context.UnitOfWork.RegisterNew(tradingRecord);
 
-                var holdingsRecordRepository
-                    = context.GetRepository<HoldingsRecordRepository>();
-                HoldingsRecordData holdingsRecord = null;
-                if(holdingsRecordRepository.ExistHoldingsRecord(this.accountId, code) == false)
+                var holdingsRepository = context.GetRepository<HoldingsRecordRepository>();
+                var holdingsRecord = holdingsRepository.GetByAccountAndCode(this.accountId, code);
+                if (holdingsRecord == null)
                 {
                     holdingsRecord = new HoldingsRecordData()
                     {
@@ -74,8 +70,8 @@ namespace Quantum.Domain.Trading
                 }
                 else
                 {
-                    holdingsRecord = holdingsRecordRepository
-                    .GetHoldingsRecordByAccountAndCode(this.accountId, code);
+                    holdingsRecord = holdingsRepository
+                    .GetByAccountAndCode(this.accountId, code);
                     holdingsRecord.Quantity += quantity;
                     context.UnitOfWork.RegisterModified(holdingsRecord);
                 }
@@ -117,7 +113,21 @@ namespace Quantum.Domain.Trading
 
         public int AvailableQuantityToSell(string code)
         {
-            throw new NotImplementedException();
+            using (IRepositoryContext context = RepositoryContext.Create())
+            {
+                var holdingsRepository = context.GetRepository<HoldingsRecordRepository>();
+                var holdingsRecord = holdingsRepository.GetByAccountAndCode(this.accountId, code);
+                if (holdingsRecord == null)
+                {
+                    return 0;
+                }
+
+                var tradingRepository = context.GetRepository<TradingRecordDataRepository>();
+                var todayBuyRecord = tradingRepository.GetBuyRecord(this.accountId, code, Market.Time);
+                int todayBuyQuantity = todayBuyRecord.Sum(p => p.Quantity);
+
+                return holdingsRecord.Quantity - todayBuyQuantity;
+            }
         }
 
         public void TransferIn(decimal amount)
