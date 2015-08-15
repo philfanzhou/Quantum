@@ -122,7 +122,7 @@ namespace Quantum.UnitTest.Trading
         {
             MakeSureBalanceMoreThan100000();
 
-            string code = "600036";
+            string code = "600037";
             decimal price = 17.78m;
             int yesterdayQuantity = 3000;
             int todayQuantity1 = 500;
@@ -151,7 +151,9 @@ namespace Quantum.UnitTest.Trading
                 Assert.IsTrue(holdingsRecord.Quantity >= todayQuantity1 + todayQuantity2);
 
                 var tradingRecord = context.GetRepository<TradingRecordDataRepository>()
-                    .GetByAccountAndCode(this.accountId, code).ToList();
+                    .GetByAccountAndCode(this.accountId, code)
+                    .Where( p => p.Type == TradeType.Sell)
+                    .OrderBy(p => p.Date).ToList();
                 Assert.IsNotNull(tradingRecord);
                 var lastRecord = tradingRecord[tradingRecord.Count - 1];
                 Assert.IsTrue(lastRecord.AccountId == this.accountId);
