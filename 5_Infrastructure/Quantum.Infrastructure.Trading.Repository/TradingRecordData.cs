@@ -40,6 +40,11 @@ namespace Quantum.Infrastructure.Trading.Repository
         /// </summary>
         public decimal FeesSettlement { get; set; }
 
+        /// <summary>
+        /// 发生金额
+        /// </summary>
+        public decimal Amount { get; set; }
+
         public TradingRecordData()
         {
             this.Id = Guid.NewGuid().ToString();

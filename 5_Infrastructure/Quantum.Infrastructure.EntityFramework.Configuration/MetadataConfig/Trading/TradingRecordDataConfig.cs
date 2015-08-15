@@ -38,6 +38,9 @@ namespace Quantum.Infrastructure.EntityFramework.Configuration
 
             this.Property(data => data.FeesSettlement)
                 .IsRequired();
+
+            this.Property(data => data.Amount)
+                .IsRequired();
         }
     }
 }
