@@ -23,11 +23,30 @@ namespace Quantum.UnitTest.Trading
         public void TransferInTest()
         {
             decimal balance = GetAccountBalance();
-            IAccount account = new Account(this.accountId);
+            decimal principal = GetAccountPrincipal();
             decimal amount = 100000m;
-            account.TransferIn(amount);
+            IAccount account = new Account(this.accountId);
 
+            Assert.IsTrue(account.TransferIn(amount));
             Assert.AreEqual(balance + amount, GetAccountBalance());
+            Assert.AreEqual(principal + amount, GetAccountPrincipal());
+        }
+
+        [TestMethod]
+        public void TransferOutTest()
+        {
+            MakeSureBalanceMoreThan100000();
+            decimal balance = GetAccountBalance();
+            decimal principal = GetAccountPrincipal();
+            IAccount account = new Account(this.accountId);
+
+            decimal amount = 100500m;
+            Assert.IsFalse(account.TransferOut(amount));
+
+            amount = 90000m;
+            Assert.IsTrue(account.TransferOut(amount));
+            Assert.AreEqual(balance - amount, GetAccountBalance());
+            Assert.AreEqual(principal - amount, GetAccountPrincipal());
         }
 
         [TestMethod]
@@ -178,6 +197,16 @@ namespace Quantum.UnitTest.Trading
                 var repository = context.GetRepository<Repository<AccountData>>();
                 AccountData accountData = repository.Get(this.accountId);
                 return accountData.Balance;
+            }
+        }
+
+        private decimal GetAccountPrincipal()
+        {
+            using (IRepositoryContext context = RepositoryContext.Create())
+            {
+                var repository = context.GetRepository<Repository<AccountData>>();
+                AccountData accountData = repository.Get(this.accountId);
+                return accountData.Principal;
             }
         }
 

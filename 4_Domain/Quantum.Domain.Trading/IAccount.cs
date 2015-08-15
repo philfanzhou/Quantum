@@ -11,8 +11,8 @@ namespace Quantum.Domain.Trading
 
         int AvailableQuantityToSell(string code);
 
-        void TransferIn(decimal amount);
+        bool TransferIn(decimal amount);
 
-        void TransferOut(decimal amount);
+        bool TransferOut(decimal amount);
     }
 }

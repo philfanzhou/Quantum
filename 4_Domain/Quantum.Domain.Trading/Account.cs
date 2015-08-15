@@ -144,7 +144,7 @@ namespace Quantum.Domain.Trading
             }
         }
 
-        public void TransferIn(decimal amount)
+        public bool TransferIn(decimal amount)
         {
             using (IRepositoryContext context = RepositoryContext.Create())
             {
@@ -157,11 +157,30 @@ namespace Quantum.Domain.Trading
                 context.UnitOfWork.RegisterModified(accountData);
                 context.UnitOfWork.Commit();
             }
+
+            return true;
         }
 
-        public void TransferOut(decimal amount)
+        public bool TransferOut(decimal amount)
         {
-            throw new NotImplementedException();
+            using (IRepositoryContext context = RepositoryContext.Create())
+            {
+                var repository = context.GetRepository<Repository<AccountData>>();
+                AccountData accountData = repository.Get(this.accountId);
+
+                if(amount > accountData.Balance)
+                {
+                    return false;
+                }
+
+                accountData.Principal -= amount;
+                accountData.Balance -= amount;
+
+                context.UnitOfWork.RegisterModified(accountData);
+                context.UnitOfWork.Commit();
+            }
+
+            return true;
         }
 
         private int AvailableQuantityToBuy(string code, decimal price, int quantity, decimal balance)
