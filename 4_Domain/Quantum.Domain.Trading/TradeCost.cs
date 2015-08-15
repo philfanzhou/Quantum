@@ -11,25 +11,10 @@ namespace Quantum.Domain.Trading
     /// </summary>
     internal class TradeCost
     {
-        /// <summary>
-        /// 佣金费率
-        /// </summary>
-        private static decimal commissionRate = 0.0003m;
-
-        /// <summary>
-        /// 印花税率
-        /// </summary>
-        private static decimal stampDutyRate = 0.001m;
-
-        /// <summary>
-        /// 交易费率
-        /// </summary>
-        private static decimal transferFeesRate = 0.00002m;
-
         public static decimal GetCommission(decimal price, int quantity)
         {
             decimal amount = price * quantity;
-            decimal fee = amount * commissionRate;
+            decimal fee = amount * Market.CommissionRate;
 
             if(fee < 5)
             {
@@ -48,7 +33,7 @@ namespace Quantum.Domain.Trading
                 return 0;
             }
 
-            return price * quantity * stampDutyRate;
+            return price * quantity * Market.StampDutyRate;
         }
 
         public static decimal GetTransferFees(string code, decimal price, int quantity)
@@ -60,7 +45,7 @@ namespace Quantum.Domain.Trading
 
             if(IsShanghaiStock(code))
             {
-                return price * quantity * transferFeesRate;
+                return price * quantity * Market.TransferFeesRate;
             }
             else
             {

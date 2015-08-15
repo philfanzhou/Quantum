@@ -7,11 +7,6 @@ namespace Quantum.Domain.Trading
 {
     public class Account : IAccount
     {
-        /// <summary>
-        /// 一手股票包含100股
-        /// </summary>
-        private const int NumberOfRoundBlocks = 100;
-
         private string accountId;
 
         public Account(string Id)
@@ -75,14 +70,14 @@ namespace Quantum.Domain.Trading
             }
 
             decimal number = balance / price;
-            if (number < NumberOfRoundBlocks)
+            if (number < Market.OneHandStock)
             {
                 return 0;
             }
             else
             {
-                int roundBlocks = Convert.ToInt32(Math.Floor(number / NumberOfRoundBlocks));
-                int quantity =  roundBlocks * NumberOfRoundBlocks;
+                int roundBlocks = Convert.ToInt32(Math.Floor(number / Market.OneHandStock));
+                int quantity = roundBlocks * Market.OneHandStock;
 
                 return AvailableQuantityToBuy(code, price, quantity, balance);
             }
@@ -191,7 +186,7 @@ namespace Quantum.Domain.Trading
 
             if (amount > balance)
             {
-                return AvailableQuantityToBuy(code, price, quantity - NumberOfRoundBlocks, balance);
+                return AvailableQuantityToBuy(code, price, quantity - Market.OneHandStock, balance);
             }
             else
             {
