@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Windows.Forms;
 
-namespace Quantum
+namespace Quantum.Presentation.WinForm
 {
     static class Program
     {

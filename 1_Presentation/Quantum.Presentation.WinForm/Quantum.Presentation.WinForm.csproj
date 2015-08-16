@@ -7,7 +7,7 @@
     <ProjectGuid>{15C9539D-B6DE-4D9F-8033-53FA1AE824AD}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Quantum</RootNamespace>
+    <RootNamespace>Quantum.Presentation.WinForm</RootNamespace>
     <AssemblyName>Quantum</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,16 +45,52 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Buttom\Buttom.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Buttom\Buttom.Designer.cs">
+      <DependentUpon>Buttom.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Content\Content.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Content\Content.Designer.cs">
+      <DependentUpon>Content.cs</DependentUpon>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Content\MyChoice.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Content\MyChoice.Designer.cs">
+      <DependentUpon>MyChoice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Content\MiniRealTime.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Content\MiniRealTime.Designer.cs">
+      <DependentUpon>MiniRealTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Buttom\Buttom.resx">
+      <DependentUpon>Buttom.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\Content.resx">
+      <DependentUpon>Content.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\MyChoice.resx">
+      <DependentUpon>MyChoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Content\MiniRealTime.resx">
+      <DependentUpon>MiniRealTime.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -64,6 +100,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
