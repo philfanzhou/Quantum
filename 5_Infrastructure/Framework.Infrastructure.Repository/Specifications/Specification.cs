@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Linq.Expressions;
 
 namespace Framework.Infrastructure.Repository

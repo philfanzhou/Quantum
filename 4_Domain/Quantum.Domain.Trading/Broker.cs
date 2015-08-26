@@ -8,13 +8,15 @@ namespace Quantum.Domain.Trading
     {
         public static AccountData CreateAccount(string name)
         {
-            AccountData account = new AccountData();
-            account.Id = GetNewAccountId();
-            account.Name = name;
-            account.Principal = 0;
-            account.Balance = 0;
+            var account = new AccountData
+            {
+                Id = GetNewAccountId(),
+                Name = name,
+                Principal = 0,
+                Balance = 0
+            };
 
-            using (IRepositoryContext context = RepositoryContext.Create())
+            using (var context = RepositoryContext.Create())
             {
                 context.UnitOfWork.RegisterNew(account);
                 context.UnitOfWork.Commit();
@@ -25,7 +27,7 @@ namespace Quantum.Domain.Trading
 
         public static AccountData GetAccount(string id)
         {
-            using (IRepositoryContext context = RepositoryContext.Create())
+            using (var context = RepositoryContext.Create())
             {
                 var repository = context.GetRepository<Repository<AccountData>>();
                 return repository.Get(id);

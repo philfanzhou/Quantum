@@ -8,8 +8,8 @@ namespace Framework.Infrastructure.Repository
     public abstract class CompositeSpecification<T> : Specification<T>, ICompositeSpecification<T>
     {
         #region Private Fields
-        private readonly ISpecification<T> left;
-        private readonly ISpecification<T> right;
+        private readonly ISpecification<T> _left;
+        private readonly ISpecification<T> _right;
         #endregion
 
         #region Ctor
@@ -20,8 +20,8 @@ namespace Framework.Infrastructure.Repository
         /// <param name="right">The second specification.</param>
         public CompositeSpecification(ISpecification<T> left, ISpecification<T> right)
         {
-            this.left = left;
-            this.right = right;
+            this._left = left;
+            this._right = right;
         }
         #endregion
 
@@ -31,14 +31,14 @@ namespace Framework.Infrastructure.Repository
         /// </summary>
         public ISpecification<T> Left
         {
-            get { return this.left; }
+            get { return this._left; }
         }
         /// <summary>
         /// Gets the second specification.
         /// </summary>
         public ISpecification<T> Right
         {
-            get { return this.right; }
+            get { return this._right; }
         }
         #endregion
     }

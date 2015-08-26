@@ -4,8 +4,12 @@ namespace Quantum.Domain.Trading
 {
     internal class Market
     {
-        private static bool isVirtual = false;
-        private static DateTime virtualTime = DateTime.MinValue;
+        private static DateTime _virtualTime = DateTime.MinValue;
+
+        static Market()
+        {
+            IsVirtual = false;
+        }
 
         /// <summary>
         /// 一手股票包含100股
@@ -27,30 +31,19 @@ namespace Quantum.Domain.Trading
         /// </summary>
         public const decimal TransferFeesRate = 0.00002m;
 
-        public static bool IsVirtual
-        {
-            get { return isVirtual; }
-            set { isVirtual = value; }
-        }
+        public static bool IsVirtual { get; set; }
 
         public static DateTime Time
         {
-            get
+            get 
             {
-                if (isVirtual)
-                {
-                    return virtualTime;
-                }
-                else
-                {
-                    return DateTime.Now;
-                }
+                return IsVirtual ? _virtualTime : DateTime.Now;
             }
         }
 
         public static void SetVirtualMarketTime(DateTime time)
         {
-            virtualTime = time;
+            _virtualTime = time;
         }
     }
 }

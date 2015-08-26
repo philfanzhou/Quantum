@@ -1,19 +1,10 @@
 ﻿namespace Framework.Infrastructure.Repository
 {
-    using System;
-
     /// <summary>
     /// Base class for entities
     /// </summary>
     public abstract class Entity : IEntity
     {
-        #region Constructor
-
-        // EF Needed
-        protected Entity() { }
-
-        #endregion
-
         #region Properties
 
         public string Id { get; set; }
