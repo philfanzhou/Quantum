@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A6A7E6A0-B1AA-410C-8DEE-2864AD7CA42F}</ProjectGuid>
+    <ProjectGuid>{842079F0-F867-4CF1-AE22-5C1B893AEFAD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Quantum.Infrastructure.Market.Sina</RootNamespace>
-    <AssemblyName>Quantum.Infrastructure.Market.Sina</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>Quantum.Infrastructure.MarketData.Repository</RootNamespace>
+    <AssemblyName>Quantum.Infrastructure.MarketData.Repository</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">

@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Quantum.Infrastructure.Market.Sina")]
+[assembly: AssemblyTitle("Quantum.Infrastructure.MarketData.Repository")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Motorola")]
-[assembly: AssemblyProduct("Quantum.Infrastructure.Market.Sina")]
-[assembly: AssemblyCopyright("Copyright © Motorola 2015")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("Quantum.Infrastructure.MarketData.Repository")]
+[assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("77637453-35b3-449c-8c23-83590775893a")]
+[assembly: Guid("513cac05-1ffa-4610-ab8c-f10be48fe705")]
 
 // Version information for an assembly consists of the following four values:
 //

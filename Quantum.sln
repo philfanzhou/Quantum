@@ -53,7 +53,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4_Domain", "4_Domain", "{D1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Domain.MarketData", "4_Domain\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj", "{71A94027-66CE-4BB7-A562-92C1FAEC5191}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Infrastructure.Trading.MarketData", "5_Infrastructure\Quantum.Infrastructure.Trading.MarketData\Quantum.Infrastructure.Trading.MarketData.csproj", "{B4F2DC59-B1DE-44AE-AB51-E0BB91312AA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Infrastructure.MarketData.Repository", "5_Infrastructure\Quantum.Infrastructure.MarketData.Repository\Quantum.Infrastructure.MarketData.Repository.csproj", "{842079F0-F867-4CF1-AE22-5C1B893AEFAD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,10 +109,10 @@ Global
 		{71A94027-66CE-4BB7-A562-92C1FAEC5191}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71A94027-66CE-4BB7-A562-92C1FAEC5191}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71A94027-66CE-4BB7-A562-92C1FAEC5191}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B4F2DC59-B1DE-44AE-AB51-E0BB91312AA4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B4F2DC59-B1DE-44AE-AB51-E0BB91312AA4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B4F2DC59-B1DE-44AE-AB51-E0BB91312AA4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B4F2DC59-B1DE-44AE-AB51-E0BB91312AA4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{842079F0-F867-4CF1-AE22-5C1B893AEFAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{842079F0-F867-4CF1-AE22-5C1B893AEFAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{842079F0-F867-4CF1-AE22-5C1B893AEFAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{842079F0-F867-4CF1-AE22-5C1B893AEFAD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -138,7 +138,7 @@ Global
 		{68991D79-AEFD-4219-8BDA-7740A49CDC70} = {064AAD1B-A718-4272-B0EC-35629D741A25}
 		{D1BDAC75-4F4B-4A3D-AABA-273C027405F1} = {064AAD1B-A718-4272-B0EC-35629D741A25}
 		{39A8BE22-B472-4684-84CF-6CBB10B2CE00} = {68991D79-AEFD-4219-8BDA-7740A49CDC70}
-		{B4F2DC59-B1DE-44AE-AB51-E0BB91312AA4} = {68991D79-AEFD-4219-8BDA-7740A49CDC70}
+		{842079F0-F867-4CF1-AE22-5C1B893AEFAD} = {68991D79-AEFD-4219-8BDA-7740A49CDC70}
 		{71A94027-66CE-4BB7-A562-92C1FAEC5191} = {D1BDAC75-4F4B-4A3D-AABA-273C027405F1}
 	EndGlobalSection
 EndGlobal

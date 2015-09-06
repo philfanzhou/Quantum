@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Quantum.Infrastructure.Market.Sina
+namespace Quantum.Infrastructure.MarketData.Repository
 {
     public class Class1
     {
