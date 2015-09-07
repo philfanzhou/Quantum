@@ -9,7 +9,7 @@ namespace Framework.Infrastructure.Repository
     /// </summary>
     /// <typeparam name="TEntity">Type of entity for this repository </typeparam>
     public interface IRepository<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
     {
         void Add(TEntity entity);
 

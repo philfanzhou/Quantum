@@ -3,8 +3,10 @@ using System;
 
 namespace Quantum.Infrastructure.Trading.Repository
 {
-    public class HoldingsRecordData : Entity
+    public class HoldingsRecordData
     {
+        public string Id { get; set; }
+
         public string AccountId { get; set; }
 
         public string StockCode { get; set; }

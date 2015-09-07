@@ -5,7 +5,7 @@
 
     public class Repository<TEntity>
         : IRepository<TEntity>
-        where TEntity : class, IEntity
+        where TEntity : class
     {
         #region Fields
 
