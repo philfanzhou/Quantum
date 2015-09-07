@@ -3,6 +3,9 @@ namespace Quantum.Infrastructure.MarketData.Repository
 {
     using System;
 
+    /// <summary>
+    /// 实时数据
+    /// </summary>
     public class RealTimeData
     {
         public int Id { get; set; }
