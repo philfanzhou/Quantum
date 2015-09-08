@@ -43,6 +43,8 @@ namespace Quantum.MarketData.Test
             Assert.IsTrue(_1300.ChangeRate == 0.12);
             Assert.IsTrue(_1300.IntradayVolume == 390744);
             Assert.IsTrue(_1300.IntradayAmount == 6327356);
+            Assert.IsTrue(_1300.SellVolume == 123004);
+            Assert.IsTrue(_1300.BuyVolume == 199122);
 
             IntradayData _1301 = info.Items.ToList()[3];
             Assert.IsTrue(_1301.Time.Minute == 1);
@@ -52,6 +54,8 @@ namespace Quantum.MarketData.Test
             Assert.IsTrue(_1301.ChangeRate == 0.50);
             Assert.IsTrue(_1301.IntradayVolume == 176704);
             Assert.IsTrue(_1301.IntradayAmount == 2861000);
+            Assert.IsTrue(_1301.SellVolume == 137800);
+            Assert.IsTrue(_1301.BuyVolume == 179522);
 
             IntradayData _1302 = info.Items.ToList()[4];
             Assert.IsTrue(_1302.Time.Minute == 2);
