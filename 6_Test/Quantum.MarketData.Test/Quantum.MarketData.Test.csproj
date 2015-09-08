@@ -54,6 +54,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\4_Domain\Quantum.Domain.Indicator\Quantum.Domain.Indicator.csproj">
+      <Project>{a75a5eb5-4cb4-46ba-9fec-ee77117350dd}</Project>
+      <Name>Quantum.Domain.Indicator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\4_Domain\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj">
       <Project>{71a94027-66ce-4bb7-a562-92c1faec5191}</Project>
       <Name>Quantum.Domain.MarketData</Name>

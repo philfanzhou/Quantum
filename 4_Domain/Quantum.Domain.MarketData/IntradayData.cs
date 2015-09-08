@@ -1,12 +1,12 @@
-﻿
+﻿using Quantum.Domain.Indicator;
+using System;
+
 namespace Quantum.Domain.MarketData
 {
-    using System;
-
     /// <summary>
     /// 分时数据
     /// </summary>
-    public class IntradayData : IMarketData
+    public class IntradayData : IBuyAgainstSell
     {
         /// <summary>
         /// 时间
@@ -62,7 +62,5 @@ namespace Quantum.Domain.MarketData
         /// 委买
         /// </summary>
         public double BuyVolume { get; set; }
-        
-
     }
 }

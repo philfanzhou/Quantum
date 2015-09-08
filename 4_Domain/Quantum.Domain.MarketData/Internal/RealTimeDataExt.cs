@@ -1,13 +1,8 @@
 ﻿using Quantum.Infrastructure.MarketData.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.MarketData
 {
-    public static class RealTimeDataExt
+    internal static class RealTimeDataExt
     {
         /// <summary>
         /// 委买
@@ -35,26 +30,6 @@ namespace Quantum.Domain.MarketData
                 self.SellThreeVolume +
                 self.SellFourVolume +
                 self.SellFiveVolume;
-        }
-
-        /// <summary>
-        /// 委差
-        /// </summary>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static double WeiCha(this RealTimeData self)
-        {
-            return self.BuyVolume() - self.SellVolume();
-        }
-
-        /// <summary>
-        /// 委比
-        /// </summary>
-        /// <param name="self"></param>
-        /// <returns></returns>
-        public static double WeiBi(this RealTimeData self)
-        {
-            return Math.Round(self.WeiCha() / (self.BuyVolume() + self.SellVolume()) * 100, 2);
         }
     }
 }

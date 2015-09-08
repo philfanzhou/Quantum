@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.MarketData
 {
@@ -12,36 +10,38 @@ namespace Quantum.Domain.MarketData
     /// </summary>
     public class IntradayInfo
     {
-        private static TimeSpan _timeSpen = new TimeSpan(0, 1, 0);
-        private List<IntradayData> items = new List<IntradayData>();
+        private static readonly TimeSpan TimeSpen = new TimeSpan(0, 1, 0);
+        private readonly List<IntradayData> _items = new List<IntradayData>();
 
         public IEnumerable<IntradayData> Items 
         {
             get
             {
-                return items;
+                return _items;
             }
         }
 
         public void AddRealTimeData(RealTimeData realTimeData)
         {
 
-            if (items.Count < 1 ||
-                realTimeData.Time - items.Last().Time > _timeSpen)
+            if (_items.Count < 1 ||
+                realTimeData.Time - _items.Last().Time > TimeSpen)
             {
-                var newItem = new IntradayData();
-                newItem.Time = new DateTime(
-                    realTimeData.Time.Year,
-                    realTimeData.Time.Month,
-                    realTimeData.Time.Day,
-                    realTimeData.Time.Hour,
-                    realTimeData.Time.Minute,
-                    0);
+                var newItem = new IntradayData
+                {
+                    Time = new DateTime(
+                        realTimeData.Time.Year,
+                        realTimeData.Time.Month,
+                        realTimeData.Time.Day,
+                        realTimeData.Time.Hour,
+                        realTimeData.Time.Minute,
+                        0)
+                };
 
-                this.items.Add(newItem);
+                this._items.Add(newItem);
             }
 
-            IntradayData currentData = items.Last();
+            IntradayData currentData = _items.Last();
 
             currentData.Price = realTimeData.Price;
             currentData.Change = Math.Round(realTimeData.Price - realTimeData.TodayOpen, 2);
@@ -55,14 +55,14 @@ namespace Quantum.Domain.MarketData
             currentData.SellVolume = realTimeData.SellVolume();
 
 
-            if (items.Count <= 1)
+            if (_items.Count <= 1)
             {
                 currentData.IntradayVolume = realTimeData.Volume;
                 currentData.IntradayAmount = realTimeData.Amount;
             }
             else
             {
-                IntradayData previousDate = items[items.Count - 2];
+                IntradayData previousDate = _items[_items.Count - 2];
                 currentData.IntradayVolume = realTimeData.Volume - previousDate.TotalVolume;
                 currentData.IntradayAmount = realTimeData.Amount - previousDate.TotalAmount;
             }

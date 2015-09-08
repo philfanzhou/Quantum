@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{71A94027-66CE-4BB7-A562-92C1FAEC5191}</ProjectGuid>
+    <ProjectGuid>{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Quantum.Domain.MarketData</RootNamespace>
-    <AssemblyName>Quantum.Domain.MarketData</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <RootNamespace>Quantum.Domain.Indicator</RootNamespace>
+    <AssemblyName>Quantum.Domain.Indicator</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,23 +39,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Internal\DataGroupGenerator.cs" />
-    <Compile Include="Internal\IMarketData.cs" />
-    <Compile Include="IntradayData.cs" />
+    <Compile Include="BuyAgainstSellExt.cs" />
+    <Compile Include="IBuyAgainstSell.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IntradayInfo.cs" />
-    <Compile Include="Internal\RealTimeDataExt.cs" />
-    <Compile Include="TimeFrame.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.MarketData.Repository\Quantum.Infrastructure.MarketData.Repository.csproj">
-      <Project>{842079f0-f867-4cf1-ae22-5c1b893aefad}</Project>
-      <Name>Quantum.Infrastructure.MarketData.Repository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Quantum.Domain.Indicator\Quantum.Domain.Indicator.csproj">
-      <Project>{a75a5eb5-4cb4-46ba-9fec-ee77117350dd}</Project>
-      <Name>Quantum.Domain.Indicator</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
