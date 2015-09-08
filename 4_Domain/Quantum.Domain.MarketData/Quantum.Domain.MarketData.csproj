@@ -43,7 +43,14 @@
     <Compile Include="Internal\IMarketData.cs" />
     <Compile Include="IntradayData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="IntradayInfo.cs" />
     <Compile Include="TimeFrame.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.MarketData.Repository\Quantum.Infrastructure.MarketData.Repository.csproj">
+      <Project>{842079f0-f867-4cf1-ae22-5c1b893aefad}</Project>
+      <Name>Quantum.Infrastructure.MarketData.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

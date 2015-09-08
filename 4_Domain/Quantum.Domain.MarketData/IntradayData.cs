@@ -36,11 +36,21 @@ namespace Quantum.Domain.MarketData
         /// <summary>
         /// 成交量
         /// </summary>
-        public double Volume { get; set; }
+        public double TotalVolume { get; set; }
+
+        /// <summary>
+        /// 分时量
+        /// </summary>
+        public double IntradayVolume { get; set; }
 
         /// <summary>
         /// 成交额
         /// </summary>
-        public double Amount { get; set; }
+        public double TotalAmount { get; set; }
+
+        /// <summary>
+        /// 分时额
+        /// </summary>
+        public double IntradayAmount { get; set; }
     }
 }
