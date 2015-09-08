@@ -33,7 +33,7 @@ namespace Quantum.MarketData.Test
                 info.AddRealTimeData(item);
             }
 
-            Assert.IsTrue(info.Items.Count() == 5);
+            Assert.IsTrue(info.Items.Count() == 6);
 
             IntradayData _1300 = info.Items.ToList()[2];
             Assert.IsTrue(_1300.Time.Minute == 0);
@@ -61,6 +61,11 @@ namespace Quantum.MarketData.Test
             Assert.IsTrue(_1302.ChangeRate == 0.12);
             Assert.IsTrue(_1302.IntradayVolume == 126729);
             Assert.IsTrue(_1302.IntradayAmount == 2056903);
+
+            IntradayData _1504 = info.Items.ToList()[5];
+            Assert.IsTrue(_1504.Time.Minute == 4);
+            Assert.IsTrue(_1504.BuyVolume == 337000);
+            Assert.IsTrue(_1504.SellVolume == 273285);
         }
 
         private IEnumerable<string> GetSourceDate()
@@ -103,6 +108,7 @@ namespace Quantum.MarketData.Test
             strList.Add("var hq_str_sh600036=\"招商银行,16.16,16.16,16.25,16.40,16.05,16.24,16.25,34162046,555401347,5600,16.24,31,16.21,31000,16.18,30193,16.17,120000,16.16,23300,16.25,46600,16.26,100,16.27,17000,16.28,24918,16.29,2015-09-08,13:02:36,00\";");
             strList.Add("var hq_str_sh600036=\"招商银行,16.16,16.16,16.25,16.40,16.05,16.18,16.24,34175846,555625326,29331,16.18,30393,16.17,120000,16.16,37129,16.15,5400,16.14,2900,16.24,30000,16.25,46700,16.26,100,16.27,17000,16.28,2015-09-08,13:02:41,00\";");
             strList.Add("var hq_str_sh600036=\"招商银行,16.16,16.16,16.18,16.40,16.05,16.18,16.22,34177306,555648979,28371,16.18,30393,16.17,119700,16.16,37129,16.15,5400,16.14,500,16.22,8100,16.23,2400,16.24,30000,16.25,46700,16.26,2015-09-08,13:02:46,00\";");
+            strList.Add("var hq_str_sh600036=\"招商银行,16.16,16.16,16.65,16.97,16.05,16.62,16.64,99744306,1648957753,24600,16.62,118200,16.61,143600,16.60,1600,16.59,49000,16.58,5900,16.64,5300,16.65,24700,16.66,9014,16.67,228371,16.68,2015-09-08,15:04:09,00\";");
 
             return strList;
         }

@@ -52,5 +52,17 @@ namespace Quantum.Domain.MarketData
         /// 分时额
         /// </summary>
         public double IntradayAmount { get; set; }
+
+        /// <summary>
+        /// 委卖
+        /// </summary>
+        public double SellVolume { get; set; }
+
+        /// <summary>
+        /// 委买
+        /// </summary>
+        public double BuyVolume { get; set; }
+        
+
     }
 }

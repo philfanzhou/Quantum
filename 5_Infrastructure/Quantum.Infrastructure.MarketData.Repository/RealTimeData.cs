@@ -56,6 +56,13 @@ namespace Quantum.Infrastructure.MarketData.Repository
         public double Amount { get; set; }
 
         /// <summary>
+        /// 日期与时间
+        /// </summary>
+        public DateTime Time { get; set; }
+
+        #region 卖盘
+
+        /// <summary>
         /// 卖五价
         /// </summary>
         public double SellFivePrice { get; set; }
@@ -104,6 +111,10 @@ namespace Quantum.Infrastructure.MarketData.Repository
         /// 卖一量
         /// </summary>
         public double SellOneVolume { get; set; }
+
+        #endregion
+
+        #region 买盘
 
         /// <summary>
         /// 买一价
@@ -155,9 +166,6 @@ namespace Quantum.Infrastructure.MarketData.Repository
         /// </summary>
         public double BuyFiveVolume { get; set; }
 
-        /// <summary>
-        /// 日期与时间
-        /// </summary>
-        public DateTime Time { get; set; }
+        #endregion
     }
 }

@@ -25,49 +25,37 @@ namespace Quantum.Domain.MarketData
 
         public void AddRealTimeData(RealTimeData realTimeData)
         {
-            IntradayData currentData;
-            bool needUpdate;
 
-            if(items.Count == 0)
+            if (items.Count < 1 ||
+                realTimeData.Time - items.Last().Time > _timeSpen)
             {
-                needUpdate = false;
-            }
-            else if (realTimeData.Time - items.Last().Time < _timeSpen)
-            {
-                needUpdate = true;
-            }
-            else
-            {
-                needUpdate = false;
-            }
-
-            if(!needUpdate)
-            {
-                currentData = new IntradayData();
-                this.items.Add(currentData);
-
-                currentData.Time = new DateTime(
+                var newItem = new IntradayData();
+                newItem.Time = new DateTime(
                     realTimeData.Time.Year,
                     realTimeData.Time.Month,
                     realTimeData.Time.Day,
                     realTimeData.Time.Hour,
                     realTimeData.Time.Minute,
                     0);
+
+                this.items.Add(newItem);
             }
-            else
-            {
-                currentData = items.Last();
-            }
+
+            IntradayData currentData = items.Last();
 
             currentData.Price = realTimeData.Price;
             currentData.Change = Math.Round(realTimeData.Price - realTimeData.TodayOpen, 2);
-            currentData.ChangeRate = 
+            currentData.ChangeRate =
                 Math.Round(currentData.Change / realTimeData.TodayOpen * 100, 2);
+
             currentData.TotalVolume = realTimeData.Volume;
             currentData.TotalAmount = realTimeData.Amount;
             currentData.AveragePrice = Math.Round(currentData.TotalAmount / currentData.TotalVolume, 2);
+            currentData.BuyVolume = realTimeData.BuyVolume();
+            currentData.SellVolume = realTimeData.SellVolume();
 
-            if(items.Count <= 1)
+
+            if (items.Count <= 1)
             {
                 currentData.IntradayVolume = realTimeData.Volume;
                 currentData.IntradayAmount = realTimeData.Amount;
