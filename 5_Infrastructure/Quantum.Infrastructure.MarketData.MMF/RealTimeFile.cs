@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public class RealTimeFile : MarketDataMemoryMappedFile
+    public class RealTimeFile : MyMemoryMappedFile<RealTimeItem, MyDataHeader>
     {
         public RealTimeFile(string path)
             : base(path)
@@ -27,28 +27,6 @@ namespace Quantum.Infrastructure.MarketData.MMF
         public static string GetFilePath(string code, DateTime date)
         {
             throw new NotImplementedException();
-        }
-
-        public void Add(RealTimeItem item)
-        {
-            using (var accessor = mmf.CreateViewAccessor(0, this.capacity))
-            {
-                int itemSize = Marshal.SizeOf(item.GetType());
-                accessor.Write(0, ref item);
-            }
-        }
-
-        public RealTimeItem Read()
-        {
-            RealTimeItem result;
-            
-            using (var accessor = mmf.CreateViewAccessor(0, this.capacity))
-            {
-                int itemSize = Marshal.SizeOf(typeof(RealTimeItem));
-                accessor.Read(0, out result);
-            }
-            return result;
-
         }
 
         public void Get(DateTime begin, DateTime end)
