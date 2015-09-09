@@ -16,12 +16,12 @@ namespace Quantum.Infrastructure.MarketData.MMF
             : base(path)
         { }
 
-        protected RealTimeFile(string path, string mapName, long capacity)
-            : base(path, mapName, capacity) { }
+        protected RealTimeFile(string path, string mapName, int maxDataCount)
+            : base(path, mapName, maxDataCount) { }
 
         public static RealTimeFile Create(string path)
         {
-            return new RealTimeFile(path, "realTimeFile", 1000000);
+            return new RealTimeFile(path, "realTimeFile", 1000);
         }
 
         public static string GetFilePath(string code, DateTime date)

@@ -13,12 +13,13 @@ namespace Quantum.MarketData.Test
         public void TestCanNotOverWriteFile()
         {
             string path = Environment.CurrentDirectory + @"\testOverWrite.dat";
-            using (var file = RealTimeFile.Create(path)) { }
+            using (RealTimeFile.Create(path))
+            { }
 
             Type exceptionType = null;
             try
             {
-                using (var file = RealTimeFile.Create(path))
+                using (RealTimeFile.Create(path))
                 { }
             }
             catch(Exception e)
@@ -27,7 +28,7 @@ namespace Quantum.MarketData.Test
             }
             finally
             {
-                Assert.AreEqual(typeof(System.IO.IOException), exceptionType);
+                Assert.AreEqual(typeof(IOException), exceptionType);
                 DeleteFile(path);
             }
         }
