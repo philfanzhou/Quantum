@@ -99,14 +99,11 @@ namespace Quantum.Infrastructure.MarketData.MMF
         /// <param name="destination">数据需要移动到的位置</param>
         /// <param name="position">待移动数据所在位置</param>
         /// <param name="length">待移动数据的长度</param>
+        /// <param name="bufferSize">移动数据过程中的Buffer长度</param>
         protected void MoveDataPosition(ref long destination, ref long position, ref long length, int bufferSize)
         {
             // 判断移动方向
-            bool leftMove = false;
-            if (destination < position)
-            {
-                leftMove = true;
-            }
+            bool leftMove = destination < position;
 
             byte[] buffer = new byte[bufferSize];
             using (var stream = Mmf.CreateViewStream())

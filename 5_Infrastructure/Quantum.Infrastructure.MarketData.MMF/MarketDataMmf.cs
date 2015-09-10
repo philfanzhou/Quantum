@@ -5,7 +5,7 @@ namespace Quantum.Infrastructure.MarketData.MMF
 {
     public class MarketDataMmf<TDataItem, TDataHeader> : 
         MmfBase,
-        IMarketDataMmf<TDataItem, TDataHeader>
+        IMarketDataMmf
         where TDataItem : struct
         where TDataHeader : struct, IMarketDataHeader
     {

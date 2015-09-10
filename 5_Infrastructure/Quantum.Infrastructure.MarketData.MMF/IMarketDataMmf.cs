@@ -2,9 +2,7 @@
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public interface IMarketDataMmf<TDataItem, TDataHeader> : IDisposable
-        where TDataItem : struct
-        where TDataHeader : struct, IMarketDataHeader
+    public interface IMarketDataMmf : IDisposable
     {
         IMarketDataHeader Header { get; }
     }
