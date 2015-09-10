@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.IO.MemoryMappedFiles;
+﻿using System;
 using System.Runtime.InteropServices;
 
 namespace Quantum.Infrastructure.MarketData.MMF
@@ -47,9 +46,8 @@ namespace Quantum.Infrastructure.MarketData.MMF
             maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader))
             )
         {
-            this._header.MaxDataCount = maxDataCount;
-
             // 创建文件之后要立即更新头，避免创建之后未加数据就关闭后，下次无法打开文件
+            this._header.MaxDataCount = maxDataCount;
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
                 accessor.Write(0, ref this._header);
@@ -75,19 +73,19 @@ namespace Quantum.Infrastructure.MarketData.MMF
         {
             ThrowIfDisposed();
 
-            long offset = this._headerSize + this._dataItemSize * this._header.DataCount;
-            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
-            {                
-                accessor.Write(0, ref item);
-            }
-
-            // update header
-            UpdateDataCount(1);
+            InsertDataToPosition(item, this._header.DataCount);
         }
 
         public void Delete(int index)
         {
             ThrowIfDisposed();
+            if (index > this._header.MaxDataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
+
+            if (index >= this._header.DataCount)
+            {
+                return;
+            }
 
             // 数据需要移动到的位置
             long destination = this._headerSize + this._dataItemSize * index;
@@ -95,42 +93,7 @@ namespace Quantum.Infrastructure.MarketData.MMF
             long position = destination + this._dataItemSize;
             // 待向前移动byte长度
             long length = (this._header.DataCount - index - 1) * this._dataItemSize;
-            
-            #region 将后面的数据整体移动向前
-            byte[] buffer = new byte[this._bufferSize];
-            using (var stream = Mmf.CreateViewStream())
-            {
-                while (length > this._bufferSize)
-                {
-                    stream.Seek(position, SeekOrigin.Begin);
-                    stream.Read(buffer, 0, buffer.Length);
-                    stream.Seek(destination, SeekOrigin.Begin);
-                    stream.Write(buffer, 0, buffer.Length);
-
-                    destination += buffer.Length;
-                    position += buffer.Length;
-                    length -= buffer.Length;
-                }
-
-                if (length > 0)
-                {
-                    buffer = new byte[length];
-
-                    stream.Seek(position, SeekOrigin.Begin);
-                    stream.Read(buffer, 0, buffer.Length);
-                    stream.Seek(destination, SeekOrigin.Begin);
-                    stream.Write(buffer, 0, buffer.Length);
-
-                    destination += buffer.Length;
-                }
-
-                // Append a empty array to erase the data at the end of stream.
-                buffer = new byte[this._dataItemSize];
-                stream.Seek(destination, SeekOrigin.Begin);
-                stream.Write(buffer, 0, buffer.Length);
-            }
-            #endregion
-
+            MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
             // update header
             UpdateDataCount(-1);
         }
@@ -138,6 +101,8 @@ namespace Quantum.Infrastructure.MarketData.MMF
         public void Update(TDataItem item, int index)
         {
             ThrowIfDisposed();
+            if (index > this._header.MaxDataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
 
             long offset = this._headerSize + this._dataItemSize * index;
             using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
@@ -149,6 +114,8 @@ namespace Quantum.Infrastructure.MarketData.MMF
         public TDataItem Read(int index)
         {
             ThrowIfDisposed();
+            if (index > this._header.MaxDataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
 
             long offset = this._headerSize + this._dataItemSize * index;
             TDataItem result;
@@ -162,6 +129,14 @@ namespace Quantum.Infrastructure.MarketData.MMF
         public void Insert(TDataItem item, int index)
         {
             ThrowIfDisposed();
+            if(index > this._header.MaxDataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
+
+            if(index == this._header.DataCount)
+            {
+                this.Add(item);
+                return;
+            }
 
             // 数据更新位置偏移量
             long destination = this._headerSize + this._dataItemSize * (this._header.DataCount + 1);
@@ -169,36 +144,14 @@ namespace Quantum.Infrastructure.MarketData.MMF
             long position = destination - this._dataItemSize;
             // 待向前移动byte长度
             long length = (this._header.DataCount - index) * this._dataItemSize;
+            MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
+            InsertDataToPosition(item, index);
+        }
 
-            #region 将数据整体向后移动
-            byte[] buffer = new byte[this._bufferSize];
-            using (var stream = Mmf.CreateViewStream())
-            {
-                while (length > this._bufferSize)
-                {
-                    stream.Seek(position - buffer.Length, SeekOrigin.Begin);
-                    stream.Read(buffer, 0, buffer.Length);
-                    stream.Seek(destination - buffer.Length, SeekOrigin.Begin);
-                    stream.Write(buffer, 0, buffer.Length);
+        #region Private Method
 
-                    destination -= buffer.Length;
-                    position -= buffer.Length;
-
-                    length -= buffer.Length;
-                }
-
-                if (length > 0)
-                {
-                    buffer = new byte[length];
-
-                    stream.Seek(position - buffer.Length, SeekOrigin.Begin);
-                    stream.Read(buffer, 0, buffer.Length);
-                    stream.Seek(destination - buffer.Length, SeekOrigin.Begin);
-                    stream.Write(buffer, 0, buffer.Length);
-                }
-            }
-            #endregion
-
+        private void InsertDataToPosition(TDataItem item, int index)
+        {
             // Add data to position
             long offset = this._headerSize + this._dataItemSize * index;
             using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
@@ -218,5 +171,7 @@ namespace Quantum.Infrastructure.MarketData.MMF
                 accessor.Write(0, ref this._header);
             }
         }
+
+        #endregion
     }
 }
