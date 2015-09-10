@@ -1,15 +1,14 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.IO.MemoryMappedFiles;
 using System.Runtime.InteropServices;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public class MyMemoryMappedFile<TDataItem, TDataHeader> : 
-        IMarketDataMmf<TDataItem, TDataHeader>,
-        IDisposable
+    public class MarketDataMmf<TDataItem, TDataHeader> : 
+        MmfBase,
+        IMarketDataMmf<TDataItem, TDataHeader>
         where TDataItem : struct
-        where TDataHeader : struct, IMarketDataMmfHeader
+        where TDataHeader : struct, IMarketDataHeader
     {
         #region Field
 
@@ -22,21 +21,16 @@ namespace Quantum.Infrastructure.MarketData.MMF
         /// </summary>
         private readonly int _dataItemSize = Marshal.SizeOf(typeof(TDataItem));
 
-        protected readonly string Path;
-        protected readonly string MapName;
+        private readonly int _bufferSize = Marshal.SizeOf(typeof(TDataItem)) * 100;
 
-        protected MemoryMappedFile Mmf;
         private TDataHeader _header;
 
         #endregion
 
         #region Constructor
 
-        public MyMemoryMappedFile(string path)
+        public MarketDataMmf(string path, string mapName) : base(path, mapName)
         {
-            this.Mmf = MemoryMappedFile.CreateFromFile(path, FileMode.Open);
-            this.Path = path;
-
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
                 accessor.Read(0, out this._header);
@@ -46,19 +40,16 @@ namespace Quantum.Infrastructure.MarketData.MMF
         /// <summary>
         /// 子类调用，用于创建映射文件
         /// </summary>
-        protected MyMemoryMappedFile(string path, string mapName, int maxDataCount)
+        protected MarketDataMmf(string path, string mapName, int maxDataCount)
+            : base
+            (path, 
+            mapName, 
+            maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader))
+            )
         {
-            this.Path = path;
-            this.MapName = mapName;
-
-            long capacity = maxDataCount * this._dataItemSize + this._headerSize;
-            // FileMode一定要使用CreateNew，否则可能出现覆盖文件的情况
-            var mmf = MemoryMappedFile.CreateFromFile(
-                path, FileMode.CreateNew, mapName, capacity);
-            this.Mmf = mmf;
+            this._header.MaxDataCount = maxDataCount;
 
             // 创建文件之后要立即更新头，避免创建之后未加数据就关闭后，下次无法打开文件
-            this._header.MaxDataCount = maxDataCount;
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
                 accessor.Write(0, ref this._header);
@@ -69,29 +60,12 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         #region Property
 
-        public string FullPath
-        {
-            get
-            {
-                ThrowIfDisposed();
-                return this.Path;
-            }
-        }
-
-        public IMarketDataMmfHeader Header
+        public IMarketDataHeader Header
         {
             get 
             {
                 ThrowIfDisposed();
                 return this._header;
-            }
-        }
-
-        private int BufferSize
-        {
-            get
-            {
-                return this._dataItemSize * 100;
             }
         }
 
@@ -123,10 +97,10 @@ namespace Quantum.Infrastructure.MarketData.MMF
             long length = (this._header.DataCount - index - 1) * this._dataItemSize;
             
             #region 将后面的数据整体移动向前
-            byte[] buffer = new byte[this.BufferSize];
+            byte[] buffer = new byte[this._bufferSize];
             using (var stream = Mmf.CreateViewStream())
             {
-                while (length > this.BufferSize)
+                while (length > this._bufferSize)
                 {
                     stream.Seek(position, SeekOrigin.Begin);
                     stream.Read(buffer, 0, buffer.Length);
@@ -197,10 +171,10 @@ namespace Quantum.Infrastructure.MarketData.MMF
             long length = (this._header.DataCount - index) * this._dataItemSize;
 
             #region 将数据整体向后移动
-            byte[] buffer = new byte[this.BufferSize];
+            byte[] buffer = new byte[this._bufferSize];
             using (var stream = Mmf.CreateViewStream())
             {
-                while (length > this.BufferSize)
+                while (length > this._bufferSize)
                 {
                     stream.Seek(position - buffer.Length, SeekOrigin.Begin);
                     stream.Read(buffer, 0, buffer.Length);
@@ -244,65 +218,5 @@ namespace Quantum.Infrastructure.MarketData.MMF
                 accessor.Write(0, ref this._header);
             }
         }
-
-        #region Override
-
-        public override string ToString()
-        {
-            ThrowIfDisposed();
-
-            return this.Path;
-        }
-
-        #endregion
-
-        #region IDisposable Member
-
-        protected bool Disposed;
-
-        ~MyMemoryMappedFile()
-        {
-            this.Dispose(false);
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        /// <summary>
-        /// Throws a <see cref="ObjectDisposedException"/> if this object has been disposed.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException"></exception>
-        protected void ThrowIfDisposed()
-        {
-            if (Disposed)
-            {
-                throw new ObjectDisposedException("MarketDataMemoryMappedFile", "MarketDataMemoryMappedFile has been disposed.");
-            }
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (Disposed)
-            {
-                return;
-            }
-
-            if (disposing)
-            {
-                // Clean up managed resources
-                if (Mmf != null)
-                {
-                    Mmf.Dispose();
-                    Mmf = null;
-                }
-            }
-
-            Disposed = true;
-        }
-
-        #endregion
     }
 }

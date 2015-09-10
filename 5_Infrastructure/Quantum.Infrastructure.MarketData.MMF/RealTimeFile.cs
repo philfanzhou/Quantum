@@ -10,18 +10,21 @@ using System.Threading.Tasks;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public class RealTimeFile : MyMemoryMappedFile<RealTimeItem, MyDataHeader>
+    public class RealTimeFile : MarketDataMmf<RealTimeItem, MarketDataHeader>
     {
+        private static string _mapName = "RealTimeFile";
+        private static int _maxDataCount = 100;
+
         public RealTimeFile(string path)
-            : base(path)
+            : base(path, _mapName)
         { }
 
-        protected RealTimeFile(string path, string mapName, int maxDataCount)
-            : base(path, mapName, maxDataCount) { }
+        protected RealTimeFile(string path, int maxDataCount)
+            : base(path, _mapName, maxDataCount) { }
 
         public static RealTimeFile Create(string path)
         {
-            return new RealTimeFile(path, "realTimeFile", 100);
+            return new RealTimeFile(path, _maxDataCount);
         }
 
         public static string GetFilePath(string code, DateTime date)

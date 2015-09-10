@@ -39,9 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IMarketDataHeader.cs" />
     <Compile Include="IMarketDataMmf.cs" />
-    <Compile Include="MyDataHeader.cs" />
-    <Compile Include="MyMemoryMappedFile.cs" />
+    <Compile Include="MarketDataHeader.cs" />
+    <Compile Include="MmfBase.cs" />
+    <Compile Include="MarketDataMmf.cs" />
     <Compile Include="RealTimeFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
