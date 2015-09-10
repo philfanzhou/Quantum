@@ -11,7 +11,7 @@ namespace Quantum.MarketData.Test
     public class MemoryMappedFileTest
     {
         #region Private Method
-        private string CreateFileAnyway(string fileName)
+        private string CreateFileAnyway(string fileName, int maxDataCount)
         {
             string path = Environment.CurrentDirectory + @"\" + fileName;
 
@@ -20,7 +20,7 @@ namespace Quantum.MarketData.Test
                 File.Delete(path);
             }
 
-            using (RealTimeFile.Create(path))
+            using (RealTimeFile.Create(path, maxDataCount))
             { }
 
             return path;
@@ -97,7 +97,7 @@ namespace Quantum.MarketData.Test
         private static List<RealTimeItem> ReadAllDataFromFile(string path)
         {
             List<RealTimeItem> actualList = new List<RealTimeItem>();
-            using (var file = new RealTimeFile(path))
+            using (var file = RealTimeFile.Open(path))
             {
                 for (int i = 0; i < file.Header.DataCount; i++)
                 {
@@ -113,12 +113,9 @@ namespace Quantum.MarketData.Test
             List<RealTimeItem> expectedList = CreateRandomRealTimeItem(maxDataCount, intervalSecond);
 
             // Open and add date
-            using (var file = new RealTimeFile(path))
+            using (var file = RealTimeFile.Open(path))
             {
-                foreach (var item in expectedList)
-                {
-                    file.Add(item);
-                }
+                file.Add(expectedList);
             }
             return expectedList;
         }
@@ -128,44 +125,34 @@ namespace Quantum.MarketData.Test
         [ExpectedException(typeof(IOException))]
         public void TestCanNotOverWriteFile()
         {
-            string path = CreateFileAnyway("testOverWrite.dat");
+            string path = CreateFileAnyway("testOverWrite.dat", 1);
 
             // Can not create again use same path or overwrite file.
-            using (RealTimeFile.Create(path))
+            using (RealTimeFile.Create(path, 1))
             { }
         }
 
         [TestMethod]
-        public void TestWriteAndRead()
+        public void TestAdd()
         {
             // Create file
-            string path = CreateFileAnyway("testReadAndWrite.dat");
+            string path = CreateFileAnyway("testAdd.dat", 1000);
 
-            int maxDataCount = RealTimeFile.MaxDataCount;
-            var expectedList = AddDataToFile(maxDataCount, path);
+            int dataCount = 100;
+            var expectedList = AddDataToFile(dataCount, path);
+
             var actualList = ReadAllDataFromFile(path);
             CompareListItem(expectedList, actualList);
         }
 
         [TestMethod]
-        public void TestUpdate()
+        public void TestAddArray()
         {
-            // Create file
-            string path = CreateFileAnyway("testUpdate.dat");
+            string path = CreateFileAnyway("testAddArray.dat", 100);
 
-            int maxDataCount = 10;
-            var expectedList = AddDataToFile(maxDataCount, path);
-
-            int dataIndex = 3;
-            var expected = expectedList[dataIndex];
-            expected.Amount = 300;
-            expectedList[dataIndex] = expected;
-
-            // Open and update
-            using (var file = new RealTimeFile(path))
-            {
-                file.Update(expected, dataIndex);
-            }
+            int dataCount = 20;
+            var expectedList = AddDataToFile(dataCount, path);
+            expectedList.AddRange(AddDataToFile(dataCount, path));
 
             var actualList = ReadAllDataFromFile(path);
             CompareListItem(expectedList, actualList);
@@ -175,18 +162,42 @@ namespace Quantum.MarketData.Test
         public void TestDelete()
         {
             // Create file
-            string path = CreateFileAnyway("testDelete.dat");
+            string path = CreateFileAnyway("testDelete.dat", 100);
 
-            int maxDataCount = 10;
-            var expectedList = AddDataToFile(maxDataCount, path);
+            int dataCount = 10;
+            var expectedList = AddDataToFile(dataCount, path);
 
             int dataIndex = 3;
             expectedList.RemoveAt(dataIndex);
 
             // Open and delete
-            using (var file = new RealTimeFile(path))
+            using (var file = RealTimeFile.Open(path))
             {
                 file.Delete(dataIndex);
+            }
+
+            var actualList = ReadAllDataFromFile(path);
+            CompareListItem(expectedList, actualList);
+        }
+
+        [TestMethod]
+        public void TestUpdate()
+        {
+            // Create file
+            string path = CreateFileAnyway("testUpdate.dat", 100);
+
+            int dataCount = 10;
+            var expectedList = AddDataToFile(dataCount, path);
+
+            int dataIndex = 3;
+            var expected = expectedList[dataIndex];
+            expected.Amount = 300;
+            expectedList[dataIndex] = expected;
+
+            // Open and update
+            using (var file = RealTimeFile.Open(path))
+            {
+                file.Update(expected, dataIndex);
             }
 
             var actualList = ReadAllDataFromFile(path);
@@ -197,19 +208,44 @@ namespace Quantum.MarketData.Test
         public void TestInsert()
         {
             // Create file
-            string path = CreateFileAnyway("testDelete.dat");
+            string path = CreateFileAnyway("testInsert.dat", 50);
 
-            int maxDataCount = 10;
-            var expectedList = AddDataToFile(maxDataCount, path);
+            int dataCount = 10;
+            var expectedList = AddDataToFile(dataCount, path);
 
             int dataIndex = 3;
-            var addDataItem = CreateRandomRealTimeItem(1, 5)[0];
-            expectedList.Insert(dataIndex, addDataItem);
+            var addDataItems = CreateRandomRealTimeItem(10, 5);
+            expectedList.InsertRange(dataIndex, addDataItems);
 
             // Open and insert
-            using (var file = new RealTimeFile(path))
+            using (var file = RealTimeFile.Open(path))
             {
-                file.Insert(addDataItem, dataIndex);
+                foreach (var dataItem in addDataItems)
+                {
+                    file.Insert(dataItem, dataIndex++);
+                }
+            }
+
+            var actualList = ReadAllDataFromFile(path);
+            CompareListItem(expectedList, actualList);
+        }
+
+        [TestMethod]
+        public void TestInsertArray()
+        {
+            string path = CreateFileAnyway("testInsertArray.dat", 20);
+
+            int dataCount = 10;
+            var expectedList = AddDataToFile(dataCount, path);
+
+            int dataIndex = 3;
+            var addDataItems = CreateRandomRealTimeItem(10, 5);
+            expectedList.InsertRange(dataIndex, addDataItems);
+
+            // Open and insert
+            using (var file = RealTimeFile.Open(path))
+            {
+                file.Insert(addDataItems, dataIndex);
             }
 
             var actualList = ReadAllDataFromFile(path);

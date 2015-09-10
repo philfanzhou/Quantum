@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace Quantum.Infrastructure.MarketData.MMF
@@ -28,7 +30,7 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         #region Constructor
 
-        public MarketDataMmf(string path, string mapName) : base(path, mapName)
+        protected MarketDataMmf(string path) : base(path)
         {
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
@@ -39,10 +41,9 @@ namespace Quantum.Infrastructure.MarketData.MMF
         /// <summary>
         /// 子类调用，用于创建映射文件
         /// </summary>
-        protected MarketDataMmf(string path, string mapName, int maxDataCount)
+        protected MarketDataMmf(string path, int maxDataCount)
             : base
             (path, 
-            mapName, 
             maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader))
             )
         {
@@ -71,9 +72,12 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         public void Add(TDataItem item)
         {
-            ThrowIfDisposed();
+            Add(new[] { item });
+        }
 
-            InsertDataToPosition(item, this._header.DataCount);
+        public void Add(IEnumerable<TDataItem> items)
+        {
+            Insert(items, this._header.DataCount);
         }
 
         public void Delete(int index)
@@ -93,9 +97,49 @@ namespace Quantum.Infrastructure.MarketData.MMF
             long position = destination + this._dataItemSize;
             // 待向前移动byte长度
             long length = (this._header.DataCount - index - 1) * this._dataItemSize;
+
+            // 移动数据
             MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
-            // update header
+
+            // 更新文件头
             UpdateDataCount(-1);
+
+            //Delete(index, 1);
+        }
+
+        public void Delete(int index, int count)
+        {
+            ThrowIfDisposed();
+            if (index >= this._header.MaxDataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
+            if(count >= this._header.MaxDataCount || count < 1)
+                throw new ArgumentOutOfRangeException("count");
+            if (index + count > this._header.MaxDataCount)
+                throw new ArgumentOutOfRangeException("count");
+
+            if (index >= this._header.DataCount)
+            {
+                return;
+            }
+
+            // 待移动数据所在位置(左移)
+            long position = 0;
+            position += this._headerSize;
+            position += this._dataItemSize*(index + count);
+
+            // 数据需要移动到的位置
+            long destination = position;
+            destination -= this._dataItemSize*count;
+
+            // 需要移动的byte长度
+            long length = this._dataItemSize*this._header.DataCount;
+            length -= position;
+
+            // 移动数据
+            MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
+
+            // 更新文件头
+            UpdateDataCount(-count);
         }
 
         public void Update(TDataItem item, int index)
@@ -128,39 +172,58 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         public void Insert(TDataItem item, int index)
         {
-            ThrowIfDisposed();
-            if(index > this._header.MaxDataCount || index < 0)
-                throw new ArgumentOutOfRangeException("index");
+            Insert(new[] { item }, index);
+        }
 
-            if(index == this._header.DataCount)
+        public void Insert(IEnumerable<TDataItem> items, int index)
+        {
+            ThrowIfDisposed();
+            if (null == items)
+                throw new ArgumentNullException("items");
+            if (index > this._header.MaxDataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
+            var array = items.ToArray();
+            if (array.Length + this._header.DataCount > this._header.MaxDataCount)
+                throw new ArgumentOutOfRangeException("items");
+
+            if (index == this._header.DataCount)
             {
-                this.Add(item);
+                InsertDataToPosition(array, index);
                 return;
             }
 
-            // 数据更新位置偏移量
-            long destination = this._headerSize + this._dataItemSize * (this._header.DataCount + 1);
-            // 待向前移动数据所在位置
-            long position = destination - this._dataItemSize;
-            // 待向前移动byte长度
-            long length = (this._header.DataCount - index) * this._dataItemSize;
+            // 待移动数据所在位置(右移：从当前有效数据的末尾开始移动)
+            long position = 0;
+            position += this._headerSize;
+            position += this._dataItemSize * this._header.DataCount;
+
+            // 数据需要移动到的位置
+            long destination = position;
+            destination += this._dataItemSize * array.Length;
+            
+            // 需要移动的byte长度
+            long length = position;
+            length -= this._dataItemSize*index;
+
+            // 移动数据
             MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
-            InsertDataToPosition(item, index);
+
+            // 插入数据
+            InsertDataToPosition(array, index);
         }
 
         #region Private Method
 
-        private void InsertDataToPosition(TDataItem item, int index)
+        private void InsertDataToPosition(TDataItem[] items, int index)
         {
-            // Add data to position
             long offset = this._headerSize + this._dataItemSize * index;
-            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
+            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize * items.Length))
             {
-                accessor.Write(0, ref item);
+                accessor.WriteArray(0, items, 0, items.Length);
             }
 
             // update header
-            UpdateDataCount(1);
+            UpdateDataCount(items.Length);
         }
 
         private void UpdateDataCount(int number)

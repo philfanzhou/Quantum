@@ -9,26 +9,28 @@ namespace Quantum.Infrastructure.MarketData.MMF
         protected MemoryMappedFile Mmf;
         protected readonly string Path;
         protected readonly string MapName;
+        protected readonly string FileName;
 
         #region Constructor
 
-        public MmfBase(string path, string mapName)
-        {
-            this.Mmf = MemoryMappedFile.CreateFromFile(path, FileMode.Open, mapName);
-            this.Path = path;
-            this.MapName = mapName;
-        }
+        protected MmfBase(string path) : this(path, -1) { }
 
-        /// <summary>
-        /// 子类调用，用于创建映射文件
-        /// </summary>
-        protected MmfBase(string path, string mapName, long capacity)
+        protected MmfBase(string path, long capacity)
         {
-            // FileMode一定要使用CreateNew，否则可能出现覆盖文件的情况
-            var mmf = MemoryMappedFile.CreateFromFile(path, FileMode.CreateNew, mapName, capacity);
-            this.Mmf = mmf;
+            this.FileName = System.IO.Path.GetFileName(path);
             this.Path = path;
-            this.MapName = mapName;
+            this.MapName = this.FileName;
+
+            bool createNewFile = capacity > 0;
+            if (createNewFile)
+            {
+                // FileMode一定要使用CreateNew，否则可能出现覆盖文件的情况
+                this.Mmf = MemoryMappedFile.CreateFromFile(path, FileMode.CreateNew, this.FileName, capacity);
+            }
+            else
+            {
+                this.Mmf = MemoryMappedFile.CreateFromFile(path, FileMode.Open, this.FileName);
+            }
         }
 
         #endregion

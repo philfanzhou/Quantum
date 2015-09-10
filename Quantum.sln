@@ -69,8 +69,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_DataReader", "5_DataReade
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5_Infrastructure", "5_Infrastructure", "{80A831EE-CFFD-41D6-AEF7-49648D0FA7A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitman.DataReader", "..\Pitman\4_Infrastructure\Pitman.DataReader\Pitman.DataReader.csproj", "{8BCFD6F9-B14D-401B-A6AB-E78D84E56672}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -141,10 +139,6 @@ Global
 		{DE28B0B4-1054-4535-9C10-B857A1D64EAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE28B0B4-1054-4535-9C10-B857A1D64EAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE28B0B4-1054-4535-9C10-B857A1D64EAC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8BCFD6F9-B14D-401B-A6AB-E78D84E56672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8BCFD6F9-B14D-401B-A6AB-E78D84E56672}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8BCFD6F9-B14D-401B-A6AB-E78D84E56672}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8BCFD6F9-B14D-401B-A6AB-E78D84E56672}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -176,6 +170,5 @@ Global
 		{A9778E26-E92F-4897-9532-339383C555A7} = {ED431FC0-FABF-42EE-9075-D0870A91428B}
 		{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD} = {A9778E26-E92F-4897-9532-339383C555A7}
 		{80A831EE-CFFD-41D6-AEF7-49648D0FA7A6} = {B749BECF-D229-44BB-A84B-7C9101621827}
-		{8BCFD6F9-B14D-401B-A6AB-E78D84E56672} = {80A831EE-CFFD-41D6-AEF7-49648D0FA7A6}
 	EndGlobalSection
 EndGlobal
