@@ -1,14 +1,14 @@
 ﻿
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public struct MyDataHeader : IMmfDataHeader
+    public struct MyDataHeader : IMarketDataMmfHeader
     {
         public int DataCount { get; set; }
 
         public int MaxDataCount { get; set; }
     }
 
-    public interface IMmfDataHeader
+    public interface IMarketDataMmfHeader
     {
         /// <summary>
         /// 当前已有数据量

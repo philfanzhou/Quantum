@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public class MyMemoryMappedFile<TDataItem, TDataHeader> : IDisposable, IMarketDataMemoryMappedFile
+    public class MyMemoryMappedFile<TDataItem, TDataHeader> : IDisposable, IMarketDataMmf
         where TDataItem : struct
-        where TDataHeader : struct, IMmfDataHeader
+        where TDataHeader : struct, IMarketDataMmfHeader
     {
         #region Field
 
@@ -76,12 +76,12 @@ namespace Quantum.Infrastructure.MarketData.MMF
             }
         }
 
-        public int MaxDataCount
+        public IMarketDataMmfHeader Header
         {
-            get
+            get 
             {
                 ThrowIfDisposed();
-                return this._header.MaxDataCount;
+                return this._header;
             }
         }
 

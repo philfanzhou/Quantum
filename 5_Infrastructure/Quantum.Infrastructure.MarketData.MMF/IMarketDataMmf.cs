@@ -6,11 +6,8 @@ using System.Threading.Tasks;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public interface IMarketDataMemoryMappedFile
+    public interface IMarketDataMmf
     {
-        /// <summary>
-        /// 包含的数据总数
-        /// </summary>
-        int MaxDataCount { get; }
+        IMarketDataMmfHeader Header { get; }
     }
 }

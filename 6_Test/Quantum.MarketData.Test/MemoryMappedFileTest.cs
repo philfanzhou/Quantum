@@ -35,7 +35,7 @@ namespace Quantum.MarketData.Test
             using (var file = new RealTimeFile(path))
             {
                 // Create source data
-                maxDataCount = file.MaxDataCount;
+                maxDataCount = file.Header.MaxDataCount;
                 expectedList = CreateRandomRealTimeItem(maxDataCount, intervalSecond);
 
                 foreach (var item in expectedList)
