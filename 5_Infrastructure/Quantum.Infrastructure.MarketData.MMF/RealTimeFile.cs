@@ -21,7 +21,7 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         public static RealTimeFile Create(string path)
         {
-            return new RealTimeFile(path, "realTimeFile", 1000);
+            return new RealTimeFile(path, "realTimeFile", 100);
         }
 
         public static string GetFilePath(string code, DateTime date)

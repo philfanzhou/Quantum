@@ -5,16 +5,12 @@ using System.Runtime.InteropServices;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public class MyMemoryMappedFile<TDataItem, TDataHeader> : IDisposable
+    public class MyMemoryMappedFile<TDataItem, TDataHeader> : IDisposable, IMarketDataMemoryMappedFile
         where TDataItem : struct
         where TDataHeader : struct, IMmfDataHeader
     {
         #region Field
 
-        /// <summary>
-        /// 文件总长度
-        /// </summary>
-        private readonly long _capacity;
         /// <summary>
         /// 头文件长度
         /// </summary>
@@ -52,11 +48,11 @@ namespace Quantum.Infrastructure.MarketData.MMF
         {
             this.Path = path;
             this.MapName = mapName;
-            this._capacity = maxDataCount * this._dataItemSize + this._headerSize;
 
+            long capacity = maxDataCount * this._dataItemSize + this._headerSize;
             // FileMode一定要使用CreateNew，否则可能出现覆盖文件的情况
             var mmf = MemoryMappedFile.CreateFromFile(
-                path, FileMode.CreateNew, mapName, this._capacity);
+                path, FileMode.CreateNew, mapName, capacity);
             this.Mmf = mmf;
 
             // 创建文件之后要立即更新头，避免创建之后未加数据就关闭后，下次无法打开文件
@@ -80,34 +76,44 @@ namespace Quantum.Infrastructure.MarketData.MMF
             }
         }
 
+        public int MaxDataCount
+        {
+            get
+            {
+                ThrowIfDisposed();
+                return this._header.MaxDataCount;
+            }
+        }
+
         #endregion
 
         public void Add(TDataItem item)
         {
             ThrowIfDisposed();
 
-            using (var accessor = Mmf.CreateViewAccessor(0, this._capacity))
+            long offset = this._headerSize + this._dataItemSize * this._header.DataCount;
+            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
+            {                
+                accessor.Write(0, ref item);
+            }
+
+            // update header
+            this._header.DataCount++;
+            using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
-                long position =
-                    this._headerSize +
-                    this._dataItemSize*this._header.DataCount;
-
-                accessor.Write(position, ref item);
-
-                // update header
-                this._header.DataCount ++;
                 accessor.Write(0, ref this._header);
             }
         }
 
-        public TDataItem Read()
+        public TDataItem Read(int index)
         {
             ThrowIfDisposed();
 
+            long offset = this._headerSize + this._dataItemSize * index;
             TDataItem result;
-            using (var accessor = Mmf.CreateViewAccessor(0, this._capacity))
+            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
             {
-                accessor.Read(this._headerSize, out result);
+                accessor.Read(0, out result);
             }
             return result;
         }
