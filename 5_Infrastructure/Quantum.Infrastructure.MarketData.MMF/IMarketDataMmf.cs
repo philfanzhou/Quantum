@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Quantum.Infrastructure.MarketData.MMF
 {
-    public interface IMarketDataMmf
+    public interface IMarketDataMmf<TDataItem, TDataHeader> : IDisposable
+        where TDataItem : struct
+        where TDataHeader : struct, IMarketDataMmfHeader
     {
         IMarketDataMmfHeader Header { get; }
     }

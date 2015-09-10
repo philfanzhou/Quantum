@@ -71,6 +71,158 @@ namespace Quantum.MarketData.Test
             }
         }
 
+        [TestMethod]
+        public void TestUpdate()
+        {
+            // Create file
+            string path = CreateFileAnyway("testUpdate.dat");
+
+            int maxDataCount = 10;
+            int intervalSecond = 5;// 每条数据的时间间隔为5S
+            List<RealTimeItem> dataSourceList = CreateRandomRealTimeItem(maxDataCount, intervalSecond); ;
+
+            // Open and add date
+            using (var file = new RealTimeFile(path))
+            {
+                foreach (var item in dataSourceList)
+                {
+                    file.Add(item);
+                }
+            }
+
+            int dataIndex = 3;
+            var expected = dataSourceList[dataIndex];
+            expected.Amount = 300;
+
+            // Open and update
+            using (var file = new RealTimeFile(path))
+            {
+                file.Update(expected, dataIndex);
+            }
+
+            // Open and read
+            RealTimeItem actual;
+            using (var file = new RealTimeFile(path))
+            {
+                actual = file.Read(dataIndex);
+            }
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestMethod]
+        public void TestDelete()
+        {
+            // Create file
+            string path = CreateFileAnyway("testDelete.dat");
+
+            int maxDataCount = 10;
+            int intervalSecond = 5;// 每条数据的时间间隔为5S
+            List<RealTimeItem> expectedList = CreateRandomRealTimeItem(maxDataCount, intervalSecond);
+
+            // Open and add date
+            using (var file = new RealTimeFile(path))
+            {
+                foreach (var item in expectedList)
+                {
+                    file.Add(item);
+                }
+            }
+
+            int dataIndex = 3;
+            expectedList.RemoveAt(dataIndex);
+
+            // Open and delete
+            using (var file = new RealTimeFile(path))
+            {
+                file.Delete(dataIndex);
+            }
+
+            // Open and read data
+            List<RealTimeItem> actualList = new List<RealTimeItem>();
+            using (var file = new RealTimeFile(path))
+            {
+                for (int i = 0; i < file.Header.DataCount; i++)
+                {
+                    actualList.Add(file.Read(i));
+                }
+            }
+
+            // Compare expected and actual
+            Assert.AreNotEqual(0, expectedList.Count);
+            Assert.AreNotEqual(0, actualList.Count);
+            Assert.AreEqual(expectedList.Count, actualList.Count);
+
+            Random random = new Random();
+            for (int i = 0; i < expectedList.Count; i++)
+            {
+                var expected = expectedList[i];
+                var actual = actualList[i];
+
+                Assert.AreEqual(expected, actual);
+
+                actual.BuyOneVolume = random.Next();
+                Assert.AreNotEqual(expected, actual);
+            }
+        }
+
+        [TestMethod]
+        public void TestInsert()
+        {
+            // Create file
+            string path = CreateFileAnyway("testDelete.dat");
+
+            int maxDataCount = 10;
+            int intervalSecond = 5;// 每条数据的时间间隔为5S
+            List<RealTimeItem> expectedList = CreateRandomRealTimeItem(maxDataCount - 1, intervalSecond);
+
+            // Open and add date
+            using (var file = new RealTimeFile(path))
+            {
+                foreach (var item in expectedList)
+                {
+                    file.Add(item);
+                }
+            }
+
+            int dataIndex = 3;
+            var addDataItem = CreateRandomRealTimeItem(1, intervalSecond)[0];
+            expectedList.Insert(dataIndex, addDataItem);
+
+            // Open and insert
+            using (var file = new RealTimeFile(path))
+            {
+                file.Insert(addDataItem, dataIndex);
+            }
+
+            // Open and read data
+            List<RealTimeItem> actualList = new List<RealTimeItem>();
+            using (var file = new RealTimeFile(path))
+            {
+                for (int i = 0; i < file.Header.DataCount; i++)
+                {
+                    actualList.Add(file.Read(i));
+                }
+            }
+
+            // Compare expected and actual
+            Assert.AreNotEqual(0, expectedList.Count);
+            Assert.AreNotEqual(0, actualList.Count);
+            Assert.AreEqual(expectedList.Count, actualList.Count);
+
+            Random random = new Random();
+            for (int i = 0; i < expectedList.Count; i++)
+            {
+                var expected = expectedList[i];
+                var actual = actualList[i];
+
+                Assert.AreEqual(expected, actual);
+
+                actual.BuyOneVolume = random.Next();
+                Assert.AreNotEqual(expected, actual);
+            }
+        }
+
         private string CreateFileAnyway(string fileName)
         {
             string path = Environment.CurrentDirectory + @"\" + fileName;
