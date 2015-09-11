@@ -2,20 +2,22 @@
 using System.IO;
 using System.IO.MemoryMappedFiles;
 
-namespace Quantum.Infrastructure.MarketData.MMF
+namespace Framework.Infrastructure.MemoryMappedFile
 {
-    public class MmfBase : IDisposable
+    public class MyMemoryMappedFile : IDisposable
     {
-        protected MemoryMappedFile Mmf;
+        protected System.IO.MemoryMappedFiles.MemoryMappedFile Mmf;
         protected readonly string Path;
         protected readonly string MapName;
         protected readonly string FileName;
 
         #region Constructor
 
-        protected MmfBase(string path) : this(path, -1) { }
+        protected MyMemoryMappedFile() { }
 
-        protected MmfBase(string path, long capacity)
+        protected MyMemoryMappedFile(string path) : this(path, -1) { }
+
+        protected MyMemoryMappedFile(string path, long capacity)
         {
             this.FileName = System.IO.Path.GetFileName(path);
             this.Path = path;
@@ -25,11 +27,11 @@ namespace Quantum.Infrastructure.MarketData.MMF
             if (createNewFile)
             {
                 // FileMode一定要使用CreateNew，否则可能出现覆盖文件的情况
-                this.Mmf = MemoryMappedFile.CreateFromFile(path, FileMode.CreateNew, this.FileName, capacity);
+                this.Mmf = System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(path, FileMode.CreateNew, this.FileName, capacity);
             }
             else
             {
-                this.Mmf = MemoryMappedFile.CreateFromFile(path, FileMode.Open, this.FileName);
+                this.Mmf = System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(path, FileMode.Open, this.FileName);
             }
         }
 
@@ -39,7 +41,7 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         protected bool Disposed;
 
-        ~MmfBase()
+        ~MyMemoryMappedFile()
         {
             this.Dispose(false);
         }

@@ -39,8 +39,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MemoryMappedFileHeader.cs" />
     <Compile Include="RealTimeItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Framework.Infrastructure.MemoryMappedFile\Framework.Infrastructure.MemoryMappedFile.csproj">
+      <Project>{eb5bc8c0-ba21-4cc5-a91e-1468017ca15c}</Project>
+      <Name>Framework.Infrastructure.MemoryMappedFile</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

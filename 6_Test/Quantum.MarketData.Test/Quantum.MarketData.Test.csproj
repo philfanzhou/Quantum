@@ -63,6 +63,10 @@
       <Project>{71a94027-66ce-4bb7-a562-92c1faec5191}</Project>
       <Name>Quantum.Domain.MarketData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\Framework.Infrastructure.MemoryMappedFile\Framework.Infrastructure.MemoryMappedFile.csproj">
+      <Project>{eb5bc8c0-ba21-4cc5-a91e-1468017ca15c}</Project>
+      <Name>Framework.Infrastructure.MemoryMappedFile</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.MarketData.Metadata\Quantum.Infrastructure.MarketData.Metadata.csproj">
       <Project>{de28b0b4-1054-4535-9c10-b857a1d64eac}</Project>
       <Name>Quantum.Infrastructure.MarketData.Metadata</Name>

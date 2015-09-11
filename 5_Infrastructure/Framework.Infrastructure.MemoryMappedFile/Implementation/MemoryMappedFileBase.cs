@@ -3,13 +3,13 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace Quantum.Infrastructure.MarketData.MMF
+namespace Framework.Infrastructure.MemoryMappedFile
 {
-    public class MarketDataMmf<TDataItem, TDataHeader> : 
-        MmfBase,
-        IMarketDataMmf
+    public class MemoryMappedFileBase<TDataHeader, TDataItem> : 
+        MyMemoryMappedFile,
+        IMemoryMappedFile
+        where TDataHeader : struct, IMemoryMappedFileHeader
         where TDataItem : struct
-        where TDataHeader : struct, IMarketDataHeader
     {
         #region Field
 
@@ -30,7 +30,13 @@ namespace Quantum.Infrastructure.MarketData.MMF
 
         #region Constructor
 
-        protected MarketDataMmf(string path) : base(path)
+        protected MemoryMappedFileBase() { }
+
+        /// <summary>
+        /// 打开文件调用的构造函数
+        /// </summary>
+        /// <param name="path"></param>
+        protected MemoryMappedFileBase(string path) : base(path)
         {
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
@@ -39,13 +45,12 @@ namespace Quantum.Infrastructure.MarketData.MMF
         }
 
         /// <summary>
-        /// 子类调用，用于创建映射文件
+        /// 创建文件调用的构造函数
         /// </summary>
-        protected MarketDataMmf(string path, int maxDataCount)
-            : base
-            (path, 
-            maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader))
-            )
+        /// <param name="path"></param>
+        /// <param name="maxDataCount"></param>
+        protected MemoryMappedFileBase(string path, int maxDataCount)
+            : base(path, CaculateCapacity(maxDataCount))
         {
             // 创建文件之后要立即更新头，避免创建之后未加数据就关闭后，下次无法打开文件
             this._header.MaxDataCount = maxDataCount;
@@ -55,11 +60,26 @@ namespace Quantum.Infrastructure.MarketData.MMF
             }
         }
 
+        private static long CaculateCapacity(int maxDataCount)
+        {
+            return maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader));
+        }
+
+        public static MemoryMappedFileBase<TDataHeader, TDataItem> Open(string path)
+        {
+            return new MemoryMappedFileBase<TDataHeader, TDataItem>(path);
+        }
+
+        public static MemoryMappedFileBase<TDataHeader, TDataItem> Create(string path, int maxDataCount)
+        {
+            return new MemoryMappedFileBase<TDataHeader, TDataItem>(path, maxDataCount);
+        }
+
         #endregion
 
         #region Property
 
-        public IMarketDataHeader Header
+        public IMemoryMappedFileHeader Header
         {
             get 
             {

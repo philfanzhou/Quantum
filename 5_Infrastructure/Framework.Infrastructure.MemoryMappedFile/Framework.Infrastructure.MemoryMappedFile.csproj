@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{235294F0-9E16-447B-95EC-F8D92E70DA1D}</ProjectGuid>
+    <ProjectGuid>{EB5BC8C0-BA21-4CC5-A91E-1468017CA15C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Quantum.Infrastructure.MarketData.MMF</RootNamespace>
-    <AssemblyName>Quantum.Infrastructure.MarketData.MMF</AssemblyName>
+    <RootNamespace>Framework.Infrastructure.MemoryMappedFile</RootNamespace>
+    <AssemblyName>Framework.Infrastructure.MemoryMappedFile</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -39,20 +39,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RealTimeFile.cs" />
+    <Compile Include="IMemoryMappedFile.cs" />
+    <Compile Include="IMemoryMappedFileHeader.cs" />
+    <Compile Include="Implementation\MemoryMappedFileBase.cs" />
+    <Compile Include="Implementation\MyMemoryMappedFile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Framework.Infrastructure.MemoryMappedFile\Framework.Infrastructure.MemoryMappedFile.csproj">
-      <Project>{eb5bc8c0-ba21-4cc5-a91e-1468017ca15c}</Project>
-      <Name>Framework.Infrastructure.MemoryMappedFile</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Quantum.Infrastructure.MarketData.Metadata\Quantum.Infrastructure.MarketData.Metadata.csproj">
-      <Project>{de28b0b4-1054-4535-9c10-b857a1d64eac}</Project>
-      <Name>Quantum.Infrastructure.MarketData.Metadata</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

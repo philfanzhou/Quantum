@@ -1,7 +1,7 @@
 ﻿
-namespace Quantum.Infrastructure.MarketData.MMF
+namespace Framework.Infrastructure.MemoryMappedFile
 {
-    public interface IMarketDataHeader
+    public interface IMemoryMappedFileHeader
     {
         /// <summary>
         /// 当前已有数据量
