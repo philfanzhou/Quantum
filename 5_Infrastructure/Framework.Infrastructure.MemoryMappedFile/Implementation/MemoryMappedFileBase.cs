@@ -146,18 +146,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
 
         public void Update(IEnumerable<TDataItem> items, int index)
         {
-            //ThrowIfDisposed();
-            //if (null == items)
-            //    throw new ArgumentNullException("items");
-            //if (index > this._header.MaxDataCount || index < 0)
-            //    throw new ArgumentOutOfRangeException("index");
-            //var array = items.ToArray();
-            //if (array.Length + index > this._header.MaxDataCount)
-            //    throw new ArgumentOutOfRangeException("items");
-
-            //InsertDataToPosition(array, index);
-
-            Insert(items, index, true);
+            Insert(items, index, false);
         }
 
         public TDataItem Read(int index)
@@ -194,51 +183,12 @@ namespace Framework.Infrastructure.MemoryMappedFile
 
         public void Insert(IEnumerable<TDataItem> items, int index)
         {
-            //ThrowIfDisposed();
-            //if (null == items)
-            //    throw new ArgumentNullException("items");
-            //if (index > this._header.MaxDataCount || index < 0)
-            //    throw new ArgumentOutOfRangeException("index");
-            //var array = items.ToArray();
-            //if (array.Length + index > this._header.MaxDataCount)
-            //    throw new ArgumentOutOfRangeException("items");
-
-            //if (array.Length + this._header.DataCount > this._header.MaxDataCount)
-            //    throw new ArgumentOutOfRangeException("items");
-
-            //if (index < this._header.DataCount)
-            //{
-            //    // 待移动数据所在位置(右移：从当前有效数据的末尾开始移动)
-            //    long position = 0;
-            //    position += this._headerSize;
-            //    position += this._dataItemSize * this._header.DataCount;
-            //    // 数据需要移动到的位置
-            //    long destination = position;
-            //    destination += this._dataItemSize * array.Length;
-            //    // 需要移动的byte长度
-            //    long length = position;
-            //    length -= this._dataItemSize * index;
-            //    // 移动数据
-            //    MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
-            //}
-
-            //// 插入数据
-            //InsertDataToPosition(array, index);
-
-            //if (index > this._header.DataCount)
-            //{
-            //    UpdateDataCount(index + array.Length - 1);
-            //}
-            //else
-            //{
-            //    // update header
-            //    UpdateDataCount(array.Length);
-            //}
-
-            Insert(items, index, false);
+            Insert(items, index, true);
         }
 
-        public void Insert(IEnumerable<TDataItem> items, int index, bool isUpdate)
+        #region Private Method
+
+        private void Insert(IEnumerable<TDataItem> items, int index, bool needMoveData)
         {
             ThrowIfDisposed();
             if (null == items)
@@ -249,24 +199,25 @@ namespace Framework.Infrastructure.MemoryMappedFile
             if (array.Length + index > this._header.MaxDataCount)
                 throw new ArgumentOutOfRangeException("items");
 
-            if (isUpdate == false)
+            if (needMoveData)
             {
                 if (array.Length + this._header.DataCount > this._header.MaxDataCount)
                     throw new ArgumentOutOfRangeException("items");
             }
 
-            if (index < this._header.DataCount && isUpdate == false)
+            if (needMoveData &&
+                index < this._header.DataCount)
             {
                 // 待移动数据所在位置(右移：从当前有效数据的末尾开始移动)
                 long position = 0;
                 position += this._headerSize;
-                position += this._dataItemSize * this._header.DataCount;
+                position += this._dataItemSize*this._header.DataCount;
                 // 数据需要移动到的位置
                 long destination = position;
-                destination += this._dataItemSize * array.Length;
+                destination += this._dataItemSize*array.Length;
                 // 需要移动的byte长度
                 long length = position;
-                length -= this._dataItemSize * index;
+                length -= this._dataItemSize*index;
                 // 移动数据
                 MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
             }
@@ -274,21 +225,20 @@ namespace Framework.Infrastructure.MemoryMappedFile
             // 插入数据
             InsertDataToPosition(array, index);
 
-            if (isUpdate == false)
+            if (needMoveData)
             {
                 if (index > this._header.DataCount)
                 {
+                    // 如果是在当前已有数据之后的位置插入，更新已有数据数量就需要特殊处理
+                    // 等于是中间加入了空白数据
                     UpdateDataCount(index + array.Length - 1);
                 }
                 else
                 {
-                    // update header
                     UpdateDataCount(array.Length);
                 }
             }
         }
-
-        #region Private Method
 
         private void InsertDataToPosition(TDataItem[] array, int index)
         {
