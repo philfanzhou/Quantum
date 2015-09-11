@@ -181,6 +181,29 @@ namespace Quantum.MarketData.Test
         }
 
         [TestMethod]
+        public void TestDeleteArray()
+        {
+            int maxDataCount = 5;
+            string path = CreateFileAnyway("testDeleteArray.dat", maxDataCount);
+
+            int dataCount = maxDataCount;
+            var expectedList = AddDataToFile(dataCount, path);
+
+            int dataIndex = 3;
+            int removeDataCount = maxDataCount - dataIndex;
+            expectedList.RemoveRange(dataIndex, removeDataCount);
+
+            // Open and delete
+            using (var file = RealTimeFile.Open(path))
+            {
+                file.Delete(dataIndex, removeDataCount);
+            }
+
+            var actualList = ReadAllDataFromFile(path);
+            CompareListItem(expectedList, actualList);
+        }
+
+        [TestMethod]
         public void TestUpdate()
         {
             // Create file

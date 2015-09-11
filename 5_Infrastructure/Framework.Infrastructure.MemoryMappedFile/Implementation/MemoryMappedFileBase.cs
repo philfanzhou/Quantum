@@ -102,29 +102,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
 
         public void Delete(int index)
         {
-            ThrowIfDisposed();
-            if (index > this._header.MaxDataCount || index < 0)
-                throw new ArgumentOutOfRangeException("index");
-
-            if (index >= this._header.DataCount)
-            {
-                return;
-            }
-
-            // 数据需要移动到的位置
-            long destination = this._headerSize + this._dataItemSize * index;
-            // 待向前移动数据所在位置
-            long position = destination + this._dataItemSize;
-            // 待向前移动byte长度
-            long length = (this._header.DataCount - index - 1) * this._dataItemSize;
-
-            // 移动数据
-            MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
-
-            // 更新文件头
-            UpdateDataCount(-1);
-
-            //Delete(index, 1);
+            Delete(index, 1);
         }
 
         public void Delete(int index, int count)
@@ -142,21 +120,20 @@ namespace Framework.Infrastructure.MemoryMappedFile
                 return;
             }
 
-            // 待移动数据所在位置(左移)
-            long position = 0;
-            position += this._headerSize;
-            position += this._dataItemSize*(index + count);
-
-            // 数据需要移动到的位置
-            long destination = position;
-            destination -= this._dataItemSize*count;
-
-            // 需要移动的byte长度
-            long length = this._dataItemSize*this._header.DataCount;
-            length -= position;
-
-            // 移动数据
-            MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
+            if (index + count < this._header.DataCount)
+            {
+                // 待移动数据所在位置(左移)
+                long position = 0;
+                position += this._headerSize;
+                position += this._dataItemSize * (index + count);
+                // 数据需要移动到的位置(左移)
+                long destination = position;
+                destination -= this._dataItemSize * count;
+                // 待向前移动byte长度
+                long length = (this._header.DataCount - (index + count)) * this._dataItemSize;
+                // 移动数据
+                MoveDataPosition(ref destination, ref position, ref length, this._bufferSize);
+            }
 
             // 更新文件头
             UpdateDataCount(-count);
