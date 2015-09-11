@@ -99,10 +99,7 @@ namespace Quantum.MarketData.Test
             List<RealTimeItem> actualList = new List<RealTimeItem>();
             using (var file = RealTimeFile.Open(path))
             {
-                for (int i = 0; i < file.Header.DataCount; i++)
-                {
-                    actualList.Add(file.Read(i));
-                }
+                actualList.AddRange(file.ReadAll());
             }
             return actualList;
         }

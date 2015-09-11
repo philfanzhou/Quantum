@@ -154,17 +154,29 @@ namespace Framework.Infrastructure.MemoryMappedFile
 
         public TDataItem Read(int index)
         {
+            return Read(index, 1).First();
+        }
+
+        public IEnumerable<TDataItem> Read(int index, int count)
+        {
             ThrowIfDisposed();
-            if (index > this._header.MaxDataCount || index < 0)
+            if (index > this._header.DataCount || index < 0)
                 throw new ArgumentOutOfRangeException("index");
+            if (count < 1 || index + count > this._header.DataCount)
+                throw new ArgumentOutOfRangeException("count");
 
             long offset = this._headerSize + this._dataItemSize * index;
-            TDataItem result;
-            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize))
+            TDataItem[] result = new TDataItem[count];
+            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize*count))
             {
-                accessor.Read(0, out result);
+                accessor.ReadArray(0, result, 0, result.Length);
             }
             return result;
+        }
+
+        public IEnumerable<TDataItem> ReadAll()
+        {
+            return Read(0, this._header.DataCount);
         }
 
         public void Insert(TDataItem item, int index)
