@@ -225,6 +225,36 @@ namespace Quantum.MarketData.Test
         }
 
         [TestMethod]
+        public void TestUpdateArray()
+        {
+            int maxDataCount = 100;
+            string path = CreateFileAnyway("testUpdateArray.dat", maxDataCount);
+
+            int dataCount = maxDataCount;
+            var expectedList = AddDataToFile(dataCount, path);
+
+            int dataIndex = 5;
+            int updateDataCount = 20;
+            int intervalSecond = 5; // 每条数据的时间间隔为5S
+            List<RealTimeItem> updateList = CreateRandomRealTimeItem(updateDataCount, intervalSecond);
+
+            int j = 0;
+            for(int i = dataIndex; i < dataIndex + updateDataCount; i++)
+            {
+                expectedList[i] = updateList[j++];
+            }
+
+            // Open and update
+            using (var file = RealTimeFile.Open(path))
+            {
+                file.Update(updateList, dataIndex);
+            }
+
+            var actualList = ReadAllDataFromFile(path);
+            CompareListItem(expectedList, actualList);
+        }
+
+        [TestMethod]
         public void TestInsert()
         {
             // Create file

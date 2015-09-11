@@ -154,5 +154,10 @@ namespace Quantum.Infrastructure.MarketData.Metadata
         public double BuyFiveVolume { get; set; }
 
         #endregion
+
+        public override string ToString()
+        {
+            return this.Price.ToString();
+        }
     }
 }
