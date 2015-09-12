@@ -129,7 +129,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
 
         public virtual TDataItem Read(int index)
         {
-            return Read(index, 1).First();
+            return Read(index, 1).FirstOrDefault();
         }
 
         public virtual IEnumerable<TDataItem> Read(int index, int count)
@@ -161,8 +161,13 @@ namespace Framework.Infrastructure.MemoryMappedFile
             ThrowIfDisposed();
             if (index > this._header.DataCount || index < 0)
                 throw new ArgumentOutOfRangeException("index");
-            if (count < 1 || index + count > this._header.DataCount)
+            if (count < 0 || index + count > this._header.DataCount)
                 throw new ArgumentOutOfRangeException("count");
+
+            if(count == 0)
+            {
+                return new TDataItem[0];
+            }
 
             long offset = this._headerSize + this._dataItemSize * index;
             TDataItem[] result = new TDataItem[count];
@@ -178,7 +183,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
             ThrowIfDisposed();
             if (index >= this._header.MaxDataCount || index < 0)
                 throw new ArgumentOutOfRangeException("index");
-            if (count >= this._header.MaxDataCount || count < 1)
+            if (count > this._header.MaxDataCount || count < 1)
                 throw new ArgumentOutOfRangeException("count");
             if (index + count > this._header.MaxDataCount)
                 throw new ArgumentOutOfRangeException("count");

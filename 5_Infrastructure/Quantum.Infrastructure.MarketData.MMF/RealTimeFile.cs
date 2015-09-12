@@ -6,6 +6,6 @@ namespace Quantum.Infrastructure.MarketData.MMF
     public class RealTimeFile
         : MemoryMappedFileBase<MemoryMappedFileHeader, RealTimeItem>
     {
-        protected RealTimeFile() { }
+        private RealTimeFile() { }
     }
 }
