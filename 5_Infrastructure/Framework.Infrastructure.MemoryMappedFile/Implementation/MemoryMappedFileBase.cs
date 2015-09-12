@@ -7,7 +7,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
 {
     public class MemoryMappedFileBase<TDataHeader, TDataItem> : 
         MyMemoryMappedFile,
-        IMemoryMappedFile
+        IMemoryMappedFile<TDataHeader, TDataItem>
         where TDataHeader : struct, IMemoryMappedFileHeader
         where TDataItem : struct
     {
@@ -22,7 +22,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
         /// </summary>
         private readonly int _dataItemSize = Marshal.SizeOf(typeof(TDataItem));
 
-        private readonly int _bufferSize = Marshal.SizeOf(typeof(TDataItem)) * 100;
+        private readonly int _bufferSize = Marshal.SizeOf(typeof(TDataItem)) * 100; //Todo: 需要更好的方案来确定缓存长度
 
         private TDataHeader _header;
 
@@ -36,7 +36,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
         /// 打开文件调用的构造函数
         /// </summary>
         /// <param name="path"></param>
-        protected MemoryMappedFileBase(string path) : base(path)
+        private MemoryMappedFileBase(string path) : base(path)
         {
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
@@ -49,7 +49,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
         /// </summary>
         /// <param name="path"></param>
         /// <param name="maxDataCount"></param>
-        protected MemoryMappedFileBase(string path, int maxDataCount)
+        private MemoryMappedFileBase(string path, int maxDataCount)
             : base(path, CaculateCapacity(maxDataCount))
         {
             // 创建文件之后要立即更新头，避免创建之后未加数据就关闭后，下次无法打开文件
@@ -65,12 +65,12 @@ namespace Framework.Infrastructure.MemoryMappedFile
             return maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader));
         }
 
-        public static MemoryMappedFileBase<TDataHeader, TDataItem> Open(string path)
+        public static IMemoryMappedFile<TDataHeader, TDataItem> Open(string path)
         {
             return new MemoryMappedFileBase<TDataHeader, TDataItem>(path);
         }
 
-        public static MemoryMappedFileBase<TDataHeader, TDataItem> Create(string path, int maxDataCount)
+        public static IMemoryMappedFile<TDataHeader, TDataItem> Create(string path, int maxDataCount)
         {
             return new MemoryMappedFileBase<TDataHeader, TDataItem>(path, maxDataCount);
         }
@@ -90,27 +90,95 @@ namespace Framework.Infrastructure.MemoryMappedFile
 
         #endregion
 
-        public void Add(TDataItem item)
+        #region IMemoryMappedFile Members
+
+        public virtual void Add(TDataItem item)
         {
             Add(new[] { item });
         }
 
-        public void Add(IEnumerable<TDataItem> items)
+        public virtual void Add(IEnumerable<TDataItem> items)
         {
             Insert(items, this._header.DataCount);
         }
 
-        public void Delete(int index)
+        public virtual void Delete(int index)
         {
             Delete(index, 1);
         }
 
-        public void Delete(int index, int count)
+        public virtual void Delete(int index, int count)
+        {
+            DoDelete(index, count);
+        }
+
+        public virtual void DeleteAll()
+        {
+            Delete(0, this._header.DataCount);
+        }
+
+        public virtual void Update(TDataItem item, int index)
+        {
+            Update(new[] { item }, index);
+        }
+
+        public virtual void Update(IEnumerable<TDataItem> items, int index)
+        {
+            DoInsert(items, index, false);
+        }
+
+        public virtual TDataItem Read(int index)
+        {
+            return Read(index, 1).First();
+        }
+
+        public virtual IEnumerable<TDataItem> Read(int index, int count)
+        {
+            return DoRead(index, count);
+        }
+
+        public virtual IEnumerable<TDataItem> ReadAll()
+        {
+            return Read(0, this._header.DataCount);
+        }
+
+        public virtual void Insert(TDataItem item, int index)
+        {
+            Insert(new[] { item }, index);
+        }
+
+        public virtual void Insert(IEnumerable<TDataItem> items, int index)
+        {
+            DoInsert(items, index, true);
+        }
+
+        #endregion
+
+        #region Private Method
+
+        private IEnumerable<TDataItem> DoRead(int index, int count)
+        {
+            ThrowIfDisposed();
+            if (index > this._header.DataCount || index < 0)
+                throw new ArgumentOutOfRangeException("index");
+            if (count < 1 || index + count > this._header.DataCount)
+                throw new ArgumentOutOfRangeException("count");
+
+            long offset = this._headerSize + this._dataItemSize * index;
+            TDataItem[] result = new TDataItem[count];
+            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize * count))
+            {
+                accessor.ReadArray(0, result, 0, result.Length);
+            }
+            return result;
+        }
+
+        private void DoDelete(int index, int count)
         {
             ThrowIfDisposed();
             if (index >= this._header.MaxDataCount || index < 0)
                 throw new ArgumentOutOfRangeException("index");
-            if(count >= this._header.MaxDataCount || count < 1)
+            if (count >= this._header.MaxDataCount || count < 1)
                 throw new ArgumentOutOfRangeException("count");
             if (index + count > this._header.MaxDataCount)
                 throw new ArgumentOutOfRangeException("count");
@@ -139,56 +207,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
             UpdateDataCount(-count);
         }
 
-        public void Update(TDataItem item, int index)
-        {
-            Update(new[] { item }, index);
-        }
-
-        public void Update(IEnumerable<TDataItem> items, int index)
-        {
-            Insert(items, index, false);
-        }
-
-        public TDataItem Read(int index)
-        {
-            return Read(index, 1).First();
-        }
-
-        public IEnumerable<TDataItem> Read(int index, int count)
-        {
-            ThrowIfDisposed();
-            if (index > this._header.DataCount || index < 0)
-                throw new ArgumentOutOfRangeException("index");
-            if (count < 1 || index + count > this._header.DataCount)
-                throw new ArgumentOutOfRangeException("count");
-
-            long offset = this._headerSize + this._dataItemSize * index;
-            TDataItem[] result = new TDataItem[count];
-            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize*count))
-            {
-                accessor.ReadArray(0, result, 0, result.Length);
-            }
-            return result;
-        }
-
-        public IEnumerable<TDataItem> ReadAll()
-        {
-            return Read(0, this._header.DataCount);
-        }
-
-        public void Insert(TDataItem item, int index)
-        {
-            Insert(new[] { item }, index);
-        }
-
-        public void Insert(IEnumerable<TDataItem> items, int index)
-        {
-            Insert(items, index, true);
-        }
-
-        #region Private Method
-
-        private void Insert(IEnumerable<TDataItem> items, int index, bool needMoveData)
+        private void DoInsert(IEnumerable<TDataItem> items, int index, bool ChangeDataCount)
         {
             ThrowIfDisposed();
             if (null == items)
@@ -199,13 +218,13 @@ namespace Framework.Infrastructure.MemoryMappedFile
             if (array.Length + index > this._header.MaxDataCount)
                 throw new ArgumentOutOfRangeException("items");
 
-            if (needMoveData)
+            if (ChangeDataCount)
             {
                 if (array.Length + this._header.DataCount > this._header.MaxDataCount)
                     throw new ArgumentOutOfRangeException("items");
             }
 
-            if (needMoveData &&
+            if (ChangeDataCount &&
                 index < this._header.DataCount)
             {
                 // 待移动数据所在位置(右移：从当前有效数据的末尾开始移动)
@@ -223,9 +242,14 @@ namespace Framework.Infrastructure.MemoryMappedFile
             }
 
             // 插入数据
-            InsertDataToPosition(array, index);
+            long offset = this._headerSize + this._dataItemSize * index;
+            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize * array.Length))
+            {
+                accessor.WriteArray(0, array, 0, array.Length);
+            }
 
-            if (needMoveData)
+            // 更新文件头
+            if (ChangeDataCount)
             {
                 if (index > this._header.DataCount)
                 {
@@ -237,15 +261,6 @@ namespace Framework.Infrastructure.MemoryMappedFile
                 {
                     UpdateDataCount(array.Length);
                 }
-            }
-        }
-
-        private void InsertDataToPosition(TDataItem[] array, int index)
-        {
-            long offset = this._headerSize + this._dataItemSize * index;
-            using (var accessor = Mmf.CreateViewAccessor(offset, this._dataItemSize * array.Length))
-            {
-                accessor.WriteArray(0, array, 0, array.Length);
             }
         }
 

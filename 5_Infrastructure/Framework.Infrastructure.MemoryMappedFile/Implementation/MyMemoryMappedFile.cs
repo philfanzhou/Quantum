@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.IO.MemoryMappedFiles;
 
 namespace Framework.Infrastructure.MemoryMappedFile
 {
@@ -139,13 +138,13 @@ namespace Framework.Infrastructure.MemoryMappedFile
                     length -= buffer.Length;
                 }
 
-                if (leftMove)
-                {
-                    // 如果是左移数据，需要抹除最后面的一段位置的废弃数据
-                    buffer = new byte[position - destination];
-                    stream.Seek(destination, SeekOrigin.Begin);
-                    stream.Write(buffer, 0, buffer.Length);
-                }
+                //if (leftMove) //为了性能考虑，暂时不抹除左移后，原位置右边剩余的废弃数据
+                //{
+                //    // 如果是左移数据，需要抹除最后面的一段位置的废弃数据
+                //    buffer = new byte[position - destination];
+                //    stream.Seek(destination, SeekOrigin.Begin);
+                //    stream.Write(buffer, 0, buffer.Length);
+                //}
             }
         }
     }
