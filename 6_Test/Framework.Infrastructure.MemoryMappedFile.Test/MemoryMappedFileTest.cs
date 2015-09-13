@@ -18,7 +18,10 @@ namespace Framework.Infrastructure.MemoryMappedFile.Test
                 File.Delete(path);
             }
 
-            using (DataFile.Create(path, maxDataCount))
+            FileHeader header = new FileHeader();
+            header.MaxDataCount = maxDataCount;
+            header.Comment = "招商银行";
+            using (DataFile.Create(path, header))
             { }
 
             return path;
@@ -101,13 +104,42 @@ namespace Framework.Infrastructure.MemoryMappedFile.Test
         #endregion
 
         [TestMethod]
+        public void TestFileHeader()
+        {
+            string path = Environment.CurrentDirectory + @"\" + "TestMemoryMappedFile.dat";
+
+            if (File.Exists(path))
+            {
+                File.Delete(path);
+            }
+
+            int maxDataCount = 10;
+            string comment = "招商银行";
+            FileHeader header = new FileHeader();
+            header.MaxDataCount = maxDataCount;
+            header.Comment = comment;
+            using (DataFile.Create(path, header))
+            { }
+
+            FileHeader readedHeader; 
+            using (var file = DataFile.Open(path))
+            {
+                readedHeader = (FileHeader)file.Header;
+            }
+
+            //Assert.AreEqual(header, readedHeader);
+            Assert.AreEqual(maxDataCount, readedHeader.MaxDataCount);
+            Assert.AreEqual(comment, readedHeader.Comment);
+        }
+
+        [TestMethod]
         [ExpectedException(typeof(IOException))]
         public void TestCanNotOverWriteFile()
         {
             string path = CreateFileAnyway(1);
 
             // Can not create again use same path or overwrite file.
-            using (DataFile.Create(path, 1))
+            using (DataFile.Create(path, new FileHeader()))
             { }
         }
 
@@ -217,6 +249,32 @@ namespace Framework.Infrastructure.MemoryMappedFile.Test
             var actualList = ReadAllDataFromFile(path);
 
             Assert.AreEqual(0, actualList.Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TestDeleteArgument1()
+        {
+            int maxDataCount = 20;
+            string path = CreateFileAnyway(maxDataCount);
+
+            using (var file = DataFile.Open(path))
+            {
+                file.Delete(-1, 10);
+            }
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void TestDeleteArgument2()
+        {
+            int maxDataCount = 20;
+            string path = CreateFileAnyway(maxDataCount);
+
+            using (var file = DataFile.Open(path))
+            {
+                file.Delete(0, 21);
+            }
         }
 
         [TestMethod]

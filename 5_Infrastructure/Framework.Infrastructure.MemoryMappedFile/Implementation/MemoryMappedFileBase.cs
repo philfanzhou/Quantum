@@ -38,10 +38,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
         /// <param name="path"></param>
         private MemoryMappedFileBase(string path) : base(path)
         {
-            using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
-            {
-                accessor.Read(0, out this._header);
-            }
+            ReadHeader();
         }
 
         /// <summary>
@@ -49,20 +46,21 @@ namespace Framework.Infrastructure.MemoryMappedFile
         /// </summary>
         /// <param name="path"></param>
         /// <param name="maxDataCount"></param>
-        private MemoryMappedFileBase(string path, int maxDataCount)
-            : base(path, CaculateCapacity(maxDataCount))
+        private MemoryMappedFileBase(string path, TDataHeader fileHeader)
+            : base(path, CaculateCapacity(fileHeader))
         {
+            if (fileHeader.MaxDataCount <= 0)
+                throw new ArgumentOutOfRangeException("fileHeader");
+
             // 创建文件之后要立即更新头，避免创建之后未加数据就关闭后，下次无法打开文件
-            this._header.MaxDataCount = maxDataCount;
-            using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
-            {
-                accessor.Write(0, ref this._header);
-            }
+            fileHeader.DataCount = 0;
+            this._header = fileHeader;
+            WriteHeader();
         }
 
-        private static long CaculateCapacity(int maxDataCount)
+        private static long CaculateCapacity(TDataHeader fileHeader)
         {
-            return maxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader));
+            return fileHeader.MaxDataCount * Marshal.SizeOf(typeof(TDataItem)) + Marshal.SizeOf(typeof(TDataHeader));
         }
 
         public static IMemoryMappedFile<TDataHeader, TDataItem> Open(string path)
@@ -70,9 +68,9 @@ namespace Framework.Infrastructure.MemoryMappedFile
             return new MemoryMappedFileBase<TDataHeader, TDataItem>(path);
         }
 
-        public static IMemoryMappedFile<TDataHeader, TDataItem> Create(string path, int maxDataCount)
+        public static IMemoryMappedFile<TDataHeader, TDataItem> Create(string path, TDataHeader fileHeader)
         {
-            return new MemoryMappedFileBase<TDataHeader, TDataItem>(path, maxDataCount);
+            return new MemoryMappedFileBase<TDataHeader, TDataItem>(path, fileHeader);
         }
 
         #endregion
@@ -272,9 +270,27 @@ namespace Framework.Infrastructure.MemoryMappedFile
         private void UpdateDataCount(int number)
         {
             this._header.DataCount += number;
+            WriteHeader();
+        }
+
+        private void ReadHeader()
+        {
+            // 针对头文件进行特殊读写处理，因为可能在头文件中含有String等托管类型的数据
             using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
             {
-                accessor.Write(0, ref this._header);
+                byte[] array = new byte[this._headerSize];
+                accessor.ReadArray(0, array, 0, array.Length);
+                this._header = BytesToStruct<TDataHeader>(array);
+            }
+        }
+
+        private void WriteHeader()
+        {
+            // 针对头文件进行特殊读写处理，因为可能在头文件中含有String等托管类型的数据
+            using (var accessor = Mmf.CreateViewAccessor(0, this._headerSize))
+            {
+                byte[] array = StructToBytes(this._header);
+                accessor.WriteArray(0, array, 0, array.Length);
             }
         }
 

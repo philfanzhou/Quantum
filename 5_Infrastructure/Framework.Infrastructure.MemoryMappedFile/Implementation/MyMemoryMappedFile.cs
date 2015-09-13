@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace Framework.Infrastructure.MemoryMappedFile
 {
@@ -145,6 +146,40 @@ namespace Framework.Infrastructure.MemoryMappedFile
                 //    stream.Seek(destination, SeekOrigin.Begin);
                 //    stream.Write(buffer, 0, buffer.Length);
                 //}
+            }
+        }
+
+        protected static byte[] StructToBytes<T>(T structObj)
+            where T : struct
+        {
+            int size = Marshal.SizeOf(typeof(T));
+            IntPtr buffer = Marshal.AllocHGlobal(size);
+            try
+            {
+                Marshal.StructureToPtr(structObj, buffer, false);
+                byte[] bytes = new byte[size];
+                Marshal.Copy(buffer, bytes, 0, size);
+                return bytes;
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
+            }
+        }
+
+        protected static T BytesToStruct<T>(byte[] bytes)
+            where T : struct
+        {
+            int size = Marshal.SizeOf(typeof(T));
+            IntPtr buffer = Marshal.AllocHGlobal(size);
+            try
+            {
+                Marshal.Copy(bytes, 0, buffer, size);
+                return Marshal.PtrToStructure<T>(buffer);
+            }
+            finally
+            {
+                Marshal.FreeHGlobal(buffer);
             }
         }
     }
