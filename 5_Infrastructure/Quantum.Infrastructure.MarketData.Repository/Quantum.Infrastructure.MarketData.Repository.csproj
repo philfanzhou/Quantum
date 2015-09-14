@@ -40,7 +40,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileDatabase\DataType.cs" />
     <Compile Include="FileDatabase\RealTimeFile.cs" />
+    <Compile Include="FileDatabase\MarketType.cs" />
     <Compile Include="Metadata\RealTimeItem.cs" />
     <Compile Include="RealTimeData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
