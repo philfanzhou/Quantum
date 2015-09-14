@@ -258,7 +258,7 @@ namespace Framework.Infrastructure.MemoryMappedFile
                 {
                     // 如果是在当前已有数据之后的位置插入，更新已有数据数量就需要特殊处理
                     // 等于是中间加入了空白数据
-                    UpdateDataCount(index + array.Length - 1);
+                    UpdateDataCount(index - this._header.DataCount + array.Length - 1);
                 }
                 else
                 {
