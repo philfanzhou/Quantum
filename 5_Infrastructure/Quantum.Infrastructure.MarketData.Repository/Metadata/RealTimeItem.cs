@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Quantum.Infrastructure.MarketData.Metadata
+namespace Quantum.Infrastructure.MarketData.Repository
 {
     /// <summary>
     /// 实时数据结构体定义
