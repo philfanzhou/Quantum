@@ -10,7 +10,7 @@ namespace Quantum.Domain.MarketData
     /// </summary>
     public class IntradayInfo
     {
-        private static readonly TimeSpan TimeSpen = new TimeSpan(0, 1, 0);
+        private static readonly TimeSpan TimeSpan = new TimeSpan(0, 1, 0);
         private readonly List<IntradayData> _items = new List<IntradayData>();
 
         public IEnumerable<IntradayData> Items 
@@ -21,11 +21,11 @@ namespace Quantum.Domain.MarketData
             }
         }
 
-        public void AddRealTimeData(RealTimeData realTimeData)
+        public void AddRealTimeData(RealTimeItem realTimeData)
         {
 
             if (_items.Count < 1 ||
-                realTimeData.Time - _items.Last().Time > TimeSpen)
+                realTimeData.Time - _items.Last().Time > TimeSpan)
             {
                 var newItem = new IntradayData
                 {

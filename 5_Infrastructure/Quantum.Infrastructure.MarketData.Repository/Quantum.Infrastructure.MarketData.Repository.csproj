@@ -42,12 +42,16 @@
   <ItemGroup>
     <Compile Include="FileDatabase\DataType.cs" />
     <Compile Include="FileDatabase\RealTimeFile.cs" />
-    <Compile Include="FileDatabase\MarketType.cs" />
+    <Compile Include="Metadata\MarketType.cs" />
     <Compile Include="Metadata\RealTimeItem.cs" />
-    <Compile Include="RealTimeData.cs" />
+    <Compile Include="RealTimeDataRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Pitman\4_Infrastructure\Pitman.Metadata\Pitman.Metadata.csproj">
+      <Project>{39a8be22-b472-4684-84cf-6cbb10b2ce00}</Project>
+      <Name>Pitman.Metadata</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework.Infrastructure.MemoryMappedFile\Framework.Infrastructure.MemoryMappedFile.csproj">
       <Project>{eb5bc8c0-ba21-4cc5-a91e-1468017ca15c}</Project>
       <Name>Framework.Infrastructure.MemoryMappedFile</Name>

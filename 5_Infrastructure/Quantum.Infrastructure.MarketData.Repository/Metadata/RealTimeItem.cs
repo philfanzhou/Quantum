@@ -157,7 +157,7 @@ namespace Quantum.Infrastructure.MarketData.Repository
 
         public override string ToString()
         {
-            return this.Price.ToString();
+            return this.Time.ToString("HH:mm:ss") + "  " + this.Price.ToString();
         }
     }
 }

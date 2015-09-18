@@ -1,5 +1,6 @@
 ﻿using Framework.Infrastructure.MemoryMappedFile;
 using System;
+using System.Collections;
 using System.IO;
 
 namespace Quantum.Infrastructure.MarketData.Repository
@@ -7,45 +8,87 @@ namespace Quantum.Infrastructure.MarketData.Repository
     internal class RealTimeFile
         : MemoryMappedFileBase<RealTimeFileHeader, RealTimeItem>
     {
+        private static string dataFolder = Environment.CurrentDirectory   + @"\Data\RealTimeData\";
+
+        private static readonly TimeSpan TimeSpan = new TimeSpan(0, 0, 4);
+
+        /// <summary>
+        /// (10缓冲 + 15集合竞价 + 4小时交易 + 10缓冲)每分钟12条记录
+        /// </summary>
+        private static int maxDataCount = (10 + 15 + 4 * 60 + 10) * 12;
+
         private RealTimeFile() { }
 
-        internal static int GetMaxDataCount()
+        #region Create and Open
+
+        private static string GetFilePath(MarketType marketType, string stockCode, DateTime day)
         {
-            // 按每月最大数据量处理
-            throw new System.NotImplementedException();
+            string path = dataFolder;
+            if (marketType == MarketType.Shanghai)
+            {
+                path += @"Shanghai\";
+            }
+            else if (marketType == MarketType.Shenzhen)
+            {
+                path += @"Shenzhen\";
+            }
+
+            path += stockCode + @"\";
+            path += day.ToString("yyyyMMdd") + ".dat";
+
+            return path;
         }
 
-        internal static bool Exist(string stockCode, MarketType marketType, DateTime month)
+        internal static bool Exist(MarketType marketType, string stockCode, DateTime day)
         {
-            string path = GetFilePath(stockCode, marketType, month);
+            string path = GetFilePath(marketType, stockCode, day);
             return File.Exists(path);
         }
 
-        internal static IMemoryMappedFile<RealTimeFileHeader, RealTimeItem> Open(string stockCode, MarketType marketType, DateTime month)
+        internal static IMemoryMappedFile<RealTimeFileHeader, RealTimeItem> Open(MarketType marketType, string stockCode, DateTime day)
         {
-            string path = GetFilePath(stockCode, marketType, month);
+            string path = GetFilePath(marketType, stockCode, day);
             return Open(path);
         }
 
-        internal static IMemoryMappedFile<RealTimeFileHeader, RealTimeItem> Create(string stockCode, MarketType marketType, DateTime month)
+        internal static IMemoryMappedFile<RealTimeFileHeader, RealTimeItem> Create(MarketType marketType, string stockCode, DateTime day)
         {
             RealTimeFileHeader heaer = new RealTimeFileHeader
             {
                 DataCount = 0,
-                MaxDataCount = GetMaxDataCount(),
+                MaxDataCount = maxDataCount,
                 MarketType = marketType,
                 DataType = DataType.RealTime,
-                StartDay = new DateTime(month.Year, month.Month, 1),
-                EndDay = new DateTime(month.Year, month.Month, 1).AddMonths(1).AddDays(-1)
+                StartDay = day,
+                EndDay = day
             };
 
-            string path = GetFilePath(stockCode, marketType, month);
+            string path = GetFilePath(marketType, stockCode, day);
             return Create(path, heaer);
         }
 
-        private static string GetFilePath(string stockCode, MarketType marketType, DateTime month)
+        internal static IMemoryMappedFile<RealTimeFileHeader, RealTimeItem> CreateOrOpen(MarketType marketType, string stockCode, DateTime day)
         {
-            throw new System.NotImplementedException();
+            if (Exist(marketType, stockCode, day))
+            {
+                return Open(marketType, stockCode, day);
+            }
+            else
+            {
+                return Create(marketType, stockCode, day);
+            }
+        }
+
+        #endregion
+
+        public override void Add(RealTimeItem item)
+        {
+            var lastItem = this.Read(this.Header.DataCount - 1);
+
+            if(item.Time - lastItem.Time > TimeSpan)
+            {
+                base.Add(item);
+            }
         }
     }
 

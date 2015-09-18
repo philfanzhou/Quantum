@@ -26,6 +26,11 @@ namespace Framework.Infrastructure.MemoryMappedFile
             bool createNewFile = capacity > 0;
             if (createNewFile)
             {
+                string directory = System.IO.Path.GetDirectoryName(path);
+                if(!Directory.Exists(directory))
+                {
+                    Directory.CreateDirectory(directory);
+                }
                 // FileMode一定要使用CreateNew，否则可能出现覆盖文件的情况
                 this.Mmf = System.IO.MemoryMappedFiles.MemoryMappedFile.CreateFromFile(path, FileMode.CreateNew, this.FileName, capacity);
             }

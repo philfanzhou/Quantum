@@ -2,14 +2,14 @@
 
 namespace Quantum.Domain.MarketData
 {
-    internal static class RealTimeDataExt
+    internal static class RealTimeItemExt
     {
         /// <summary>
         /// 委买
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static double BuyVolume(this RealTimeData self)
+        public static double BuyVolume(this RealTimeItem self)
         {
             return self.BuyOneVolume +
                 self.BuyTwoVolume +
@@ -23,7 +23,7 @@ namespace Quantum.Domain.MarketData
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static double SellVolume(this RealTimeData self)
+        public static double SellVolume(this RealTimeItem self)
         {
             return self.SellOneVolume +
                 self.SellTwoVolume +

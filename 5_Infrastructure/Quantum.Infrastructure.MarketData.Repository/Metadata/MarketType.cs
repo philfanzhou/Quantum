@@ -1,6 +1,6 @@
 ﻿namespace Quantum.Infrastructure.MarketData.Repository
 {
-    internal enum MarketType
+    public enum MarketType
     {
         Shanghai = 1,
 
