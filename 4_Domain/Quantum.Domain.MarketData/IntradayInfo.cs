@@ -10,8 +10,20 @@ namespace Quantum.Domain.MarketData
     /// </summary>
     public class IntradayInfo
     {
-        private static readonly TimeSpan TimeSpan = new TimeSpan(0, 1, 0);
+        private static readonly TimeSpan span = new TimeSpan(0, 1, 0);
+
         private readonly List<IntradayData> _items = new List<IntradayData>();
+        private readonly DateTime date;
+
+        public IntradayInfo(DateTime date)
+        {
+            this.date = date.Date;
+        }
+
+        public override string ToString()
+        {
+            return this.date.ToString("yyyy-MM-dd");
+        }
 
         public IEnumerable<IntradayData> Items 
         {
@@ -21,20 +33,28 @@ namespace Quantum.Domain.MarketData
             }
         }
 
-        public void AddRealTimeData(RealTimeItem realTimeData)
+        public void Add(IEnumerable<RealTimeItem> items)
+        {
+            foreach(var item in items)
+            {
+                Add(item);
+            }
+        }
+
+        public void Add(RealTimeItem item)
         {
 
             if (_items.Count < 1 ||
-                realTimeData.Time - _items.Last().Time > TimeSpan)
+                item.Time - _items.Last().Time > span)
             {
                 var newItem = new IntradayData
                 {
                     Time = new DateTime(
-                        realTimeData.Time.Year,
-                        realTimeData.Time.Month,
-                        realTimeData.Time.Day,
-                        realTimeData.Time.Hour,
-                        realTimeData.Time.Minute,
+                        item.Time.Year,
+                        item.Time.Month,
+                        item.Time.Day,
+                        item.Time.Hour,
+                        item.Time.Minute,
                         0)
                 };
 
@@ -43,28 +63,28 @@ namespace Quantum.Domain.MarketData
 
             IntradayData currentData = _items.Last();
 
-            currentData.Price = realTimeData.Price;
-            currentData.Change = Math.Round(realTimeData.Price - realTimeData.TodayOpen, 2);
+            currentData.Price = item.Price;
+            currentData.Change = Math.Round(item.Price - item.TodayOpen, 2);
             currentData.ChangeRate =
-                Math.Round(currentData.Change / realTimeData.TodayOpen * 100, 2);
+                Math.Round(currentData.Change / item.TodayOpen * 100, 2);
 
-            currentData.TotalVolume = realTimeData.Volume;
-            currentData.TotalAmount = realTimeData.Amount;
+            currentData.TotalVolume = item.Volume;
+            currentData.TotalAmount = item.Amount;
             currentData.AveragePrice = Math.Round(currentData.TotalAmount / currentData.TotalVolume, 2);
-            currentData.BuyVolume = realTimeData.BuyVolume();
-            currentData.SellVolume = realTimeData.SellVolume();
+            currentData.BuyVolume = item.BuyVolume();
+            currentData.SellVolume = item.SellVolume();
 
 
             if (_items.Count <= 1)
             {
-                currentData.IntradayVolume = realTimeData.Volume;
-                currentData.IntradayAmount = realTimeData.Amount;
+                currentData.IntradayVolume = item.Volume;
+                currentData.IntradayAmount = item.Amount;
             }
             else
             {
                 IntradayData previousDate = _items[_items.Count - 2];
-                currentData.IntradayVolume = realTimeData.Volume - previousDate.TotalVolume;
-                currentData.IntradayAmount = realTimeData.Amount - previousDate.TotalAmount;
+                currentData.IntradayVolume = item.Volume - previousDate.TotalVolume;
+                currentData.IntradayAmount = item.Amount - previousDate.TotalAmount;
             }
         }
     }

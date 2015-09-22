@@ -34,7 +34,7 @@ namespace Quantum.MarketData.Test
 
                 if (dataUpdated)
                 {
-                    var realTimeItem = ConvertDataToItem(realTimedata);
+                    var realTimeItem = RealTimeItemConverter.Convert(realTimedata);
                     repository.Add(MarketType.Shanghai, "600036", realTimeItem);
                     Debug.WriteLine(realTimeItem.ToString());
                     dataUpdated = false;
@@ -54,45 +54,6 @@ namespace Quantum.MarketData.Test
         {
             var repository = new RealTimeDataRepository();
             var dataList = repository.GetOneDayData(MarketType.Shanghai, "600036", DateTime.Now);
-        }
-
-        private RealTimeItem ConvertDataToItem(RealTimeData data)
-        {
-            RealTimeItem item = new RealTimeItem
-            {
-                Amount = data.Amount,
-                High = data.High,
-                Low = data.Low,
-                Price = data.Price,
-                Time = data.Time,
-                TodayOpen = data.TodayOpen,
-                Volume = data.Volume,
-                YesterdayClose = data.YesterdayClose,
-
-                BuyFivePrice = data.BuyFivePrice,
-                BuyFiveVolume = data.BuyFiveVolume,
-                BuyFourPrice = data.BuyFourPrice,
-                BuyFourVolume = data.BuyFourVolume,
-                BuyThreePrice = data.BuyThreePrice,
-                BuyThreeVolume = data.BuyThreeVolume,
-                BuyTwoPrice = data.BuyTwoPrice,
-                BuyTwoVolume = data.BuyTwoVolume,
-                BuyOnePrice = data.BuyOnePrice,
-                BuyOneVolume = data.BuyOneVolume,
-
-                SellFivePrice = data.SellFivePrice,
-                SellFiveVolume = data.SellFiveVolume,
-                SellFourPrice = data.SellFourPrice,
-                SellFourVolume = data.SellFourVolume,
-                SellThreePrice = data.SellThreePrice,
-                SellThreeVolume = data.SellThreeVolume,
-                SellTwoPrice = data.SellTwoPrice,
-                SellTwoVolume = data.SellTwoVolume,
-                SellOnePrice = data.SellOnePrice,
-                SellOneVolume = data.SellOneVolume,
-            };
-
-            return item;
         }
     }
 }

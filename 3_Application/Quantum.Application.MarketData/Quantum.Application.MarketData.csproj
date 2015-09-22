@@ -42,6 +42,7 @@
   <ItemGroup>
     <Compile Include="RealTimeDataMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RealTimeItemConverter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Pitman\4_Infrastructure\Pitman.DataReader\Pitman.DataReader.csproj">
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\..\..\Pitman\4_Infrastructure\Pitman.Metadata\Pitman.Metadata.csproj">
       <Project>{39a8be22-b472-4684-84cf-6cbb10b2ce00}</Project>
       <Name>Pitman.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.MarketData.Repository\Quantum.Infrastructure.MarketData.Repository.csproj">
+      <Project>{842079f0-f867-4cf1-ae22-5c1b893aefad}</Project>
+      <Name>Quantum.Infrastructure.MarketData.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

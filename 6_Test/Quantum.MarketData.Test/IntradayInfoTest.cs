@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Pitman.DataReader;
+using Quantum.Application.MarketData;
 using Quantum.Domain.Indicator;
 using Quantum.Domain.MarketData;
-using Quantum.Infrastructure.MarketData.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +21,10 @@ namespace Quantum.MarketData.Test
             List<Pitman.Metadata.RealTimeData> realTimeDataList = dataSource.Select(
                 str => new SinaRealTimeData(str)).Cast<Pitman.Metadata.RealTimeData>().ToList();
 
-            IntradayInfo info = new IntradayInfo();
+            IntradayInfo info = new IntradayInfo(new DateTime(2015, 9, 8));
             foreach(var item in realTimeDataList)
             {
-                //info.AddRealTimeData(item);
+                info.Add(RealTimeItemConverter.Convert(item));
             }
 
             Assert.IsTrue(info.Items.Count() == 6);
