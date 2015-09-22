@@ -43,6 +43,8 @@ namespace Quantum.Domain.MarketData
 
         public void Add(RealTimeItem item)
         {
+            if (item.Time.Date != this.date.Date)
+                throw new ArgumentOutOfRangeException("item");
 
             if (_items.Count < 1 ||
                 item.Time - _items.Last().Time > span)
