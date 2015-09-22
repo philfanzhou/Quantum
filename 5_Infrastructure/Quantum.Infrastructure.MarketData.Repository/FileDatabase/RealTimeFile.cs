@@ -83,12 +83,12 @@ namespace Quantum.Infrastructure.MarketData.Repository
 
         public override void Add(RealTimeItem item)
         {
-            var lastItem = this.Read(this.Header.DataCount - 1);
+            //var lastItem = this.Read(this.Header.DataCount - 1);
 
-            if(item.Time - lastItem.Time > TimeSpan)
-            {
+            //if(item.Time - lastItem.Time > TimeSpan)
+            //{
                 base.Add(item);
-            }
+            //}
         }
     }
 

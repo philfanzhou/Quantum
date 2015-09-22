@@ -66,6 +66,10 @@
       <Project>{39a8be22-b472-4684-84cf-6cbb10b2ce00}</Project>
       <Name>Pitman.Metadata</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\3_Application\Quantum.Application.MarketData\Quantum.Application.MarketData.csproj">
+      <Project>{b5dbc166-4d50-4423-a811-0256b2017987}</Project>
+      <Name>Quantum.Application.MarketData</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\4_Domain\Quantum.Domain.Indicator\Quantum.Domain.Indicator.csproj">
       <Project>{a75a5eb5-4cb4-46ba-9fec-ee77117350dd}</Project>
       <Name>Quantum.Domain.Indicator</Name>

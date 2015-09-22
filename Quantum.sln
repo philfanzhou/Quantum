@@ -73,6 +73,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitman.DataReader", "..\Pit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitman.Metadata", "..\Pitman\4_Infrastructure\Pitman.Metadata\Pitman.Metadata.csproj", "{39A8BE22-B472-4684-84CF-6CBB10B2CE00}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3_Application", "3_Application", "{74DF9AB9-4F00-433B-AD16-55B73709948E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Application.MarketData", "3_Application\Quantum.Application.MarketData\Quantum.Application.MarketData.csproj", "{B5DBC166-4D50-4423-A811-0256B2017987}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -151,6 +155,10 @@ Global
 		{39A8BE22-B472-4684-84CF-6CBB10B2CE00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39A8BE22-B472-4684-84CF-6CBB10B2CE00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39A8BE22-B472-4684-84CF-6CBB10B2CE00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5DBC166-4D50-4423-A811-0256B2017987}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5DBC166-4D50-4423-A811-0256B2017987}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5DBC166-4D50-4423-A811-0256B2017987}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5DBC166-4D50-4423-A811-0256B2017987}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -184,5 +192,7 @@ Global
 		{425C57E2-B5B5-4CF7-BAFA-C654FD5762B9} = {F6C84ED4-95F4-4D91-93FB-DBE79984A4F4}
 		{8BCFD6F9-B14D-401B-A6AB-E78D84E56672} = {80A831EE-CFFD-41D6-AEF7-49648D0FA7A6}
 		{39A8BE22-B472-4684-84CF-6CBB10B2CE00} = {80A831EE-CFFD-41D6-AEF7-49648D0FA7A6}
+		{74DF9AB9-4F00-433B-AD16-55B73709948E} = {064AAD1B-A718-4272-B0EC-35629D741A25}
+		{B5DBC166-4D50-4423-A811-0256B2017987} = {74DF9AB9-4F00-433B-AD16-55B73709948E}
 	EndGlobalSection
 EndGlobal

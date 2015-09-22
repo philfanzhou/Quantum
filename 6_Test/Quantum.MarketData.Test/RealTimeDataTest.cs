@@ -6,6 +6,8 @@ using Quantum.Infrastructure.MarketData.Repository;
 using Pitman.DataReader;
 using Pitman.Metadata;
 using System.Diagnostics;
+using Quantum.Application.MarketData;
+using System.Linq;
 
 namespace Quantum.MarketData.Test
 {
@@ -15,22 +17,36 @@ namespace Quantum.MarketData.Test
     [TestClass]
     public class RealTimeDataTest
     {
+        private RealTimeData realTimedata;
+        private bool dataUpdated = false;
+
         [TestMethod]
         public void TestCreateFile()
         {
-            var reader = DataReaderCreator.Create();
+            var moniter = new RealTimeDataMonitor(new List<string> { "sh600036" });
+            moniter.dataChangedHandler += Moniter_dataChangedHandler;
             var repository = new RealTimeDataRepository();
+
+            moniter.Start();
             while (DateTime.Now.Hour < 16)
             {
-                System.Threading.Thread.Sleep(4000);
-                var realTimedata = reader.GetData("sh600036");
+                System.Threading.Thread.Sleep(2000);
 
-                var realTimeItem = ConvertDataToItem(realTimedata);
-                repository.Add(MarketType.Shanghai, "600036", realTimeItem);
-
-                Debug.WriteLine(realTimeItem.ToString());
+                if (dataUpdated)
+                {
+                    var realTimeItem = ConvertDataToItem(realTimedata);
+                    repository.Add(MarketType.Shanghai, "600036", realTimeItem);
+                    Debug.WriteLine(realTimeItem.ToString());
+                    dataUpdated = false;
+                }
             }
+        }
 
+
+        private void Moniter_dataChangedHandler(object sender, DataChangedEventArgs e)
+        {
+            realTimedata = e.DataList.First();
+            dataUpdated = true;
         }
 
         [TestMethod]
@@ -61,7 +77,7 @@ namespace Quantum.MarketData.Test
                 BuyThreeVolume = data.BuyThreeVolume,
                 BuyTwoPrice = data.BuyTwoPrice,
                 BuyTwoVolume = data.BuyTwoVolume,
-                BuyOnePrice  = data.BuyOnePrice,
+                BuyOnePrice = data.BuyOnePrice,
                 BuyOneVolume = data.BuyOneVolume,
 
                 SellFivePrice = data.SellFivePrice,
@@ -80,3 +96,5 @@ namespace Quantum.MarketData.Test
         }
     }
 }
+
+
