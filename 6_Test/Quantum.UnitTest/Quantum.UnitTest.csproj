@@ -36,6 +36,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Framework.Infrastructure.Repository">
+      <HintPath>..\..\FrameworkDLL\Framework.Infrastructure.Repository.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -61,10 +76,6 @@
       <Project>{2bfb63c0-2d7a-425a-b284-a34c5297ed2b}</Project>
       <Name>Quantum.Domain.Trading</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\5_Infrastructure\Framework.Infrastructure.Repository\Framework.Infrastructure.Repository.csproj">
-      <Project>{ec6c563d-04ac-4eb0-b570-4c458746f230}</Project>
-      <Name>Framework.Infrastructure.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.EntityFramework.Configuration\Quantum.Infrastructure.EntityFramework.Configuration.csproj">
       <Project>{fa7ff6a0-20af-4f26-a66d-6eb3d62f32b3}</Project>
       <Name>Quantum.Infrastructure.EntityFramework.Configuration</Name>
@@ -73,6 +84,9 @@
       <Project>{47fb5aa3-10bd-438c-93a4-50694179a95b}</Project>
       <Name>Quantum.Infrastructure.Trading.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

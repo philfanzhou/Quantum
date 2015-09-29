@@ -37,6 +37,9 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Framework.Infrastructure.Repository.EntityFramework">
+      <HintPath>..\..\FrameworkDLL\Framework.Infrastructure.Repository.EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -58,14 +61,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Framework.Infrastructure.Repository.EntityFramework\Framework.Infrastructure.Repository.EntityFramework.csproj">
-      <Project>{4a960f2a-4215-442d-9fe7-da7b45a95615}</Project>
-      <Name>Framework.Infrastructure.Repository.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Framework.Infrastructure.Repository\Framework.Infrastructure.Repository.csproj">
-      <Project>{ec6c563d-04ac-4eb0-b570-4c458746f230}</Project>
-      <Name>Framework.Infrastructure.Repository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Quantum.Infrastructure.Trading.Repository\Quantum.Infrastructure.Trading.Repository.csproj">
       <Project>{47fb5aa3-10bd-438c-93a4-50694179a95b}</Project>
       <Name>Quantum.Infrastructure.Trading.Repository</Name>

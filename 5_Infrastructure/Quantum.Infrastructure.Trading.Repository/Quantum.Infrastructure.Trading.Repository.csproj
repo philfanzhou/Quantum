@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Framework.Infrastructure.Repository">
+      <HintPath>..\..\FrameworkDLL\Framework.Infrastructure.Repository.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,12 +48,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TradingRecordData.cs" />
     <Compile Include="TradingRecordDataRepository.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Framework.Infrastructure.Repository\Framework.Infrastructure.Repository.csproj">
-      <Project>{ec6c563d-04ac-4eb0-b570-4c458746f230}</Project>
-      <Name>Framework.Infrastructure.Repository</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
