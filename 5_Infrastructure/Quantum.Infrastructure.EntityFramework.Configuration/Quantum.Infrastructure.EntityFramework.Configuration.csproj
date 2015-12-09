@@ -31,12 +31,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer">
-      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="Framework.Infrastructure.Repository.EntityFramework">
       <HintPath>..\..\FrameworkDLL\Framework.Infrastructure.Repository.EntityFramework.dll</HintPath>
     </Reference>
@@ -56,9 +50,6 @@
     <Compile Include="MetadataConfig\Trading\HoldingsRecordDataConfig.cs" />
     <Compile Include="MetadataConfig\Trading\TradingRecordDataConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quantum.Infrastructure.Trading.Repository\Quantum.Infrastructure.Trading.Repository.csproj">

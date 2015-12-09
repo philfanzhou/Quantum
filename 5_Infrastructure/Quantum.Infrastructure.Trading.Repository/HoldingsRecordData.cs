@@ -1,5 +1,4 @@
-﻿using Framework.Infrastructure.Repository;
-using System;
+﻿using System;
 
 namespace Quantum.Infrastructure.Trading.Repository
 {

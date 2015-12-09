@@ -1,7 +1,4 @@
-﻿using Framework.Infrastructure.Repository;
-using System;
-
-namespace Quantum.Infrastructure.Trading.Repository
+﻿namespace Quantum.Infrastructure.Trading.Repository
 {
     public class AccountData
     {
@@ -12,11 +9,11 @@ namespace Quantum.Infrastructure.Trading.Repository
         /// <summary>
         /// 本金
         /// </summary>
-        public Decimal Principal { get; set; }
+        public decimal Principal { get; set; }
 
         /// <summary>
         /// 余额
         /// </summary>
-        public Decimal Balance { get; set; }
+        public decimal Balance { get; set; }
     }
 }

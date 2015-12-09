@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Quantum.Infrastructure.EntityFramework.Configuration;
 
 namespace Quantum.Trading.Test
 {

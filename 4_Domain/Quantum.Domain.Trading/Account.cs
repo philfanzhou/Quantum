@@ -9,6 +9,62 @@ namespace Quantum.Domain.Trading
     {
         private readonly string _accountId;
 
+        public string Id
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public string Name
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal TotalAssets
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal MarketValue
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal FrozenFund
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal Balance
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public decimal AvailableFund
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         public Account(string id)
         {
             this._accountId = id;
