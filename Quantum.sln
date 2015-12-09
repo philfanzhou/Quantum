@@ -29,6 +29,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Presentation.WinFor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Domain.Indicator", "4_Domain\Quantum.Domain.Indicator\Quantum.Domain.Indicator.csproj", "{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Domain.MarketData", "4_Domain\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj", "{6CD428FE-9631-47B1-BA03-CF7491D8CB5C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pitman.Infrastructure.FileDatabase", "..\Pitman\4_Infrastructure\Pitman.Infrastructure.FileDatabase\Pitman.Infrastructure.FileDatabase.csproj", "{6456216B-27EB-40A3-B6B9-C58A9CAB0E71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Domain.MarketData", "6_Test\Test.Domain.MarketData\Test.Domain.MarketData.csproj", "{B8F54790-FA90-464D-8881-9841A711A7B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MarketData", "MarketData", "{051B5846-6C50-49DB-A33E-1872090DC694}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +75,18 @@ Global
 		{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD428FE-9631-47B1-BA03-CF7491D8CB5C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD428FE-9631-47B1-BA03-CF7491D8CB5C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD428FE-9631-47B1-BA03-CF7491D8CB5C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD428FE-9631-47B1-BA03-CF7491D8CB5C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6456216B-27EB-40A3-B6B9-C58A9CAB0E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6456216B-27EB-40A3-B6B9-C58A9CAB0E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6456216B-27EB-40A3-B6B9-C58A9CAB0E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6456216B-27EB-40A3-B6B9-C58A9CAB0E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8F54790-FA90-464D-8881-9841A711A7B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8F54790-FA90-464D-8881-9841A711A7B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8F54790-FA90-464D-8881-9841A711A7B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8F54790-FA90-464D-8881-9841A711A7B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,5 +100,9 @@ Global
 		{7247FAEE-8950-437A-950B-58DF885A31D9} = {8063516A-2063-44F3-9563-B0C058F2F0E4}
 		{15C9539D-B6DE-4D9F-8033-53FA1AE824AD} = {E58976EB-A362-44DB-B623-3084FDEF39BC}
 		{A75A5EB5-4CB4-46BA-9FEC-EE77117350DD} = {56845ADD-52CD-4833-8710-FD891D785702}
+		{6CD428FE-9631-47B1-BA03-CF7491D8CB5C} = {56845ADD-52CD-4833-8710-FD891D785702}
+		{6456216B-27EB-40A3-B6B9-C58A9CAB0E71} = {051B5846-6C50-49DB-A33E-1872090DC694}
+		{B8F54790-FA90-464D-8881-9841A711A7B0} = {051B5846-6C50-49DB-A33E-1872090DC694}
+		{051B5846-6C50-49DB-A33E-1872090DC694} = {F6C84ED4-95F4-4D91-93FB-DBE79984A4F4}
 	EndGlobalSection
 EndGlobal
