@@ -41,11 +41,19 @@
   <ItemGroup>
     <Compile Include="Account.cs" />
     <Compile Include="Broker.cs" />
+    <Compile Include="IAccountExt.cs" />
     <Compile Include="IHoldingsRecord.cs" />
     <Compile Include="Market.cs" />
     <Compile Include="TradeCost.cs" />
     <Compile Include="IAccount.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Internal\TradingRecord.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.Trading.Repository\Quantum.Infrastructure.Trading.Repository.csproj">
+      <Project>{47fb5aa3-10bd-438c-93a4-50694179a95b}</Project>
+      <Name>Quantum.Infrastructure.Trading.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

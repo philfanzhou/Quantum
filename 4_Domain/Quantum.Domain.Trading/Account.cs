@@ -7,125 +7,129 @@ namespace Quantum.Domain.Trading
 {
     public class Account : IAccount
     {
+        #region Field
         private readonly string _accountId;
+        private readonly string _accountName;
+        #endregion
 
+        #region IAccount Members
+        /// <summary>
+        /// 帐号
+        /// </summary>
         public string Id
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return _accountId; }
         }
 
+        /// <summary>
+        /// 户名
+        /// </summary>
         public string Name
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return _accountName; }
         }
 
-        public decimal TotalAssets
+        /// <summary>
+        /// 本金
+        /// </summary>
+        public decimal Principal { get; private set; }
+
+        /// <summary>
+        /// 余额
+        /// </summary>
+        public decimal Balance { get; private set; }
+        #endregion
+
+        #region Constructor
+        public Account(string name)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            _accountId = Guid.NewGuid().ToString();
+            _accountName = name;
+            Principal = 0;
+            Balance = 0;
+        }
+        #endregion
+
+        ///// <summary>
+        ///// 总资产
+        ///// </summary>
+        //public decimal TotalAssets
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        ///// <summary>
+        ///// 持仓市值
+        ///// </summary>
+        //public decimal MarketValue
+        //{
+        //    get
+        //    {
+        //        throw new NotImplementedException();
+        //    }
+        //}
+
+        public void TransferIn(decimal amount)
+        {
+            Principal += amount;
+            Balance += amount;
         }
 
-        public decimal MarketValue
+        public bool TransferOut(decimal amount)
         {
-            get
+            if (amount > Balance)
             {
-                throw new NotImplementedException();
+                return false;
             }
+
+            Principal -= amount;
+            Balance -= amount;
+            return true;
         }
 
-        public decimal FrozenFund
+        public bool Buy(string code, decimal price, int quantity, DateTime time)
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public decimal Balance
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public decimal AvailableFund
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public Account(string id)
-        {
-            this._accountId = id;
-        }
-
-        public bool Buy(string code, decimal price, int quantity)
-        {
-            var tradingRecord = this.CreateTradingRecord(TradeType.Buy, code, price, quantity);
-
-            using (IRepositoryContext context = RepositoryContext.Create())
-            {
-                var accountRepository = context.GetRepository<Repository<AccountData>>();
-                AccountData account = accountRepository.Get(this._accountId);
-                decimal balance = account.Balance + tradingRecord.Amount;
-                if (balance < 0)
-                {
-                    return false;
-                }
-
-                account.Balance = balance;
-                context.UnitOfWork.RegisterModified(account);
-
-                context.UnitOfWork.RegisterNew(tradingRecord);
-
-                var holdingsRepository = context.GetRepository<HoldingsRecordRepository>();
-                var holdingsRecord = holdingsRepository.GetByAccountAndCode(this._accountId, code);
-                if (holdingsRecord == null)
-                {
-                    holdingsRecord = new HoldingsRecordData()
-                    {
-                        AccountId = this._accountId,
-                        StockCode = code,
-                        Quantity = quantity
-                    };
-                    context.UnitOfWork.RegisterNew(holdingsRecord);
-                }
-                else
-                {
-                    holdingsRecord = holdingsRepository
-                    .GetByAccountAndCode(this._accountId, code);
-                    holdingsRecord.Quantity += quantity;
-                    context.UnitOfWork.RegisterModified(holdingsRecord);
-                }
-
-                context.UnitOfWork.Commit();
-            }
+            var tradingRecord = CreateTradingRecord(TradeType.Buy, code, price, quantity, time);
             
+            if (Balance + tradingRecord.Amount < 0)
+            {
+                return false;
+            }
+
+            account.Balance = balance;
+
+            var holdingsRepository = context.GetRepository<HoldingsRecordRepository>();
+            var holdingsRecord = holdingsRepository.GetByAccountAndCode(this._accountId, code);
+            if (holdingsRecord == null)
+            {
+                holdingsRecord = new HoldingsRecordData()
+                {
+                    AccountId = this._accountId,
+                    StockCode = code,
+                    Quantity = quantity
+                };
+                context.UnitOfWork.RegisterNew(holdingsRecord);
+            }
+            else
+            {
+                holdingsRecord = holdingsRepository
+                .GetByAccountAndCode(this._accountId, code);
+                holdingsRecord.Quantity += quantity;
+                context.UnitOfWork.RegisterModified(holdingsRecord);
+            }
+
+            context.UnitOfWork.Commit();
+
+
             return true;
         }
 
         public int AvailableQuantityToBuy(string code, decimal price)
         {
-            decimal balance;
-            using (IRepositoryContext context = RepositoryContext.Create())
-            {
-                var repository = context.GetRepository<Repository<AccountData>>();
-                AccountData accountData = repository.Get(this._accountId);
-                balance = accountData.Balance;
-            }
-
-            decimal number = balance / price;
+            decimal number = Balance / price;
             if (number < Market.OneHandStock)
             {
                 return 0;
@@ -135,14 +139,30 @@ namespace Quantum.Domain.Trading
                 int roundBlocks = Convert.ToInt32(Math.Floor(number / Market.OneHandStock));
                 int quantity = roundBlocks * Market.OneHandStock;
 
-                return AvailableQuantityToBuy(code, price, quantity, balance);
+                return AvailableQuantityToBuy(code, price, quantity);
+            }
+        }
+
+        private int AvailableQuantityToBuy(string code, decimal price, int quantity)
+        {
+            decimal amount = price * quantity;
+            amount += TradeCost.GetCommission(price, quantity);
+            amount += TradeCost.GetTransferFees(code, price, quantity);
+
+            if (amount > Balance)
+            {
+                return AvailableQuantityToBuy(code, price, quantity - Market.OneHandStock);
+            }
+            else
+            {
+                return quantity;
             }
         }
 
         public bool Sell(string code, decimal price, int quantity)
         {
             int availableQuantity = AvailableQuantityToSell(code);
-            if(quantity > availableQuantity)
+            if (quantity > availableQuantity)
             {
                 return false;
             }
@@ -155,7 +175,7 @@ namespace Quantum.Domain.Trading
 
                 var holdingsRepository = context.GetRepository<HoldingsRecordRepository>();
                 var holdingsRecord = holdingsRepository.GetByAccountAndCode(this._accountId, code);
-                if(holdingsRecord.Quantity - quantity == 0)
+                if (holdingsRecord.Quantity - quantity == 0)
                 {
                     context.UnitOfWork.RegisterDeleted(holdingsRecord);
                 }
@@ -195,86 +215,24 @@ namespace Quantum.Domain.Trading
             }
         }
 
-        public bool TransferIn(decimal amount)
+        private TradingRecord CreateTradingRecord(TradeType type, string code, decimal price, int quantity, DateTime time)
         {
-            using (IRepositoryContext context = RepositoryContext.Create())
-            {
-                var repository = context.GetRepository<Repository<AccountData>>();
-                AccountData accountData = repository.Get(this._accountId);
-
-                accountData.Principal += amount;
-                accountData.Balance += amount;
-
-                context.UnitOfWork.RegisterModified(accountData);
-                context.UnitOfWork.Commit();
-            }
-
-            return true;
-        }
-
-        public bool TransferOut(decimal amount)
-        {
-            using (IRepositoryContext context = RepositoryContext.Create())
-            {
-                var repository = context.GetRepository<Repository<AccountData>>();
-                AccountData accountData = repository.Get(this._accountId);
-
-                if(amount > accountData.Balance)
-                {
-                    return false;
-                }
-
-                accountData.Principal -= amount;
-                accountData.Balance -= amount;
-
-                context.UnitOfWork.RegisterModified(accountData);
-                context.UnitOfWork.Commit();
-            }
-
-            return true;
-        }
-
-        private int AvailableQuantityToBuy(string code, decimal price, int quantity, decimal balance)
-        {
-            decimal amount = price * quantity;
-            amount += TradeCost.GetCommission(price, quantity);
-            amount += TradeCost.GetTransferFees(code, price, quantity);
-
-            if (amount > balance)
-            {
-                return AvailableQuantityToBuy(code, price, quantity - Market.OneHandStock, balance);
-            }
-            else
-            {
-                return quantity;
-            }
-        }
-
-        private TradingRecordData CreateTradingRecord(TradeType type, string code, decimal price, int quantity)
-        {
-            TradingRecordData record = new TradingRecordData
+            TradingRecord record = new TradingRecord
             {
                 AccountId = this._accountId,
-                Date = Market.Time,
+                Date = time,
                 Type = type,
                 StockCode = code,
                 Quantity = quantity,
                 Price = price,
                 FeesSettlement = 0m,
                 Commissions = TradeCost.GetCommission(price, quantity),
-                TransferFees = TradeCost.GetTransferFees(code, price, quantity)
+                TransferFees = TradeCost.GetTransferFees(code, price, quantity),
+                StampDuty = TradeCost.GetStampDuty(type, code, price, quantity)
             };
 
-            if (type == TradeType.Sell)
-            {
-                record.StampDuty = TradeCost.GetStampDuty(code, price, quantity);
-            }
-
-            decimal amount = (price * quantity) +
-                record.Commissions +
-                record.StampDuty +
-                record.TransferFees +
-                record.FeesSettlement;
+            decimal amount = (price * quantity) + record.Commissions + record.StampDuty +
+                record.TransferFees + record.FeesSettlement;
             if (type == TradeType.Buy)
             {
                 record.Amount = -amount;
@@ -288,3 +246,4 @@ namespace Quantum.Domain.Trading
         }
     }
 }
+

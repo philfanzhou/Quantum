@@ -1,4 +1,6 @@
-﻿namespace Quantum.Domain.Trading
+﻿using Quantum.Infrastructure.Trading.Repository;
+
+namespace Quantum.Domain.Trading
 {
     /// <summary>
     /// 交易费用
@@ -20,8 +22,13 @@
             }
         }
 
-        public static decimal GetStampDuty(string code, decimal price, int quantity)
+        public static decimal GetStampDuty(TradeType type, string code, decimal price, int quantity)
         {
+            if(type != TradeType.Sell)
+            {
+                return 0;
+            }
+
             if(!IsStock(code))
             {
                 return 0;
