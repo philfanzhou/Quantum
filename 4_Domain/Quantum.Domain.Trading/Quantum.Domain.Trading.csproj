@@ -39,15 +39,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Account.cs" />
+    <Compile Include="Internal\Account.cs" />
     <Compile Include="Broker.cs" />
-    <Compile Include="IAccountExt.cs" />
+    <Compile Include="Internal\HoldingRecord.cs" />
     <Compile Include="IHoldingsRecord.cs" />
-    <Compile Include="Market.cs" />
-    <Compile Include="TradeCost.cs" />
+    <Compile Include="Internal\Market.cs" />
+    <Compile Include="Internal\TradeCost.cs" />
     <Compile Include="IAccount.cs" />
+    <Compile Include="ITradingRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Internal\TradingRecord.cs" />
+    <Compile Include="SystemTime.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\5_Infrastructure\Quantum.Infrastructure.Trading.Repository\Quantum.Infrastructure.Trading.Repository.csproj">

@@ -39,10 +39,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IAccount.cs" />
-    <Compile Include="HoldingsRecordData.cs" />
+    <Compile Include="IAccountData.cs" />
+    <Compile Include="IHoldingsRecordData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ITradingRecord.cs" />
+    <Compile Include="ITradingRecordData.cs" />
+    <Compile Include="TradeType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

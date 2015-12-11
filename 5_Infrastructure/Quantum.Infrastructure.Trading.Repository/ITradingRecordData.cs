@@ -5,13 +5,8 @@ namespace Quantum.Infrastructure.Trading.Repository
     /// <summary>
     /// 交易记录数据定义
     /// </summary>
-    public interface ITradingRecord
+    public interface ITradingRecordData
     {
-        /// <summary>
-        /// 记录ID
-        /// </summary>
-        string Id { get; }
-
         /// <summary>
         /// 交易帐号
         /// </summary>
@@ -40,7 +35,7 @@ namespace Quantum.Infrastructure.Trading.Repository
         /// <summary>
         /// 成交价
         /// </summary>
-        decimal Price { get; }
+        double Price { get; }
 
         /// <summary>
         /// 佣金
@@ -61,25 +56,5 @@ namespace Quantum.Infrastructure.Trading.Repository
         /// 结算费
         /// </summary>
         decimal FeesSettlement { get; }
-
-        ///// <summary>
-        ///// 发生金额
-        ///// </summary>
-        //decimal Amount { get; }
-    }
-
-    /// <summary>
-    /// 交易类型
-    /// </summary>
-    public enum TradeType
-    {
-        /// <summary>
-        /// 买入
-        /// </summary>
-        Buy,
-        /// <summary>
-        /// 卖出
-        /// </summary>
-        Sell
     }
 }

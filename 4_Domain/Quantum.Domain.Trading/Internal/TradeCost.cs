@@ -7,10 +7,10 @@ namespace Quantum.Domain.Trading
     /// </summary>
     internal class TradeCost
     {
-        public static decimal GetCommission(decimal price, int quantity)
+        public static decimal GetCommission(double price, int quantity)
         {
-            decimal amount = price * quantity;
-            decimal fee = amount * Market.CommissionRate;
+            decimal amount = (decimal)price * quantity;
+            decimal fee = amount * Broker.CommissionRate;
 
             if(fee < 5)
             {
@@ -22,7 +22,7 @@ namespace Quantum.Domain.Trading
             }
         }
 
-        public static decimal GetStampDuty(TradeType type, string code, decimal price, int quantity)
+        public static decimal GetStampDuty(TradeType type, string code, double price, int quantity)
         {
             if(type != TradeType.Sell)
             {
@@ -34,10 +34,10 @@ namespace Quantum.Domain.Trading
                 return 0;
             }
 
-            return price * quantity * Market.StampDutyRate;
+            return (decimal)price * quantity * Broker.StampDutyRate;
         }
 
-        public static decimal GetTransferFees(string code, decimal price, int quantity)
+        public static decimal GetTransferFees(string code, double price, int quantity)
         {
             if (!IsStock(code))
             {
@@ -46,7 +46,7 @@ namespace Quantum.Domain.Trading
 
             if(IsShanghaiStock(code))
             {
-                return price * quantity * Market.TransferFeesRate;
+                return (decimal)price * quantity * Broker.TransferFeesRate;
             }
             else
             {

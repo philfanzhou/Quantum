@@ -1,6 +1,6 @@
 ﻿namespace Quantum.Infrastructure.Trading.Repository
 {
-    public interface IAccount
+    public interface IAccountData
     {
         /// <summary>
         /// 账户ID
