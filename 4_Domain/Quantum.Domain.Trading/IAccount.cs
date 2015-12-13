@@ -1,4 +1,5 @@
 ﻿using Quantum.Infrastructure.Trading.Repository;
+using System.Collections.Generic;
 
 namespace Quantum.Domain.Trading
 {
@@ -62,5 +63,7 @@ namespace Quantum.Domain.Trading
         /// <param name="quantity"></param>
         /// <returns></returns>
         bool Sell(string stockCode, double price, int quantity);
+
+        void UpdateHoldingsPrice(Dictionary<string, double> stockPriceDic);
     }
 }
