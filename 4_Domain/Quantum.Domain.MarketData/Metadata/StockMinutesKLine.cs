@@ -6,19 +6,11 @@ namespace Quantum.Domain.MarketData
     internal class StockMinutesKLine : IStockKLine
     {
         #region IStockKLine Members
-        public string Code { get; set; }
-
-        public Market Market { get; set; }
-
-        public string ShortName { get; set; }
-
         public DateTime Time { get; set; }
 
         public double Open { get; set; }
 
-        public double PreClose { get; set; }
-
-        public double Current { get; set; }
+        public double Close { get; set; }
 
         public double High { get; set; }
 
@@ -41,7 +33,7 @@ namespace Quantum.Domain.MarketData
 
         public override string ToString()
         {
-            return Time.ToString("yyyy-MM-dd hh:mm:ss") + string.Format("  Price:{0}", Current);
+            return Time.ToString("yyyy-MM-dd hh:mm:ss") + string.Format("  Price:{0}", Close);
         }
     }
 }

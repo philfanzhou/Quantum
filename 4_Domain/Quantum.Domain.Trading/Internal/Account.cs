@@ -155,6 +155,11 @@ namespace Quantum.Domain.Trading
                 return quantity;
             }
         }
+
+        public void UpdateHoldingsPrice(Dictionary<string, double> stockPriceDic)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
 

@@ -57,10 +57,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Pitman\4_Infrastructure\Pitman.Infrastructure.FileDatabase\Pitman.Infrastructure.FileDatabase.csproj">
-      <Project>{6456216b-27eb-40a3-b6b9-c58a9cab0e71}</Project>
-      <Name>Pitman.Infrastructure.FileDatabase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\4_Domain\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj">
       <Project>{6cd428fe-9631-47b1-ba03-cf7491d8cb5c}</Project>
       <Name>Quantum.Domain.MarketData</Name>

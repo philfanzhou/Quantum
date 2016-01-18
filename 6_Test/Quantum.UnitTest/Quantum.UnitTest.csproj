@@ -36,9 +36,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Framework.Infrastructure.Repository">
-      <HintPath>..\..\FrameworkDLL\Framework.Infrastructure.Repository.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>

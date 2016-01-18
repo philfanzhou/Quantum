@@ -67,10 +67,6 @@ namespace Quantum.Domain.MarketData
                         realTimeItem.Time.Minute,
                         0),
 
-                    Code = realTimeItem.Code,
-                    ShortName = realTimeItem.ShortName,
-                    Market = realTimeItem.Market,
-
                     // 当前分析周期的开盘价 = 第一条数据的成交价
                     Open = realTimeItem.Current,
 
@@ -87,7 +83,7 @@ namespace Quantum.Domain.MarketData
         {
             StockMinutesKLine currentItem = _items.Last();
 
-            currentItem.Current = realTimeItem.Current;
+            currentItem.Close = realTimeItem.Current;
 
             // 取得最高价和最低价
             if(realTimeItem.Current > currentItem.High)
@@ -99,23 +95,23 @@ namespace Quantum.Domain.MarketData
                 currentItem.Low = realTimeItem.Current;
             }
 
-            // 根据前面的数据，求出分时成交量和成交额, 以及前收盘价
-            if (_items.Count > 1)
-            {
-                StockMinutesKLine previousDate = _items[_items.Count - 2];
-                currentItem.Volume = realTimeItem.Volume - previousDate.CurrentTotalVolume;
-                currentItem.Amount = realTimeItem.Amount - previousDate.CurrentTotalAmount;
+            //// 根据前面的数据，求出分时成交量和成交额, 以及前收盘价
+            //if (_items.Count > 1)
+            //{
+            //    StockMinutesKLine previousDate = _items[_items.Count - 2];
+            //    currentItem.Volume = realTimeItem.Volume - previousDate.CurrentTotalVolume;
+            //    currentItem.Amount = realTimeItem.Amount - previousDate.CurrentTotalAmount;
 
-                currentItem.PreClose = previousDate.Current;
-            }
-            else
-            {
-                currentItem.Volume = realTimeItem.Volume;
-                currentItem.Amount = realTimeItem.Amount;
+            //    currentItem.PreClose = previousDate.Current;
+            //}
+            //else
+            //{
+            //    currentItem.Volume = realTimeItem.Volume;
+            //    currentItem.Amount = realTimeItem.Amount;
 
-                // 如果是某一天的第一条数据，前收盘价就取昨日收盘价
-                currentItem.PreClose = realTimeItem.YesterdayClose;
-            }
+            //    // 如果是某一天的第一条数据，前收盘价就取昨日收盘价
+            //    currentItem.PreClose = realTimeItem.YesterdayClose;
+            //}
         }
     }
 }
