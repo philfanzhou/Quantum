@@ -20,26 +20,26 @@ namespace Quantum.Domain.Trading
         double Cost { get; }
 
         /// <summary>
-        /// 浮动盈亏
-        /// </summary>
-        double FloatingProfitAndLoss { get; }
-
-        /// <summary>
-        /// 盈亏比例
-        /// </summary>
-        float Proportion { get; }
-
-        /// <summary>
-        /// 市值
-        /// </summary>
-        decimal MarketValue { get; }
-
-        /// <summary>
         /// 计算可卖数量
         /// </summary>
         /// <param name="time"></param>
         /// <param name="stockCode"></param>
         /// <returns></returns>
         int AvailableQuantityToSell(DateTime time);
+
+        /// <summary>
+        /// 浮动盈亏 - 与实时行情相关
+        /// </summary>
+        double FloatingProfitAndLoss { get; }
+
+        /// <summary>
+        /// 盈亏比例 - 与实时行情相关
+        /// </summary>
+        float Proportion { get; }
+
+        /// <summary>
+        /// 市值 - 与实时行情相关
+        /// </summary>
+        decimal MarketValue { get; }
     }
 }

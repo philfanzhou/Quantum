@@ -22,8 +22,6 @@ namespace Quantum.Domain.Trading
         /// 余额
         /// </summary>
         private decimal _balance;
-        private readonly Dictionary<string, HoldingsRecord> _holdingRecords = new Dictionary<string, HoldingsRecord>();
-        private readonly List<ITradingRecord> _tradingRecords = new List<ITradingRecord>();
         #endregion
 
         #region Constructor

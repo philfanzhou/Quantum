@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Quantum.Domain.Trading
 {
@@ -24,16 +25,6 @@ namespace Quantum.Domain.Trading
         /// </summary>
         decimal Balance { get; }
 
-        /// <summary>
-        /// 总资产
-        /// </summary>
-        decimal TotalAssets { get; }
-
-        /// <summary>
-        /// 持仓市值
-        /// </summary>
-        decimal MarketValue { get; }
-
         ///// <summary>
         ///// 冻结资金
         ///// </summary>
@@ -56,10 +47,21 @@ namespace Quantum.Domain.Trading
         /// <param name="amount"></param>
         /// <returns></returns>
         bool TransferOut(decimal amount);
+        
+        /// <summary>
+        /// 总资产 - 与实时行情相关
+        /// </summary>
+        decimal TotalAssets { get; }
+
+        /// <summary>
+        /// 持仓市值 - 与实时行情相关
+        /// </summary>
+        decimal MarketValue { get; }
 
         /// <summary>
         /// 买入
         /// </summary>
+        /// <param name="time"></param>
         /// <param name="stockCode"></param>
         /// <param name="price"></param>
         /// <param name="quantity"></param>
@@ -69,6 +71,7 @@ namespace Quantum.Domain.Trading
         /// <summary>
         /// 卖出
         /// </summary>
+        /// <param name="time"></param>
         /// <param name="stockCode"></param>
         /// <param name="price"></param>
         /// <param name="quantity"></param>
@@ -82,5 +85,17 @@ namespace Quantum.Domain.Trading
         /// <param name="price"></param>
         /// <returns></returns>
         int AvailableQuantityToBuy(string stockCode, double price);
+
+        /// <summary>
+        /// 获取所有持仓记录
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<IHoldingsRecord> GetAllHoldingsRecord();
+
+        /// <summary>
+        /// 获取所有交易记录
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ITradingRecord> GetAllTradingRecord();
     }
 }

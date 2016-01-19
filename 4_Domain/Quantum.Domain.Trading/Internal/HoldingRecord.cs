@@ -11,7 +11,6 @@ namespace Quantum.Domain.Trading
         #region Field
         private readonly string _accountId;
         private readonly string _stockCode;
-        private readonly List<ITradingRecord> _tradingRecords = new List<ITradingRecord>();
         #endregion
 
         public HoldingsRecord(string accountId, string stockCode)
@@ -20,15 +19,11 @@ namespace Quantum.Domain.Trading
             _stockCode = stockCode;
         }
 
-        #region IHoldingsRecordData Members
-        public string AccountId { get { return _accountId; } }
-
         public int Quantity { get; private set; }
 
         public string StockCode { get { return _stockCode; } }
 
         public double Price { get; set; }
-        #endregion
 
         /// <summary>
         /// 获取持仓可用余额

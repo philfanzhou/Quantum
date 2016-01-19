@@ -5,10 +5,13 @@
     /// </summary>
     public static class Broker
     {
+        #region Field
         private static decimal _commissionRate = 0.0003m;
         private static decimal _stampDutyRate = 0.001m;
         private static decimal _transferFeesRate = 0.00002m;
+        #endregion
 
+        #region Property
         /// <summary>
         /// 获取或设置佣金费率
         /// </summary>
@@ -35,7 +38,9 @@
             get { return _transferFeesRate; }
             set { _transferFeesRate = value; }
         }
+        #endregion
 
+        #region Public Method
         /// <summary>
         /// 创建交易账户
         /// </summary>
@@ -45,5 +50,6 @@
         {
             return new Account(name);
         }
+        #endregion
     }
 }
