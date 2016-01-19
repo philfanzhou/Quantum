@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Application.Simulat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Domain.KLineConverter", "4_Domain\Quantum.Domain.KLineConverter\Quantum.Domain.KLineConverter.csproj", "{622DABC0-E519-4060-81CD-0FE488DE50F7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Quantum.Infrastructure.EF.Trading.Config", "5_Infrastructure\Quantum.Infrastructure.EF.Trading.Config\Quantum.Infrastructure.EF.Trading.Config.csproj", "{DD3A2D59-C925-4EAC-BF34-9B74301BD97E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +81,10 @@ Global
 		{622DABC0-E519-4060-81CD-0FE488DE50F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{622DABC0-E519-4060-81CD-0FE488DE50F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{622DABC0-E519-4060-81CD-0FE488DE50F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD3A2D59-C925-4EAC-BF34-9B74301BD97E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD3A2D59-C925-4EAC-BF34-9B74301BD97E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD3A2D59-C925-4EAC-BF34-9B74301BD97E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD3A2D59-C925-4EAC-BF34-9B74301BD97E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -94,5 +100,6 @@ Global
 		{97D9E8F2-9163-4846-A914-9B82C377E7A1} = {56845ADD-52CD-4833-8710-FD891D785702}
 		{2EDB22D4-6C48-4256-A017-8E47A5088C49} = {A23268CD-DFBE-418E-9F61-5A1C5A50714D}
 		{622DABC0-E519-4060-81CD-0FE488DE50F7} = {56845ADD-52CD-4833-8710-FD891D785702}
+		{DD3A2D59-C925-4EAC-BF34-9B74301BD97E} = {8063516A-2063-44F3-9563-B0C058F2F0E4}
 	EndGlobalSection
 EndGlobal

@@ -1,29 +1,25 @@
-﻿using Quantum.Infrastructure.Trading.Repository;
-using System;
+﻿using System;
 
 namespace Quantum.Domain.Trading
 {
-    internal class TradingRecord : ITradingRecordData, ITradingRecord
+    internal class TradingRecord : ITradingRecord
     {
-        public TradingRecord(string accountId, TradeType type, string code, 
+        public TradingRecord(DateTime time, TradeType type, string code, 
             double price, int quantity)
         {
-            AccountId = accountId;
-            Date = SystemTime.Now;
+            Time = time;
             Type = type;
             StockCode = code;
             Quantity = quantity;
             Price = price;
-            FeesSettlement = 0m;
+
             Commissions = TradeCost.GetCommission(price, quantity);
-            TransferFees = TradeCost.GetTransferFees(code, price, quantity);
             StampDuty = TradeCost.GetStampDuty(type, code, price, quantity);
+            TransferFees = TradeCost.GetTransferFees(code, price, quantity);
+            FeesSettlement = 0m;
         }
-
-        #region ITradingRecordData Members
-        public string AccountId { get; private set; }
-
-        public DateTime Date { get; private set; }
+        
+        public DateTime Time { get; private set; }
 
         public TradeType Type { get; private set; }
 
@@ -40,9 +36,7 @@ namespace Quantum.Domain.Trading
         public decimal TransferFees { get; private set; }
 
         public decimal FeesSettlement { get; private set; }
-        #endregion
 
-        #region ITradingRecord Members
         /// <summary>
         /// 交易总金额
         /// </summary>
@@ -50,11 +44,15 @@ namespace Quantum.Domain.Trading
         {
             get
             {
-                decimal amount = ((decimal)Price * Quantity) + Commissions + StampDuty + TransferFees + FeesSettlement;
+                decimal amount
+                    = ((decimal)Price * Quantity)
+                    + Commissions
+                    + StampDuty
+                    + TransferFees
+                    + FeesSettlement;
+
                 return amount;
             }
         }
-        #endregion
-
     }
 }

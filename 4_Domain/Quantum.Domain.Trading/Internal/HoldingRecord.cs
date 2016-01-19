@@ -1,5 +1,4 @@
-﻿using Quantum.Infrastructure.Trading.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Quantum.Domain.Trading
 {
-    internal class HoldingsRecord : IHoldingsRecordData, IHoldingsRecord
+    internal class HoldingsRecord : IHoldingsRecord
     {
         #region Field
         private readonly string _accountId;

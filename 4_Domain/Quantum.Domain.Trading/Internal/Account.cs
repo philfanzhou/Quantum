@@ -1,14 +1,27 @@
-﻿using Quantum.Infrastructure.Trading.Repository;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Quantum.Domain.Trading
 {
-    internal class Account : IAccountData, IAccount
+    internal class Account : IAccount
     {
         #region Field
+        /// <summary>
+        /// 账户ID
+        /// </summary>
         private readonly string _accountId = Guid.NewGuid().ToString();
+        /// <summary>
+        /// 户名
+        /// </summary>
         private readonly string _accountName;
+        /// <summary>
+        /// 本金
+        /// </summary>
+        private decimal _principal;
+        /// <summary>
+        /// 余额
+        /// </summary>
+        private decimal _balance;
         private readonly Dictionary<string, HoldingsRecord> _holdingRecords = new Dictionary<string, HoldingsRecord>();
         private readonly List<ITradingRecord> _tradingRecords = new List<ITradingRecord>();
         #endregion
@@ -20,42 +33,50 @@ namespace Quantum.Domain.Trading
         }
         #endregion
 
-        #region IAccountData Members
-        /// <summary>
-        /// 帐号
-        /// </summary>
-        public string Id
+        #region IAccount Members
+        string IAccount.Id
         {
             get { return _accountId; }
         }
-
-        /// <summary>
-        /// 户名
-        /// </summary>
-        public string Name
+        
+        string IAccount.Name
         {
             get { return _accountName; }
         }
+        
+        decimal IAccount.Principal
+        {
+            get { return _principal; }
+        }
 
-        /// <summary>
-        /// 本金
-        /// </summary>
-        public decimal Principal { get; private set; }
+        decimal IAccount.Balance
+        {
+            get { return _balance; }
+        }
 
-        /// <summary>
-        /// 余额
-        /// </summary>
-        public decimal Balance { get; private set; }
-        #endregion
+        decimal IAccount.TotalAssets
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
 
-        #region IAccount Members
-        public void TransferIn(decimal amount)
+        decimal IAccount.MarketValue
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        void IAccount.TransferIn(decimal amount)
         {
             Principal += amount;
             Balance += amount;
         }
 
-        public bool TransferOut(decimal amount)
+        bool IAccount.TransferOut(decimal amount)
         {
             if (amount > Balance)
             {
@@ -67,7 +88,7 @@ namespace Quantum.Domain.Trading
             return true;
         }
 
-        public bool Buy(string stockCode, double price, int quantity)
+        bool IAccount.Buy(DateTime time, string stockCode, double price, int quantity)
         {
             var tradingRecord = new TradingRecord(this.Id, TradeType.Buy, stockCode, price, quantity);
             if (this.Balance - tradingRecord.Amount < 0)
@@ -93,23 +114,7 @@ namespace Quantum.Domain.Trading
             return true;
         }
 
-        public int AvailableQuantityToBuy(string stockCode, double price)
-        {
-            decimal number = Balance / (decimal)price;
-            if (number < Market.OneHandStock)
-            {
-                return 0;
-            }
-            else
-            {
-                int roundBlocks = Convert.ToInt32(Math.Floor(number / Market.OneHandStock));
-                int quantity = roundBlocks * Market.OneHandStock;
-
-                return AvailableQuantityToBuy(stockCode, price, quantity);
-            }
-        }
-
-        public bool Sell(string stockCode, double price, int quantity)
+        bool IAccount.Sell(DateTime time, string stockCode, double price, int quantity)
         {
             HoldingsRecord holdingsRecord;
             if (!this._holdingRecords.TryGetValue(stockCode, out holdingsRecord))
@@ -138,6 +143,22 @@ namespace Quantum.Domain.Trading
 
             return true;
         }
+
+        int IAccount.AvailableQuantityToBuy(string stockCode, double price)
+        {
+            decimal number = Balance / (decimal)price;
+            if (number < Market.OneHandStock)
+            {
+                return 0;
+            }
+            else
+            {
+                int roundBlocks = Convert.ToInt32(Math.Floor(number / Market.OneHandStock));
+                int quantity = roundBlocks * Market.OneHandStock;
+
+                return AvailableQuantityToBuy(stockCode, price, quantity);
+            }
+        }
         #endregion
 
         private int AvailableQuantityToBuy(string stockCode, double price, int quantity)
@@ -154,11 +175,6 @@ namespace Quantum.Domain.Trading
             {
                 return quantity;
             }
-        }
-
-        public void UpdateHoldingsPrice(Dictionary<string, double> stockPriceDic)
-        {
-            throw new NotImplementedException();
         }
     }
 }

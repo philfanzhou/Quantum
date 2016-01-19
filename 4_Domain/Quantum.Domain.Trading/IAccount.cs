@@ -1,19 +1,38 @@
-﻿using Quantum.Infrastructure.Trading.Repository;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Quantum.Domain.Trading
 {
-    public interface IAccount : IAccountData
+    public interface IAccount
     {
-        ///// <summary>
-        ///// 总资产
-        ///// </summary>
-        //decimal TotalAssets { get; }
+        /// <summary>
+        /// 账户ID
+        /// </summary>
+        string Id { get; }
 
-        ///// <summary>
-        ///// 持仓市值
-        ///// </summary>
-        //decimal MarketValue { get; }
+        /// <summary>
+        /// 户名
+        /// </summary>
+        string Name { get; }
+
+        /// <summary>
+        /// 本金
+        /// </summary>
+        decimal Principal { get; }
+
+        /// <summary>
+        /// 余额
+        /// </summary>
+        decimal Balance { get; }
+
+        /// <summary>
+        /// 总资产
+        /// </summary>
+        decimal TotalAssets { get; }
+
+        /// <summary>
+        /// 持仓市值
+        /// </summary>
+        decimal MarketValue { get; }
 
         ///// <summary>
         ///// 冻结资金
@@ -45,15 +64,7 @@ namespace Quantum.Domain.Trading
         /// <param name="price"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        bool Buy(string stockCode, double price, int quantity);
-
-        /// <summary>
-        /// 计算可买数量
-        /// </summary>
-        /// <param name="stockCode"></param>
-        /// <param name="price"></param>
-        /// <returns></returns>
-        int AvailableQuantityToBuy(string stockCode, double price);
+        bool Buy(DateTime time, string stockCode, double price, int quantity);
 
         /// <summary>
         /// 卖出
@@ -62,8 +73,14 @@ namespace Quantum.Domain.Trading
         /// <param name="price"></param>
         /// <param name="quantity"></param>
         /// <returns></returns>
-        bool Sell(string stockCode, double price, int quantity);
+        bool Sell(DateTime time, string stockCode, double price, int quantity);
 
-        void UpdateHoldingsPrice(Dictionary<string, double> stockPriceDic);
+        /// <summary>
+        /// 计算可买数量
+        /// </summary>
+        /// <param name="stockCode"></param>
+        /// <param name="price"></param>
+        /// <returns></returns>
+        int AvailableQuantityToBuy(string stockCode, double price);
     }
 }

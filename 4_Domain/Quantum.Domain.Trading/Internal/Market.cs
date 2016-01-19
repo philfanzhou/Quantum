@@ -5,6 +5,6 @@
         /// <summary>
         /// 一手股票包含100股
         /// </summary>
-        public const int OneHandStock = 100;
+        internal const int OneHandStock = 100;
     }
 }

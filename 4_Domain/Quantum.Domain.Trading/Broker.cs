@@ -1,7 +1,4 @@
-﻿using Quantum.Infrastructure.Trading.Repository;
-using System;
-
-namespace Quantum.Domain.Trading
+﻿namespace Quantum.Domain.Trading
 {
     /// <summary>
     /// 券商
@@ -31,7 +28,7 @@ namespace Quantum.Domain.Trading
         }
 
         /// <summary>
-        /// 获取或设置交易费率
+        /// 获取或设置过户费率
         /// </summary>
         public static decimal TransferFeesRate
         {
@@ -39,6 +36,11 @@ namespace Quantum.Domain.Trading
             set { _transferFeesRate = value; }
         }
 
+        /// <summary>
+        /// 创建交易账户
+        /// </summary>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static IAccount CreateAccount(string name)
         {
             return new Account(name);
