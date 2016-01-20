@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Quantum.Domain.Trading
 {
@@ -15,17 +16,15 @@ namespace Quantum.Domain.Trading
         int Quantity { get; }
 
         /// <summary>
+        /// 获取所有交易记录
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ITradingRecord> TradingRecords { get; }
+
+        /// <summary>
         /// 成本
         /// </summary>
         double Cost { get; }
-
-        /// <summary>
-        /// 计算可卖数量
-        /// </summary>
-        /// <param name="time"></param>
-        /// <param name="stockCode"></param>
-        /// <returns></returns>
-        int AvailableQuantityToSell(DateTime time);
 
         /// <summary>
         /// 浮动盈亏 - 与实时行情相关
@@ -41,5 +40,21 @@ namespace Quantum.Domain.Trading
         /// 市值 - 与实时行情相关
         /// </summary>
         decimal MarketValue { get; }
+
+        /// <summary>
+        /// 计算冻结数量
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="stockCode"></param>
+        /// <returns></returns>
+        int GetFrozenQuantity(DateTime time);
+
+        /// <summary>
+        /// 计算可卖数量
+        /// </summary>
+        /// <param name="time"></param>
+        /// <param name="stockCode"></param>
+        /// <returns></returns>
+        int GetAvailableQuantity(DateTime time);
     }
 }

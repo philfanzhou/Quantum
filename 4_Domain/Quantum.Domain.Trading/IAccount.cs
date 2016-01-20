@@ -59,6 +59,18 @@ namespace Quantum.Domain.Trading
         decimal MarketValue { get; }
 
         /// <summary>
+        /// 获取所有持仓记录
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<IHoldingsRecord> GetAllHoldingsRecord();
+
+        /// <summary>
+        /// 获取所有交易记录
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<ITradingRecord> GetAllTradingRecord();
+
+        /// <summary>
         /// 买入
         /// </summary>
         /// <param name="time"></param>
@@ -85,17 +97,5 @@ namespace Quantum.Domain.Trading
         /// <param name="price"></param>
         /// <returns></returns>
         int AvailableQuantityToBuy(string stockCode, double price);
-
-        /// <summary>
-        /// 获取所有持仓记录
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<IHoldingsRecord> GetAllHoldingsRecord();
-
-        /// <summary>
-        /// 获取所有交易记录
-        /// </summary>
-        /// <returns></returns>
-        IEnumerable<ITradingRecord> GetAllTradingRecord();
     }
 }

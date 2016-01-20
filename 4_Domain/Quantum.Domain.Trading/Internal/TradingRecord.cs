@@ -4,21 +4,18 @@ namespace Quantum.Domain.Trading
 {
     internal class TradingRecord : ITradingRecord
     {
-        public TradingRecord(DateTime time, TradeType type, string code, 
+        #region Constructor
+        public TradingRecord(DateTime time, TradeType type, string stockCode, 
             double price, int quantity)
         {
             Time = time;
             Type = type;
-            StockCode = code;
+            StockCode = stockCode;
             Quantity = quantity;
             Price = price;
-
-            Commissions = TradeCost.GetCommission(price, quantity);
-            StampDuty = TradeCost.GetStampDuty(type, code, price, quantity);
-            TransferFees = TradeCost.GetTransferFees(code, price, quantity);
-            FeesSettlement = 0m;
         }
-        
+        #endregion
+
         public DateTime Time { get; private set; }
 
         public TradeType Type { get; private set; }
@@ -29,17 +26,26 @@ namespace Quantum.Domain.Trading
 
         public double Price { get; private set; }
 
-        public decimal Commissions { get; private set; }
+        public decimal Commissions
+        {
+            get { return TradeCost.GetCommission(Price, Quantity); }
+        }
 
-        public decimal StampDuty { get; private set; }
+        public decimal StampDuty
+        {
+            get { return TradeCost.GetStampDuty(Type, StockCode, Price, Quantity); }
+        }
 
-        public decimal TransferFees { get; private set; }
+        public decimal TransferFees
+        {
+            get { return TradeCost.GetTransferFees(StockCode, Price, Quantity); }
+        }
 
-        public decimal FeesSettlement { get; private set; }
-
-        /// <summary>
-        /// 交易总金额
-        /// </summary>
+        public decimal FeesSettlement
+        {
+            get { return 0m; }
+        }
+        
         public decimal Amount
         {
             get

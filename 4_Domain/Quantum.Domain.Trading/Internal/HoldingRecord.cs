@@ -1,122 +1,120 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.Trading
 {
     internal class HoldingsRecord : IHoldingsRecord
     {
         #region Field
-        private readonly string _accountId;
         private readonly string _stockCode;
+        private int _quantity;
+        private readonly List<ITradingRecord> _tradingRecords = new List<ITradingRecord>();
         #endregion
 
-        public HoldingsRecord(string accountId, string stockCode)
+        #region Constructor
+        private HoldingsRecord(string stockCode)
         {
-            _accountId = accountId;
             _stockCode = stockCode;
         }
 
-        public int Quantity { get; private set; }
+        internal HoldingsRecord(string stockCode, int quantity, IEnumerable<ITradingRecord> tradingRecords)
+        {
+            _stockCode = stockCode;
+            _quantity = quantity;
+            _tradingRecords = tradingRecords.ToList();
+        }
+        #endregion
 
         public string StockCode { get { return _stockCode; } }
 
-        public double Price { get; set; }
+        public int Quantity { get { return _quantity; } }
 
-        /// <summary>
-        /// 获取持仓可用余额
-        /// </summary>
-        /// <returns></returns>
-        public int Balance
+        public IEnumerable<ITradingRecord> TradingRecords { get { return _tradingRecords; } }
+
+        public double Cost
         {
             get
             {
-                // 无交易记录直接返回0
-                if (this.Quantity <= 0 || this._tradingRecords.Count <= 0)
-                {
-                    return 0;
-                }
-
-                // 交易时间小于最新交易记录时间--返回0
-                var latestRecord = this._tradingRecords.OrderBy(p => p.Date).Last();
-                if (SystemTime.Now.Date < latestRecord.Date.Date)
-                {
-                    return 0;
-                }
-
-                int todayBuyQuantity = GetTodayBuyQuantity();
-                if (this.Quantity > todayBuyQuantity)
-                {
-                    return Quantity - todayBuyQuantity;
-                }
-                else
-                {
-                    return 0;
-                }
+                throw new NotImplementedException();
             }
         }
 
-        /// <summary>
-        /// 获取持仓冻结数量
-        /// </summary>
-        /// <returns></returns>
-        public int FrozenQuantity
+        public double FloatingProfitAndLoss
         {
             get
             {
-                // 无交易记录直接返回0
-                if (this.Quantity <= 0 || this._tradingRecords.Count <= 0)
-                {
-                    return 0;
-                }
-
-                // 交易时间小于最新交易记录时间--返回0
-                var latestRecord = this._tradingRecords.OrderBy(p => p.Date).Last();
-                if (SystemTime.Now.Date < latestRecord.Date.Date)
-                {
-                    return 0;
-                }
-
-                return GetTodayBuyQuantity();
+                throw new NotImplementedException();
             }
         }
 
-        public void Add(ITradingRecord tradingRecord)
+        public float Proportion
         {
-            if(tradingRecord.StockCode != this.StockCode)
+            get
             {
-                throw new ArgumentOutOfRangeException("tradingRecord");
+                throw new NotImplementedException();
             }
-
-            if(tradingRecord.Type == TradeType.Buy)
-            {
-                this.Quantity += tradingRecord.Quantity;
-            }
-            else
-            {
-                this.Quantity -= tradingRecord.Quantity;
-            }
-
-            // 用交易记录的价格来更新持仓记录的价格
-            this.Price = tradingRecord.Price;
-
-            this._tradingRecords.Add(tradingRecord);
         }
 
-        /// <summary>
-        /// 取得今天的购买数量
-        /// </summary>
-        /// <returns></returns>
-        private int GetTodayBuyQuantity()
+        public decimal MarketValue
         {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public int GetFrozenQuantity(DateTime time)
+        {
+            // 交易日期小于最新交易记录日期
+            // 比如最后一次交易为2016.1.20，查询2016.1.19的冻结数量就不合法. 因为这样的时间不符合常理
+            var latestRecord = this._tradingRecords.OrderBy(p => p.Time).Last();
+            if (time.Date < latestRecord.Time.Date)
+            {
+                return _quantity;
+            }
+
             var todayBuyRecords = this._tradingRecords.Where(p =>
-                p.Date.Date == SystemTime.Now.Date &&
+                p.Time.Date == time.Date &&
                 p.Type == TradeType.Buy);
             int todayBuyQuantity = todayBuyRecords.Sum(p => p.Quantity);
 
             return todayBuyQuantity;
         }
+
+        public int GetAvailableQuantity(DateTime time)
+        {
+            // 可卖数量 = 持仓 - 冻结
+            int frozenQuantity = GetFrozenQuantity(time);
+            if (this._quantity > frozenQuantity)
+            {
+                return _quantity - frozenQuantity;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        #region Internal Method
+        internal static HoldingsRecord Create(string stockCode)
+        {
+            return new HoldingsRecord(stockCode);
+        }
+
+        internal void Add(ITradingRecord tradingRecord)
+        {
+            if (tradingRecord.Type == TradeType.Buy)
+            {
+                this._quantity += tradingRecord.Quantity;
+            }
+            else
+            {
+                this._quantity -= tradingRecord.Quantity;
+            }
+            
+            this._tradingRecords.Add(tradingRecord);
+        }
+        #endregion
     }
 }

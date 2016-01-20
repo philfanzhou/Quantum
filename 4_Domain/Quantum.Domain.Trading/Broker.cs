@@ -1,4 +1,6 @@
-﻿namespace Quantum.Domain.Trading
+﻿using System;
+
+namespace Quantum.Domain.Trading
 {
     /// <summary>
     /// 券商
@@ -48,7 +50,7 @@
         /// <returns></returns>
         public static IAccount CreateAccount(string name)
         {
-            return new Account(name);
+            return Account.Create(name);
         }
         #endregion
     }
