@@ -60,7 +60,13 @@ namespace Quantum.Domain.Trading
         {
             get
             {
-                throw new NotImplementedException();
+                if(Market.Quotes == null)
+                {
+                    return 0;
+                }
+
+                double price = Market.Quotes.GetPrice(this._stockCode);
+                return (decimal)price * _quantity;
             }
         }
 
@@ -97,11 +103,20 @@ namespace Quantum.Domain.Trading
         }
 
         #region Internal Method
+        /// <summary>
+        /// 新建持仓记录
+        /// </summary>
+        /// <param name="stockCode"></param>
+        /// <returns></returns>
         internal static HoldingsRecord Create(string stockCode)
         {
             return new HoldingsRecord(stockCode);
         }
 
+        /// <summary>
+        /// 添加交易记录
+        /// </summary>
+        /// <param name="tradingRecord"></param>
         internal void Add(ITradingRecord tradingRecord)
         {
             if (tradingRecord.Type == TradeType.Buy)
