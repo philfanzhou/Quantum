@@ -36,15 +36,22 @@ namespace Quantum.Domain.Trading
         {
             get
             {
-                throw new NotImplementedException();
+                if (_quantity == 0)
+                {
+                    return 0;
+                }
+
+                decimal totalCost = GetTotalCost();
+                decimal cost = totalCost / _quantity;
+                return (double)Math.Round(cost, 3, MidpointRounding.AwayFromZero);
             }
         }
 
-        public double FloatingProfitAndLoss
+        public decimal FloatingProfitAndLoss
         {
             get
             {
-                throw new NotImplementedException();
+                return GetMarketValue() - GetTotalCost();
             }
         }
 
@@ -52,6 +59,13 @@ namespace Quantum.Domain.Trading
         {
             get
             {
+                if (_quantity == 0)
+                {
+                    return 0;
+                }
+
+                // = 浮动盈亏 / （市值 - 浮动盈亏）
+                // 如果浮动盈亏为负，则为负
                 throw new NotImplementedException();
             }
         }
@@ -60,13 +74,12 @@ namespace Quantum.Domain.Trading
         {
             get
             {
-                if(Market.Quotes == null)
+                if (_quantity == 0)
                 {
                     return 0;
                 }
 
-                double price = Market.Quotes.GetPrice(this._stockCode);
-                return (decimal)price * _quantity;
+                return Math.Round(GetMarketValue(), 3, MidpointRounding.AwayFromZero);
             }
         }
 
@@ -129,6 +142,50 @@ namespace Quantum.Domain.Trading
             }
             
             this._tradingRecords.Add(tradingRecord);
+        }
+        #endregion
+
+        #region Private Method
+        private decimal GetMarketValue()
+        {
+            if (Market.Quotes == null)
+            {
+                return 0;
+            }
+
+            double price = Market.Quotes.GetPrice(this._stockCode);
+            decimal marketValue = (decimal)price * _quantity;
+            return marketValue;
+        }
+
+        /// <summary>
+        /// 计算总交易成本
+        /// </summary>
+        /// <returns></returns>
+        private decimal GetTotalCost()
+        {
+            decimal amount = 0m;
+            foreach (var tradItem in _tradingRecords)
+            {
+                if (tradItem.Type == TradeType.Buy)
+                {
+                    // 买入的所有金额都计入成本
+                    amount += tradItem.Amount;
+                }
+                else if (tradItem.Type == TradeType.Sell)
+                {
+                    // 卖出交易的股票金额作为成本降低
+                    amount -= (decimal)tradItem.Price * tradItem.Quantity;
+
+                    // 但是卖出手续费需要计入成本
+                    amount += tradItem.Commissions;
+                    amount += tradItem.FeesSettlement;
+                    amount += tradItem.StampDuty;
+                    amount += tradItem.TransferFees;
+                }
+            }
+
+            return amount;
         }
         #endregion
     }

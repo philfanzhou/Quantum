@@ -29,7 +29,7 @@ namespace Quantum.Domain.Trading
         /// <summary>
         /// 浮动盈亏 - 与实时行情相关
         /// </summary>
-        double FloatingProfitAndLoss { get; }
+        decimal FloatingProfitAndLoss { get; }
 
         /// <summary>
         /// 盈亏比例 - 与实时行情相关
