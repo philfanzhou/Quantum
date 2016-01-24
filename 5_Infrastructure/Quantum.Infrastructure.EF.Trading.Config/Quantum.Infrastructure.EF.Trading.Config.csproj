@@ -31,16 +31,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework">
-      <HintPath>..\..\Refer.Dll\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\Framework\Publish.Dll\Framework.Infrastructure.Repository.EF.SqlServerCe\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="Framework.Infrastructure.Repository">
-      <HintPath>..\..\Refer.Dll\Framework.Infrastructure.Repository.dll</HintPath>
+      <HintPath>..\..\..\Framework\Publish.Dll\Framework.Infrastructure.Repository.EF\Framework.Infrastructure.Repository.dll</HintPath>
     </Reference>
     <Reference Include="Framework.Infrastructure.Repository.EF">
-      <HintPath>..\..\Refer.Dll\Framework.Infrastructure.Repository.EF.dll</HintPath>
+      <HintPath>..\..\..\Framework\Publish.Dll\Framework.Infrastructure.Repository.EF\Framework.Infrastructure.Repository.EF.dll</HintPath>
     </Reference>
     <Reference Include="Framework.Infrastructure.Repository.EF.SqlServerCe">
-      <HintPath>..\..\Refer.Dll\Framework.Infrastructure.Repository.EF.SqlServerCe.dll</HintPath>
+      <HintPath>..\..\..\Framework\Publish.Dll\Framework.Infrastructure.Repository.EF.SqlServerCe\Framework.Infrastructure.Repository.EF.SqlServerCe.dll</HintPath>
     </Reference>
     <Reference Include="Ore.Infrastructure.MarketData">
       <HintPath>..\..\Refer.Dll\Ore.Infrastructure.MarketData.dll</HintPath>
