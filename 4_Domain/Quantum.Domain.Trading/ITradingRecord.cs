@@ -2,6 +2,9 @@
 
 namespace Quantum.Domain.Trading
 {
+    /// <summary>
+    /// 交易记录
+    /// </summary>
     public interface ITradingRecord
     {
         #region Property

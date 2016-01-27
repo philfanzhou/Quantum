@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Quantum.Domain.Trading
 {
+    /// <summary>
+    /// 股票账户
+    /// </summary>
     public interface IAccount
     {
         /// <summary>

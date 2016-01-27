@@ -5,6 +5,11 @@
     /// </summary>
     public interface IMarketQuotes
     {
+        /// <summary>
+        /// 获取指定股票价格
+        /// </summary>
+        /// <param name="stockCode"></param>
+        /// <returns></returns>
         double GetPrice(string stockCode);
     }
 }

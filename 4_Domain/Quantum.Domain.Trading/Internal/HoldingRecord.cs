@@ -19,11 +19,15 @@ namespace Quantum.Domain.Trading
             _stockCode = stockCode;
         }
 
-        internal HoldingsRecord(string stockCode, int quantity, IEnumerable<ITradingRecord> tradingRecords)
+        internal HoldingsRecord(IHoldingsRecord holdingsRecord)
         {
-            _stockCode = stockCode;
-            _quantity = quantity;
-            _tradingRecords = tradingRecords.ToList();
+            _stockCode = holdingsRecord.StockCode;
+            _quantity = holdingsRecord.Quantity;
+            
+            foreach(var item in holdingsRecord.TradingRecords)
+            {
+                _tradingRecords.Add(new TradingRecord(item));
+            }
         }
         #endregion
 

@@ -34,8 +34,23 @@ namespace Quantum.Domain.Trading
         #region Constructor
         private Account(string name)
         {
-            _id = new Guid().ToString();
+            _id = Guid.NewGuid().ToString();
             _name = name;
+        }
+
+        internal Account(IAccount account)
+        {
+            _id = account.Id;
+            _name = account.Name;
+            _principal = account.Principal;
+            _balance = account.Balance;
+
+            var holdingsRecords = account.GetAllHoldingsRecord();
+            foreach(var item in holdingsRecords)
+            {
+                var record = new HoldingsRecord(item);
+                _holdingsRecords.Add(record.StockCode, record);
+            }
         }
         #endregion
 

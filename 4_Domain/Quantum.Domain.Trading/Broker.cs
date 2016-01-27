@@ -1,11 +1,9 @@
-﻿using System;
-
-namespace Quantum.Domain.Trading
+﻿namespace Quantum.Domain.Trading
 {
     /// <summary>
     /// 券商
     /// </summary>
-    public static class Broker
+    public static partial class Broker
     {
         #region Field
         private static decimal _commissionRate = 0.0003m;
@@ -51,25 +49,6 @@ namespace Quantum.Domain.Trading
         public static IAccount CreateAccount(string name)
         {
             return Account.Create(name);
-        }
-
-        /// <summary>
-        /// 存储账户信息
-        /// </summary>
-        /// <param name="account"></param>
-        public static void SaveAccountData(IAccount account)
-        {
-
-        }
-
-        /// <summary>
-        /// 读取账户信息
-        /// </summary>
-        /// <param name="accountId"></param>
-        /// <returns></returns>
-        public static IAccount LoadAccountData(string accountId)
-        {
-            throw new NotImplementedException();
         }
         #endregion
     }

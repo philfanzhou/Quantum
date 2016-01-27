@@ -1,0 +1,372 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Quantum.Domain.Trading</name>
+    </assembly>
+    <members>
+        <member name="T:Quantum.Domain.Trading.Broker">
+            <summary>
+            券商
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.Broker.SaveAccountData(Quantum.Domain.Trading.IAccount)">
+            <summary>
+            存储账户信息
+            </summary>
+            <param name="account"></param>
+        </member>
+        <member name="M:Quantum.Domain.Trading.Broker.LoadAccountData(System.String)">
+            <summary>
+            读取账户信息
+            </summary>
+            <param name="accountId"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Quantum.Domain.Trading.Broker.CommissionRate">
+            <summary>
+            获取或设置佣金费率
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.Broker.StampDutyRate">
+            <summary>
+            获取或设置印花税率
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.Broker.TransferFeesRate">
+            <summary>
+            获取或设置过户费率
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.Broker.CreateAccount(System.String)">
+            <summary>
+            创建交易账户
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.Trading.IMarketQuotes">
+            <summary>
+            市场报价定义接口
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IMarketQuotes.GetPrice(System.String)">
+            <summary>
+            获取指定股票价格
+            </summary>
+            <param name="stockCode"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Quantum.Domain.Trading.Account._id">
+            <summary>
+            账户ID
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.Account._name">
+            <summary>
+            户名
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.Account._principal">
+            <summary>
+            本金
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.Account._balance">
+            <summary>
+            余额
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.Account._holdingsRecords">
+            <summary>
+            持仓记录
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.HoldingsRecord.Create(System.String)">
+            <summary>
+            新建持仓记录
+            </summary>
+            <param name="stockCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.HoldingsRecord.Add(Quantum.Domain.Trading.ITradingRecord)">
+            <summary>
+            添加交易记录
+            </summary>
+            <param name="tradingRecord"></param>
+        </member>
+        <member name="M:Quantum.Domain.Trading.HoldingsRecord.CalculateMarketValue">
+            <summary>
+            计算持仓市值
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.HoldingsRecord.CalculateTotalCost">
+            <summary>
+            计算总交易成本
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.Trading.IHoldingsRecord">
+            <summary>
+            持仓记录
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IHoldingsRecord.StockCode">
+            <summary>
+            股票代码
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IHoldingsRecord.Quantity">
+            <summary>
+            持仓数量
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IHoldingsRecord.TradingRecords">
+            <summary>
+            获取所有交易记录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IHoldingsRecord.GetCost">
+            <summary>
+            成本
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IHoldingsRecord.GetFloatingProfitAndLoss">
+            <summary>
+            浮动盈亏 - 与实时行情相关
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IHoldingsRecord.GetProportion">
+            <summary>
+            盈亏比例 - 与实时行情相关
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IHoldingsRecord.GetMarketValue">
+            <summary>
+            市值 - 与实时行情相关
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IHoldingsRecord.GetFrozenQuantity(System.DateTime)">
+            <summary>
+            计算冻结数量
+            </summary>
+            <param name="time"></param>
+            <param name="stockCode"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IHoldingsRecord.GetAvailableQuantity(System.DateTime)">
+            <summary>
+            计算可卖数量
+            </summary>
+            <param name="time"></param>
+            <param name="stockCode"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.Trading.Market">
+            <summary>
+            市场信息定义
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.Market.OneHandStock">
+            <summary>
+            一手股票包含100股
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.Market.Quotes">
+            <summary>
+            获取或设置用于查询股票实时报价接口的实例
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.Trading.TradeCost">
+            <summary>
+            交易费用
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.TradeCost.GetCommission(System.Double,System.Int32)">
+            <summary>
+            计算佣金
+            </summary>
+            <param name="price"></param>
+            <param name="quantity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.TradeCost.GetStampDuty(Quantum.Domain.Trading.TradeType,System.String,System.Double,System.Int32)">
+            <summary>
+            计算印花税
+            </summary>
+            <param name="type"></param>
+            <param name="code"></param>
+            <param name="price"></param>
+            <param name="quantity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.TradeCost.GetTransferFees(System.String,System.Double,System.Int32)">
+            <summary>
+            计算过户费
+            </summary>
+            <param name="code"></param>
+            <param name="price"></param>
+            <param name="quantity"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.Trading.IAccount">
+            <summary>
+            股票账户
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IAccount.Id">
+            <summary>
+            账户ID
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IAccount.Name">
+            <summary>
+            户名
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IAccount.Principal">
+            <summary>
+            本金
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IAccount.Balance">
+            <summary>
+            余额
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.TransferIn(System.Decimal)">
+            <summary>
+            银行转券商
+            </summary>
+            <param name="amount"></param>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.TransferOut(System.Decimal)">
+            <summary>
+            券商转银行
+            </summary>
+            <param name="amount"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IAccount.TotalAssets">
+            <summary>
+            总资产 - 与实时行情相关
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.IAccount.MarketValue">
+            <summary>
+            持仓市值 - 与实时行情相关
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.GetAllHoldingsRecord">
+            <summary>
+            获取所有持仓记录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.GetAllTradingRecord">
+            <summary>
+            获取所有交易记录
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.Buy(System.DateTime,System.String,System.Double,System.Int32)">
+            <summary>
+            买入
+            </summary>
+            <param name="time"></param>
+            <param name="stockCode"></param>
+            <param name="price"></param>
+            <param name="quantity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.Sell(System.DateTime,System.String,System.Double,System.Int32)">
+            <summary>
+            卖出
+            </summary>
+            <param name="time"></param>
+            <param name="stockCode"></param>
+            <param name="price"></param>
+            <param name="quantity"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.AvailableQuantityToBuy(System.String,System.Double)">
+            <summary>
+            计算可买数量
+            </summary>
+            <param name="stockCode"></param>
+            <param name="price"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.Trading.ITradingRecord">
+            <summary>
+            交易记录
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.Time">
+            <summary>
+            交易时间
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.Type">
+            <summary>
+            交易类型
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.StockCode">
+            <summary>
+            股票代码
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.Quantity">
+            <summary>
+            数量
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.Price">
+            <summary>
+            成交价
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.Commissions">
+            <summary>
+            佣金
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.StampDuty">
+            <summary>
+            印花税
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.TransferFees">
+            <summary>
+            过户费
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.Trading.ITradingRecord.FeesSettlement">
+            <summary>
+            结算费
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.Trading.ITradingRecord.GetAmount">
+            <summary>
+            获取交易的总金额
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.Trading.TradeType">
+            <summary>
+            交易类型
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.TradeType.Buy">
+            <summary>
+            买入
+            </summary>
+        </member>
+        <member name="F:Quantum.Domain.Trading.TradeType.Sell">
+            <summary>
+            卖出
+            </summary>
+        </member>
+    </members>
+</doc>

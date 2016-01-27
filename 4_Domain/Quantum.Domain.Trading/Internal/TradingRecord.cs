@@ -6,7 +6,7 @@ namespace Quantum.Domain.Trading
     internal class TradingRecord : ITradingRecord
     {
         #region Constructor
-        public TradingRecord(DateTime time, TradeType type, string stockCode, 
+        internal TradingRecord(DateTime time, TradeType type, string stockCode, 
             double price, int quantity)
         {
             Time = time;
@@ -18,6 +18,19 @@ namespace Quantum.Domain.Trading
             StampDuty = TradeCost.GetStampDuty(Type, StockCode, Price, Quantity);
             TransferFees = TradeCost.GetTransferFees(StockCode, Price, Quantity);
             FeesSettlement = 0m;
+        }
+
+        internal TradingRecord(ITradingRecord tradingRecord)
+        {
+            Time = tradingRecord.Time;
+            Type = tradingRecord.Type;
+            StockCode = tradingRecord.StockCode;
+            Quantity = tradingRecord.Quantity;
+            Price = tradingRecord.Price;
+            Commissions = tradingRecord.Commissions;
+            StampDuty = tradingRecord.StampDuty;
+            TransferFees = tradingRecord.TransferFees;
+            FeesSettlement = tradingRecord.FeesSettlement;
         }
         #endregion
 

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace Quantum.Domain.Trading
 {
+    /// <summary>
+    /// 持仓记录
+    /// </summary>
     public interface IHoldingsRecord
     {
         #region Property
