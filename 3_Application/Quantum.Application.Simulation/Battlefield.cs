@@ -18,7 +18,9 @@ namespace Quantum.Application.Simulation
 
         public void Practice()
         {
-
+            /*
+            在这里遍历每一条数据，每条数据的时间作为当前时间
+            */
         }
     }
 }
