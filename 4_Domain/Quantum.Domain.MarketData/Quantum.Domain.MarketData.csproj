@@ -28,6 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Release\Quantum.Domain.MarketData.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ore.Infrastructure.MarketData">
@@ -43,16 +44,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Indicator\BuyAgainstSellExt.cs" />
+    <Compile Include="Indicator\IBuyAgainstSell.cs" />
     <Compile Include="Internal\IntradayInfo.cs" />
     <Compile Include="Internal\KLine1MinuteInfo.cs" />
     <Compile Include="Internal\RealTimeItemExt.cs" />
     <Compile Include="IntradayConverter.cs" />
-    <Compile Include="KLineConverter.cs" />
+    <Compile Include="Converter\KLineConverter.cs" />
     <Compile Include="Metadata\StockIntraday.cs" />
     <Compile Include="Metadata\StockMinutesKLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>IF NOT $(ConfigurationName) == Release GOTO end
+xcopy $(TargetDir)*.* $(SolutionDir)Publish.Dll\$(ProjectName)\ /y
+del $(SolutionDir)Publish.Dll\$(ProjectName)\*.pdb /f /s /q /a
+del $(SolutionDir)Publish.Dll\$(ProjectName)\*.tmp /f /s /q /a
+:end</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

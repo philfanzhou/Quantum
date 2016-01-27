@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Quantum.Domain.MarketData</name>
+    </assembly>
+    <members>
+        <member name="M:Quantum.Domain.Indicator.BuyAgainstSellExt.WeiCha(Quantum.Domain.Indicator.IBuyAgainstSell)">
+            <summary>
+            委差
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Indicator.BuyAgainstSellExt.WeiBi(Quantum.Domain.Indicator.IBuyAgainstSell)">
+            <summary>
+            委比
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.Indicator.BuyAgainstSellExt.DuoKongBi(Quantum.Domain.Indicator.IBuyAgainstSell)">
+            <summary>
+            多空比
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.Indicator.IBuyAgainstSell">
+            <summary>
+            多空指标
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IntradayInfo">
+            <summary>
+            分时数据信息类
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.KLine1MinuteInfo">
+            <summary>
+            一分钟K线信息类
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.RealTimeItemExt.BuyVolume(Ore.Infrastructure.MarketData.IStockRealTime)">
+            <summary>
+            委买
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.RealTimeItemExt.SellVolume(Ore.Infrastructure.MarketData.IStockRealTime)">
+            <summary>
+            委卖
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.StockIntraday.CurrentTotalVolume">
+            <summary>
+            当前时刻的总成交量
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.StockIntraday.CurrentTotalAmount">
+            <summary>
+            当前时刻的总成交额
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.StockMinutesKLine.CurrentTotalVolume">
+            <summary>
+            当前时刻的总成交量
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.StockMinutesKLine.CurrentTotalAmount">
+            <summary>
+            当前时刻的总成交额
+            </summary>
+        </member>
+    </members>
+</doc>

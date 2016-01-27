@@ -1,0 +1,928 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Ore.Infrastructure.MarketData</name>
+    </assembly>
+    <members>
+        <member name="T:Ore.Infrastructure.MarketData.BounsType">
+            <summary>
+            分红配股类型枚举
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.BounsType.ProfitSharing">
+            <summary>
+            分红
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.BounsType.StockOption">
+            <summary>
+            配股
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.Market">
+            <summary>
+            交易市场枚举
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.XSHG">
+            <summary>
+            上海证券交易所
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.XSHE">
+            <summary>
+            深圳证券交易所
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.CCFX">
+            <summary>
+            中国金融期货交易所
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.XDCE">
+            <summary>
+            大连商品交易所
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.XSGE">
+            <summary>
+            上海期货交易所
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.XZCE">
+            <summary>
+            郑州商品交易所
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.Market.XHKG">
+            <summary>
+            香港证券交易所
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.KLineType">
+            <summary>
+            K线类型定义
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Day">
+            <summary>
+            日线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Week">
+            <summary>
+            周线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Month">
+            <summary>
+            月线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Quarter">
+            <summary>
+            季线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Year">
+            <summary>
+            年线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Min1">
+            <summary>
+            1分钟线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Min5">
+            <summary>
+            5分钟线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Min15">
+            <summary>
+            15分钟线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Min30">
+            <summary>
+            30分钟线
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.KLineType.Min60">
+            <summary>
+            60分钟线
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IParticipation">
+            <summary>
+            定义机构参与度数据接口
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IParticipation.Time">
+            <summary>
+            日期与时间
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IParticipation.Value">
+            <summary>
+            机构参与度（%） : 45
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IParticipation.MainForceInflows">
+            <summary>
+            主力净流入
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IParticipation.SuperLargeInflows">
+            <summary>
+            超大单流入
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IParticipation.CostPrice1Day">
+            <summary>
+            最近1日主力成本
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IParticipation.CostPrice20Day">
+            <summary>
+            最近20日主力成本
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IStockBonus">
+            <summary>
+            股票分红配股信息
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.DateOfDeclaration">
+            <summary>
+            公告日期
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.Type">
+            <summary>
+            分红配股类型
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ExdividendDate">
+            <summary>
+            除权除息日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.RegisterDate">
+            <summary>
+            股权登记日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.PreTaxDividend">
+            <summary>
+            税前红利（10派）（报价币种）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.DividendAfterTax">
+            <summary>
+            税后红利（10派）（报价币种）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.BAndHPreTaxDividend">
+            <summary>
+            B、H股税前红利（人民币）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.BAndHDividendAfterTax">
+            <summary>
+            B、H股税后红利（人民币）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.BonusRate">
+            <summary>
+            送股比例（10送）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.IncreaseRate">
+            <summary>
+            转增比例（10转增）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ReserveSurplusIncreaseRate">
+            <summary>
+            盈余公积金转增比例（10转增）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.CapitalSurplusIncreaseRate">
+            <summary>
+            资本公积金转增比例（10转增）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.IssuingObject">
+            <summary>
+            发放对象
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.CapitalStockBaseDate">
+            <summary>
+            股本基准日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.LastTradingDay">
+            <summary>
+            最后交易日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.StartOrArriveDate">
+            <summary>
+            红利/配股起始日（送、转股到账日)
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ExpirationDate">
+            <summary>
+            红利/配股终止日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ResolutionOfShareholdersMeetingDate">
+            <summary>
+            股东大会决议公告日期
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ConvertibleBondDate">
+            <summary>
+            可转债享受权益转股截止日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.DispatchListingDate">
+            <summary>
+            配股上市日
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.DispatchRate">
+            <summary>
+            配股比例（10配）
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.DispatchPrice">
+            <summary>
+            配股价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.TransferredAllottedRate">
+            <summary>
+            转配比例
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.TransferredAllottedPrice">
+            <summary>
+            转配价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.DispatchExpiryDate">
+            <summary>
+            配股有效期
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.TotalDispatch">
+            <summary>
+            实际配股数 (万股)
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.CapitalStockBeforeDispatch">
+            <summary>
+            配股前总股本 (万股)
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ActualDispatchRate">
+            <summary>
+            实际配股比例
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ShareSplitCount">
+            <summary>
+            每股拆细数
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.ExchangeRate">
+            <summary>
+            外币折算汇率
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockBonus.Description">
+            <summary>
+            权息说明
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IStockIntraday">
+            <summary>
+            分时数据定义
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.Time">
+            <summary>
+            时间
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.Current">
+            <summary>
+            当前价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.AveragePrice">
+            <summary>
+            均价 = 当前时刻总成交额 / 当前时刻总成交量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.YesterdayClose">
+            <summary>
+            前一交易日收盘价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.Volume">
+            <summary>
+            分时成交量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.Amount">
+            <summary>
+            分时成交额
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.BuyVolume">
+            <summary>
+            委买
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockIntraday.SellVolume">
+            <summary>
+            委卖
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IStockKLine">
+            <summary>
+            K线数据定义
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.Time">
+            <summary>
+            日期与时间
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.Open">
+            <summary>
+            今开
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.High">
+            <summary>
+            最高
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.Low">
+            <summary>
+            最低
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.Close">
+            <summary>
+            收盘
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.Volume">
+            <summary>
+            成交量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockKLine.Amount">
+            <summary>
+            成交额
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IStockRealTime">
+            <summary>
+            实时报价数据定义
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Code">
+            <summary>
+            代码
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Market">
+            <summary>
+            交易市场
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.ShortName">
+            <summary>
+            简称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.TodayOpen">
+            <summary>
+            今开
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.YesterdayClose">
+            <summary>
+            昨收
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Current">
+            <summary>
+            当前成交价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.High">
+            <summary>
+            最高
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Low">
+            <summary>
+            最低
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Volume">
+            <summary>
+            成交量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Amount">
+            <summary>
+            成交额
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Time">
+            <summary>
+            日期与时间
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell5Price">
+            <summary>
+            卖五价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell5Volume">
+            <summary>
+            卖五量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell4Price">
+            <summary>
+            卖四价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell4Volume">
+            <summary>
+            卖四量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell3Price">
+            <summary>
+            卖三价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell3Volume">
+            <summary>
+            卖三量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell2Price">
+            <summary>
+            卖二价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell2Volume">
+            <summary>
+            卖二量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell1Price">
+            <summary>
+            卖一价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Sell1Volume">
+            <summary>
+            卖一量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy1Price">
+            <summary>
+            买一价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy1Volume">
+            <summary>
+            买一量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy2Price">
+            <summary>
+            买二价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy2Volume">
+            <summary>
+            买二量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy3Price">
+            <summary>
+            买三价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy3Volume">
+            <summary>
+            买三量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy4Price">
+            <summary>
+            买四价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy4Volume">
+            <summary>
+            买四量
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy5Price">
+            <summary>
+            买五价
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockRealTime.Buy5Volume">
+            <summary>
+            买五量
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.ISecurity">
+            <summary>
+            定义证券接口
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.ISecurity.Code">
+            <summary>
+            挂牌代码
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.ISecurity.ShortName">
+            <summary>
+            证券简称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.ISecurity.Market">
+            <summary>
+            交易市场
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.ISecurity.Type">
+            <summary>
+            证券类型
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IStockStructure">
+            <summary>
+            定义股票股本结构接口
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.DateOfChange">
+            <summary>
+            变动日期
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.DateOfDeclaration">
+            <summary>
+            公告日期
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.Reason">
+            <summary>
+            变更原因
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.TotalShares">
+            <summary>
+            总股本
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.SharesA">
+            <summary>
+            流通A股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.ExecutiveShares">
+            <summary>
+            高管股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.RestrictedSharesA">
+            <summary>
+            限售A股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.SharesB">
+            <summary>
+            流通B股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.RestrictedSharesB">
+            <summary>
+            限售B股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.SharesH">
+            <summary>
+            流通H股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.StateShares">
+            <summary>
+            国家股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.StateOwnedLegalPersonShares">
+            <summary>
+            国有法人股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.DomesticLegalPersonShares">
+            <summary>
+            境内法人股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.DomesticSponsorsShares">
+            <summary>
+            境内发起人股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.RaiseLegalPersonShares">
+            <summary>
+            募集法人股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.GeneralLegalPersonShares">
+            <summary>
+            一般法人股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.StrategicInvestorsShares">
+            <summary>
+            战略投资者持股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.FundsShares">
+            <summary>
+            基金持股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.TransferredAllottedShares">
+            <summary>
+            转配股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.InternalStaffShares">
+            <summary>
+            内部职工股
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockStructure.PreferredStock">
+            <summary>
+            优先股
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.IStockProfile">
+            <summary>
+            定义股票基本信息接口
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.CodeA">
+            <summary>
+            A股交易代码
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.ShortNameA">
+            <summary>
+            A股证券简称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.FullName">
+            <summary>
+            公司名称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.EnglishName">
+            <summary>
+            公司英文名称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.NameUsedBefore">
+            <summary>
+            曾用名
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.CodeB">
+            <summary>
+            B股交易代码
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.ShortNameB">
+            <summary>
+            B股证券简称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.CodeH">
+            <summary>
+            H股交易代码
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.ShortNameH">
+            <summary>
+            B股证券简称
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Exchange">
+            <summary>
+            证券交易所
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Industry">
+            <summary>
+            所属行业
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.GeneralManager">
+            <summary>
+            总经理
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.LegalRepresentative">
+            <summary>
+            法人代表
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.BoardSecretary">
+            <summary>
+            董秘
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Chairman">
+            <summary>
+            董事长
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.SecuritiesAffairsRepresentatives">
+            <summary>
+            证券事务代表
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.IndependentDirectors">
+            <summary>
+            独立董事
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.ContactNumber">
+            <summary>
+            联系电话
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Email">
+            <summary>
+            电子信箱
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Fax">
+            <summary>
+            传真
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Website">
+            <summary>
+            公司网址
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.OfficeAddress">
+            <summary>
+            办公地址
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.RegisteredAddress">
+            <summary>
+            注册地址
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.Area">
+            <summary>
+            区域
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.ZipCode">
+            <summary>
+            邮政编码
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.RegisteredCapital">
+            <summary>
+            注册资本(元)
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.BusinessRegistration">
+            <summary>
+            工商登记
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.NumberOfEmployees">
+            <summary>
+            雇员人数
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.NumberOfManagement">
+            <summary>
+            管理人员人数
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.LawOffice">
+            <summary>
+            律师事务所
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.AccountingFirm">
+            <summary>
+            会计师事务所
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.CompanyProfile">
+            <summary>
+            公司简介
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.PrimeBusiness">
+            <summary>
+            主营业务范围
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.EstablishmentDate">
+            <summary>
+            成立日期
+            </summary>
+        </member>
+        <member name="P:Ore.Infrastructure.MarketData.IStockProfile.ListDate">
+            <summary>
+            上市日期
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.ListStatus">
+            <summary>
+            上市状态枚举
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.ListStatus.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.ListStatus.List">
+            <summary>
+            上市
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.ListStatus.Suspend">
+            <summary>
+            暂停
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.ListStatus.Delist">
+            <summary>
+            摘牌
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.ListStatus.Unlisted">
+            <summary>
+            未上市
+            </summary>
+        </member>
+        <member name="T:Ore.Infrastructure.MarketData.SecurityType">
+            <summary>
+            证券类型枚举
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.SecurityType.Unknown">
+            <summary>
+            未知
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.SecurityType.Sotck">
+            <summary>
+            股票
+            </summary>
+        </member>
+        <member name="F:Ore.Infrastructure.MarketData.SecurityType.Fund">
+            <summary>
+            基金
+            </summary>
+        </member>
+    </members>
+</doc>
