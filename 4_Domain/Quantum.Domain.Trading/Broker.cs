@@ -52,6 +52,25 @@ namespace Quantum.Domain.Trading
         {
             return Account.Create(name);
         }
+
+        /// <summary>
+        /// 存储账户信息
+        /// </summary>
+        /// <param name="account"></param>
+        public static void SaveAccountData(IAccount account)
+        {
+
+        }
+
+        /// <summary>
+        /// 读取账户信息
+        /// </summary>
+        /// <param name="accountId"></param>
+        /// <returns></returns>
+        public static IAccount LoadAccountData(string accountId)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

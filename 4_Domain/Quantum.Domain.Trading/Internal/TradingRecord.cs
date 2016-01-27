@@ -2,6 +2,7 @@
 
 namespace Quantum.Domain.Trading
 {
+    [Serializable]
     internal class TradingRecord : ITradingRecord
     {
         #region Constructor
@@ -13,9 +14,14 @@ namespace Quantum.Domain.Trading
             StockCode = stockCode;
             Quantity = quantity;
             Price = price;
+            Commissions = TradeCost.GetCommission(Price, Quantity);
+            StampDuty = TradeCost.GetStampDuty(Type, StockCode, Price, Quantity);
+            TransferFees = TradeCost.GetTransferFees(StockCode, Price, Quantity);
+            FeesSettlement = 0m;
         }
         #endregion
 
+        #region Property
         public DateTime Time { get; private set; }
 
         public TradeType Type { get; private set; }
@@ -26,39 +32,32 @@ namespace Quantum.Domain.Trading
 
         public double Price { get; private set; }
 
-        public decimal Commissions
-        {
-            get { return TradeCost.GetCommission(Price, Quantity); }
-        }
+        public decimal Commissions { get; private set; }
 
-        public decimal StampDuty
-        {
-            get { return TradeCost.GetStampDuty(Type, StockCode, Price, Quantity); }
-        }
+        public decimal StampDuty { get; private set; }
 
-        public decimal TransferFees
-        {
-            get { return TradeCost.GetTransferFees(StockCode, Price, Quantity); }
-        }
+        public decimal TransferFees { get; private set; }
 
-        public decimal FeesSettlement
-        {
-            get { return 0m; }
-        }
-        
-        public decimal Amount
-        {
-            get
-            {
-                decimal amount
-                    = ((decimal)Price * Quantity)
-                    + Commissions
-                    + StampDuty
-                    + TransferFees
-                    + FeesSettlement;
+        public decimal FeesSettlement { get; private set; }
+        #endregion
 
-                return amount;
-            }
+        #region Public Method
+        public decimal GetAmount()
+        {
+            decimal amount
+                = ((decimal)Price * Quantity)
+                + Commissions
+                + StampDuty
+                + TransferFees
+                + FeesSettlement;
+
+            return amount;
+        }
+        #endregion
+
+        public override string ToString()
+        {
+            return StockCode + " " + Time.ToString("yyyy/MM/dd hh-mm-ss") + " " + Price;
         }
     }
 }

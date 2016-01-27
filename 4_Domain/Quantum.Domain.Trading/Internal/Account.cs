@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum.Domain.Trading
 {
+    [Serializable]
     internal class Account : IAccount
     {
         #region Field
@@ -25,7 +27,7 @@ namespace Quantum.Domain.Trading
         /// <summary>
         /// 持仓记录
         /// </summary>
-        private readonly Dictionary<string, HoldingsRecord> _holdingRecords =
+        private readonly Dictionary<string, HoldingsRecord> _holdingsRecords =
             new Dictionary<string, HoldingsRecord>();
         #endregion
 
@@ -35,57 +37,23 @@ namespace Quantum.Domain.Trading
             _id = new Guid().ToString();
             _name = name;
         }
-
-        internal Account(string id, string name, decimal principal, decimal balance, IEnumerable<HoldingsRecord> holdingRecords)
-        {
-            _id = id;
-            _name = name;
-            _principal = principal;
-            _balance = balance;
-            
-            foreach(var record in holdingRecords)
-            {
-                _holdingRecords.Add(record.StockCode, record);
-            }
-        }
         #endregion
 
-        public string Id
-        {
-            get { return _id; }
-        }
+        #region Property
+        public string Id { get { return _id; } }
 
-        public string Name
-        {
-            get { return _name; }
-        }
+        public string Name { get { return _name; } }
 
-        public decimal Principal
-        {
-            get { return _principal; }
-        }
+        public decimal Principal { get { return _principal; } }
 
-        public decimal Balance
-        {
-            get { return _balance; }
-        }
+        public decimal Balance { get { return _balance; } }
 
-        public decimal TotalAssets
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public decimal TotalAssets { get { return Balance + MarketValue; } }
 
-        public decimal MarketValue
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
+        public decimal MarketValue { get { return _holdingsRecords.Values.Sum(p => p.GetMarketValue()); } }
+        #endregion
 
+        #region Public Method
         public void TransferIn(decimal amount)
         {
             this._principal += amount;
@@ -106,31 +74,36 @@ namespace Quantum.Domain.Trading
 
         public IEnumerable<IHoldingsRecord> GetAllHoldingsRecord()
         {
-            throw new NotImplementedException();
+            return _holdingsRecords.Values;
         }
 
         public IEnumerable<ITradingRecord> GetAllTradingRecord()
         {
-            throw new NotImplementedException();
+            List<ITradingRecord> tradingRecords = new List<ITradingRecord>();
+            foreach(var holdingsRecord in _holdingsRecords.Values)
+            {
+                tradingRecords.AddRange(holdingsRecord.TradingRecords);
+            }
+            return tradingRecords;
         }
 
         public bool Buy(DateTime time, string stockCode, double price, int quantity)
         {
             var tradingRecord = new TradingRecord(time, TradeType.Buy, stockCode, price, quantity);
-            if (this._balance - tradingRecord.Amount < 0)
+            if (this._balance - tradingRecord.GetAmount() < 0)
             {
                 return false;
             }
 
             // 减去账户余额
-            this._balance -= tradingRecord.Amount;
+            this._balance -= tradingRecord.GetAmount();
 
             // 查找或生成持仓记录
             HoldingsRecord holdingRecord;
-            if (!this._holdingRecords.TryGetValue(tradingRecord.StockCode, out holdingRecord))
+            if (!this._holdingsRecords.TryGetValue(tradingRecord.StockCode, out holdingRecord))
             {
                 holdingRecord = HoldingsRecord.Create(tradingRecord.StockCode);
-                this._holdingRecords.Add(holdingRecord.StockCode, holdingRecord);
+                this._holdingsRecords.Add(holdingRecord.StockCode, holdingRecord);
             }
 
             // 保存交易记录
@@ -142,7 +115,7 @@ namespace Quantum.Domain.Trading
         public bool Sell(DateTime time, string stockCode, double price, int quantity)
         {
             HoldingsRecord holdingsRecord;
-            if (!this._holdingRecords.TryGetValue(stockCode, out holdingsRecord))
+            if (!this._holdingsRecords.TryGetValue(stockCode, out holdingsRecord))
             {
                 return false;
             }
@@ -158,12 +131,12 @@ namespace Quantum.Domain.Trading
             //this._tradingRecords.Add(tradingRecord);
 
             // 更新账户余额
-            this._balance += tradingRecord.Amount;
+            this._balance += tradingRecord.GetAmount();
 
             // 持仓卖完之后要删除持仓记录
             if(holdingsRecord.Quantity <= 0)
             {
-                this._holdingRecords.Remove(holdingsRecord.StockCode);
+                this._holdingsRecords.Remove(holdingsRecord.StockCode);
             }
 
             return true;
@@ -184,6 +157,7 @@ namespace Quantum.Domain.Trading
                 return AvailableQuantityToBuy(stockCode, price, quantity);
             }
         }
+        #endregion
 
         #region Internal Method
         internal static Account Create(string name)
@@ -209,6 +183,11 @@ namespace Quantum.Domain.Trading
             }
         }
         #endregion
+
+        public override string ToString()
+        {
+            return _name;
+        }
     }
 }
 

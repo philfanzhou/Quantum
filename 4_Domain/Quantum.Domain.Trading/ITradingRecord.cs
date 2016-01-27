@@ -4,6 +4,7 @@ namespace Quantum.Domain.Trading
 {
     public interface ITradingRecord
     {
+        #region Property
         /// <summary>
         /// 交易时间
         /// </summary>
@@ -48,10 +49,13 @@ namespace Quantum.Domain.Trading
         /// 结算费
         /// </summary>
         decimal FeesSettlement { get; }
+        #endregion
 
+        #region Method
         /// <summary>
         /// 获取交易的总金额
         /// </summary>
-        decimal Amount { get; }
+        decimal GetAmount();
+        #endregion
     }
 }

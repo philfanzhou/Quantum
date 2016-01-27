@@ -5,6 +5,7 @@ namespace Quantum.Domain.Trading
 {
     public interface IHoldingsRecord
     {
+        #region Property
         /// <summary>
         /// 股票代码
         /// </summary>
@@ -20,26 +21,28 @@ namespace Quantum.Domain.Trading
         /// </summary>
         /// <returns></returns>
         IEnumerable<ITradingRecord> TradingRecords { get; }
+        #endregion
 
+        #region Method
         /// <summary>
         /// 成本
         /// </summary>
-        double Cost { get; }
+        double GetCost();
 
         /// <summary>
         /// 浮动盈亏 - 与实时行情相关
         /// </summary>
-        decimal FloatingProfitAndLoss { get; }
+        decimal GetFloatingProfitAndLoss();
 
         /// <summary>
         /// 盈亏比例 - 与实时行情相关
         /// </summary>
-        float Proportion { get; }
+        float GetProportion();
 
         /// <summary>
         /// 市值 - 与实时行情相关
         /// </summary>
-        decimal MarketValue { get; }
+        decimal GetMarketValue();
 
         /// <summary>
         /// 计算冻结数量
@@ -56,5 +59,6 @@ namespace Quantum.Domain.Trading
         /// <param name="stockCode"></param>
         /// <returns></returns>
         int GetAvailableQuantity(DateTime time);
+        #endregion
     }
 }

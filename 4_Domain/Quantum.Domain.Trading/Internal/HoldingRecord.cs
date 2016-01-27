@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace Quantum.Domain.Trading
 {
+    [Serializable]
     internal class HoldingsRecord : IHoldingsRecord
     {
         #region Field
@@ -26,63 +27,62 @@ namespace Quantum.Domain.Trading
         }
         #endregion
 
+        #region Property
         public string StockCode { get { return _stockCode; } }
 
         public int Quantity { get { return _quantity; } }
 
         public IEnumerable<ITradingRecord> TradingRecords { get { return _tradingRecords; } }
+        #endregion
 
-        public double Cost
+        #region Public Method
+        public double GetCost()
         {
-            get
+            if (_quantity == 0)
             {
-                if (_quantity == 0)
-                {
-                    return 0;
-                }
-
-                decimal totalCost = GetTotalCost();
-                decimal cost = totalCost / _quantity;
-                return (double)Math.Round(cost, 3, MidpointRounding.AwayFromZero);
+                return 0;
             }
+
+            decimal totalCost = CalculateTotalCost();
+            decimal cost = totalCost / _quantity;
+            return (double)Math.Round(cost, 3, MidpointRounding.AwayFromZero);
         }
 
-        public decimal FloatingProfitAndLoss
+        public decimal GetFloatingProfitAndLoss()
         {
-            get
-            {
-                return GetMarketValue() - GetTotalCost();
-            }
+            return GetMarketValue() - CalculateTotalCost();
         }
 
-        public float Proportion
+        public float GetProportion()
         {
-            get
+            if (_quantity == 0)
             {
-                if (_quantity == 0)
-                {
-                    return 0;
-                }
-
-                // = 浮动盈亏 / （市值 - 浮动盈亏）
-                // 如果浮动盈亏为负，则为负
-                throw new NotImplementedException();
+                return 0;
             }
+
+            // 浮动盈亏为0则盈亏比例为0
+            if (GetFloatingProfitAndLoss() - 0 <= 0.00000001m)
+            {
+                return 0;
+            }
+
+            // = 浮动盈亏 / （市值 - 浮动盈亏）
+            decimal totalCost = CalculateTotalCost();
+            decimal marketValue = GetMarketValue();
+            decimal proportion = (1 - (totalCost / (marketValue - totalCost))) * 100;
+
+            return (float)Math.Round(proportion, 2, MidpointRounding.AwayFromZero);
         }
 
-        public decimal MarketValue
+        public decimal GetMarketValue()
         {
-            get
+            if (_quantity == 0)
             {
-                if (_quantity == 0)
-                {
-                    return 0;
-                }
-
-                return Math.Round(GetMarketValue(), 3, MidpointRounding.AwayFromZero);
+                return 0;
             }
-        }
 
+            return Math.Round(CalculateMarketValue(), 3, MidpointRounding.AwayFromZero);
+        }
         public int GetFrozenQuantity(DateTime time)
         {
             // 交易日期小于最新交易记录日期
@@ -114,6 +114,7 @@ namespace Quantum.Domain.Trading
                 return 0;
             }
         }
+        #endregion
 
         #region Internal Method
         /// <summary>
@@ -146,7 +147,11 @@ namespace Quantum.Domain.Trading
         #endregion
 
         #region Private Method
-        private decimal GetMarketValue()
+        /// <summary>
+        /// 计算持仓市值
+        /// </summary>
+        /// <returns></returns>
+        private decimal CalculateMarketValue()
         {
             if (Market.Quotes == null)
             {
@@ -162,7 +167,7 @@ namespace Quantum.Domain.Trading
         /// 计算总交易成本
         /// </summary>
         /// <returns></returns>
-        private decimal GetTotalCost()
+        private decimal CalculateTotalCost()
         {
             decimal amount = 0m;
             foreach (var tradItem in _tradingRecords)
@@ -170,7 +175,7 @@ namespace Quantum.Domain.Trading
                 if (tradItem.Type == TradeType.Buy)
                 {
                     // 买入的所有金额都计入成本
-                    amount += tradItem.Amount;
+                    amount += tradItem.GetAmount();
                 }
                 else if (tradItem.Type == TradeType.Sell)
                 {
@@ -188,5 +193,10 @@ namespace Quantum.Domain.Trading
             return amount;
         }
         #endregion
+
+        public override string ToString()
+        {
+            return _stockCode + " " + _quantity.ToString();
+        }
     }
 }
