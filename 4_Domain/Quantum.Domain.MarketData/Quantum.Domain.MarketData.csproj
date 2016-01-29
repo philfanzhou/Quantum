@@ -46,13 +46,13 @@
   <ItemGroup>
     <Compile Include="Indicator\BuyAgainstSellExt.cs" />
     <Compile Include="Indicator\IBuyAgainstSell.cs" />
-    <Compile Include="Internal\IntradayInfo.cs" />
-    <Compile Include="Internal\KLine1MinuteInfo.cs" />
-    <Compile Include="Internal\RealTimeItemExt.cs" />
-    <Compile Include="IntradayConverter.cs" />
+    <Compile Include="Converter\IntradayInfo.cs" />
+    <Compile Include="Converter\KLine1MinuteInfo.cs" />
+    <Compile Include="Converter\RealTimeItemExt.cs" />
+    <Compile Include="Converter\IntradayConverter.cs" />
     <Compile Include="Converter\KLineConverter.cs" />
-    <Compile Include="Metadata\StockIntraday.cs" />
-    <Compile Include="Metadata\StockMinutesKLine.cs" />
+    <Compile Include="Converter\StockIntraday.cs" />
+    <Compile Include="Converter\StockMinutesKLine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
