@@ -36,7 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ore.Infrastructure.MarketData">
-      <HintPath>..\..\Refer.Dll\Ore.Infrastructure.MarketData.dll</HintPath>
+      <HintPath>..\..\..\Ore\Publish.Dll\Ore.Infrastructure.MarketData\Ore.Infrastructure.MarketData.dll</HintPath>
     </Reference>
     <Reference Include="System" />
   </ItemGroup>
@@ -53,6 +53,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="TestTradingDate.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
