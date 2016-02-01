@@ -44,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Simulation.cs" />
+    <Compile Include="Common\DateTimeExt.cs" />
     <Compile Include="Indicator\BuyAgainstSellExt.cs" />
     <Compile Include="Indicator\IBuyAgainstSell.cs" />
     <Compile Include="Converter\IntradayInfo.cs" />
