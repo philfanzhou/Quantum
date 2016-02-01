@@ -20,23 +20,13 @@ namespace Quantum.Domain.MarketData
             switch (self.DayOfWeek)
             {
                 case DayOfWeek.Monday:
-                    _ret = true;
-                    break;
                 case DayOfWeek.Tuesday:
-                    _ret = true;
-                    break;
                 case DayOfWeek.Wednesday:
-                    _ret = true;
-                    break;
                 case DayOfWeek.Thursday:
-                    _ret = true;
-                    break;
                 case DayOfWeek.Friday:
                     _ret = true;
                     break;
                 case DayOfWeek.Saturday:
-                    _ret = false;
-                    break;
                 case DayOfWeek.Sunday:
                     _ret = false;
                     break;
@@ -57,7 +47,23 @@ namespace Quantum.Domain.MarketData
         /// <returns></returns>
         public static bool IsTradingTime(this DateTime self)
         {
+            TimeSpan time = self.TimeOfDay;
 
+            if (time < new TimeSpan(9, 30, 0))
+            {
+                return false;
+            }
+            else if (time > new TimeSpan(11, 30, 0)
+                && time < new TimeSpan(13, 0, 0))
+            {
+                return false;
+            }
+            else if(time > new TimeSpan(15, 0, 0))
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -78,7 +84,7 @@ namespace Quantum.Domain.MarketData
         }
 
         /// <summary>
-        /// 根据交易类型，将时间向后推进
+        /// 根据交易类型，将时间向后推进到下一个交易时间单位
         /// </summary>
         /// <param name="self"></param>
         /// <param name="type"></param>
