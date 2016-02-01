@@ -50,9 +50,11 @@
     <Compile Include="Converter\KLine1MinuteInfo.cs" />
     <Compile Include="Converter\RealTimeItemExt.cs" />
     <Compile Include="Converter\IntradayConverter.cs" />
-    <Compile Include="Converter\KLineConverter.cs" />
+    <Compile Include="Converter\RealTimeConverter.cs" />
     <Compile Include="Converter\StockIntraday.cs" />
     <Compile Include="Converter\StockMinutesKLine.cs" />
+    <Compile Include="KLineConverter.cs" />
+    <Compile Include="KLineTypeExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

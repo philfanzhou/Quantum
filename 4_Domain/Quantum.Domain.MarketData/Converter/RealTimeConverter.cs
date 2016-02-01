@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Quantum.Domain.MarketData
 {
-    public static class KLineConverter
+    public static class RealTimeConverter
     {
         public static IEnumerable<IStockKLine> ConvertTo1Minute(IEnumerable<IStockRealTime> realTimeItems)
         {
