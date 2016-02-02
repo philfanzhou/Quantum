@@ -1,9 +1,6 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.MarketData
 {
@@ -21,7 +18,7 @@ namespace Quantum.Domain.MarketData
         /// <param name="startTime"></param>
         /// <param name="count"></param>
         /// <returns></returns>
-        public static IEnumerable<IStockKLine> GetKLine(KLineType type, DateTime startTime, int count)
+        public static IEnumerable<IStockKLine> CreateRandomKLines(KLineType type, DateTime startTime, int count)
         {
             if(type != KLineType.Day && type != KLineType.Min1)
             {
@@ -43,7 +40,7 @@ namespace Quantum.Domain.MarketData
 
                 if (i == 0)
                 {
-                    preClose = _random.Next(0.95, 350.99);
+                    preClose = GetRandomPrice();
                     preVolume = _random.Next(100000, 10000000);
 
                     if (type == KLineType.Min1)
@@ -70,14 +67,32 @@ namespace Quantum.Domain.MarketData
                     }
                 }
 
-                var kLine = CreateRandomKLine(tradingTime, preClose, preVolume);
+                var kLine = CreateRandomItem(tradingTime, preClose, preVolume);
                 result.Add(kLine);
             }
 
             return result;
         }
 
-        private static StockKLine CreateRandomKLine(DateTime time, double preClose, double preVolume, int digits = 2)
+        private static double GetRandomPrice()
+        {
+            int ret = _random.Next(0, 10);
+
+            if(ret < 2)
+            {
+                return _random.Next(100.00, 350.00);
+            }
+            else if(ret < 7)
+            {
+                return _random.Next(15.00, 100.00);
+            }
+            else
+            {
+                return _random.Next(1.00, 15.00);
+            }
+        }
+
+        private static StockKLine CreateRandomItem(DateTime time, double preClose, double preVolume, int digits = 2)
         {
             // 计算涨停和跌停价格
             double upLimit = PriceLimit.StockUpLimit(preClose);
@@ -85,26 +100,52 @@ namespace Quantum.Domain.MarketData
 
             var kLine = new StockKLine();
             kLine.Time = time;
+            kLine.Volume = (int)_random.Next(preVolume * 0.5, preVolume * 1.5);
 
             // 随机涨跌平
-            int ret = _random.Next(1, 3);
-            if(ret == 1)// 跌
+            UpOrDown upOrDown = GetDirection(preClose);
+            if (upOrDown == UpOrDown.Down)// 跌
             {
-                kLine.Open = _random.Next(downLimit, preClose, digits);
-                kLine.Close = _random.Next(downLimit, upLimit, digits);
-                kLine.Volume = (int)_random.Next(preVolume * 0.85, preVolume * 1.15);
+                // 3%的机会一字跌
+                if(_random.Next(0, 100) > 96)
+                {
+                    kLine.Open = downLimit;
+                    kLine.Close = downLimit;
+                }
+                else if(_random.Next(0, 100) > 90) //  10%机会跌停板
+                {
+                    kLine.Close = downLimit;
+                    kLine.Open = _random.Next(downLimit, preClose, digits);
+                }
+                else
+                {
+                    kLine.Open = _random.Next(downLimit, preClose, digits);
+                    kLine.Close = _random.Next(downLimit, preClose, digits);
+                }
             }
-            else if(ret == 2)// 平
+            else if(upOrDown == UpOrDown.Up)// 涨
+            {
+                // 3%的机会一字涨
+                if (_random.Next(0, 100) > 96)
+                {
+                    kLine.Open = upLimit;
+                    kLine.Close = upLimit;
+                }
+                else if (_random.Next(0, 100) > 90) //  10%机会涨停板
+                {
+                    kLine.Close = upLimit;
+                    kLine.Open = _random.Next(preClose, upLimit, digits);
+                }
+                else
+                {
+                    kLine.Open = _random.Next(preClose, upLimit, digits);
+                    kLine.Close = _random.Next(preClose, upLimit, digits);
+                }
+            }
+            else
             {
                 kLine.Open = _random.Next(downLimit, upLimit, digits);
                 kLine.Close = _random.Next(downLimit, upLimit, digits);
-                kLine.Volume = (int)_random.Next(preVolume * 0.9, preVolume * 1.2);
-            }
-            else if(ret == 3)// 涨
-            {
-                kLine.Open = _random.Next(preClose, upLimit, digits);
-                kLine.Close = _random.Next(downLimit, upLimit, digits);
-                kLine.Volume = (int)_random.Next(preVolume * 0.95, preVolume * 1.25);
             }
 
          
@@ -117,14 +158,61 @@ namespace Quantum.Domain.MarketData
 
             return kLine;
         }
+
+        /// <summary>
+        /// 根据前收盘价格，随机取得涨跌方向。
+        /// </summary>
+        /// <param name="preClose"></param>
+        /// <returns></returns>
+        private static UpOrDown GetDirection(double preClose)
+        {
+            if (preClose < 5)
+            {
+                return _random.Next(0, 10) < 9 ? UpOrDown.Up : UpOrDown.None;
+            }
+            else if (preClose < 10)
+            {
+                return _random.Next(0, 10) < 8 ? UpOrDown.Up : UpOrDown.None;
+            }
+            else if (preClose < 30)
+            {
+                return _random.Next(0, 10) < 7 ? UpOrDown.Up : UpOrDown.None;
+            }
+            else if(preClose > 100)
+            {
+                return _random.Next(0, 10) < 7 ? UpOrDown.Down : UpOrDown.None;
+            }
+            else if (preClose > 150)
+            {
+                return _random.Next(0, 10) < 8 ? UpOrDown.Down : UpOrDown.None;
+            }
+            else if (preClose > 200)
+            {
+                return _random.Next(0, 10) < 9 ? UpOrDown.Down : UpOrDown.None;
+            }
+            else
+            {
+                return UpOrDown.None;
+            }
+        }
+
+        /// <summary>
+        /// 涨跌枚举
+        /// </summary>
+        private enum UpOrDown
+        {
+            Up,
+            None,
+            Down
+        } 
     }
 
     internal static class RandomExt
     {
         public static double Next(this Random self, double min, double max, int digits = 2)
         {
-            int intMin = (int)Math.Round(min, 0, MidpointRounding.AwayFromZero);
-            int intMax = (int)Math.Round(max, 0, MidpointRounding.ToEven);
+            int intMin = min < int.MinValue ? int.MinValue : Convert.ToInt32(min);
+            int intMax = max > int.MaxValue ? int.MaxValue : Convert.ToInt32(max);
 
             int intValue = self.Next(intMin, intMax);
             double doubleValue = Math.Round(self.NextDouble(), digits, MidpointRounding.AwayFromZero);

@@ -2,10 +2,6 @@
 using Ore.Infrastructure.MarketData;
 using Quantum.Domain.MarketData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Test.Domain.MarketData
 {
@@ -15,7 +11,7 @@ namespace Test.Domain.MarketData
         [TestMethod]
         public void TestGetSimulationData()
         {
-            var data = Simulation.GetKLine(KLineType.Day, DateTime.Now, 100000);
+            var data = Simulation.CreateRandomKLines(KLineType.Day, DateTime.Now, 100000);
             Assert.IsNotNull(data);
         }
     }
