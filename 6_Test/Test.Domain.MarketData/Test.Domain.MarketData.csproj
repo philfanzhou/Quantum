@@ -53,6 +53,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="PriceLimitTest.cs" />
+    <Compile Include="TestSimulationData.cs" />
     <Compile Include="TestTradingDate.cs" />
     <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

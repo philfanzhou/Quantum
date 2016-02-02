@@ -15,6 +15,12 @@ namespace Quantum.Domain.MarketData
         /// <returns></returns>
         public static bool IsTradingDate(this DateTime self)
         {
+            // 上交所90年12越19日开业
+            if(self < new DateTime(1990, 12, 19))
+            {
+                return false;
+            }
+
             bool _ret = false;
 
             switch (self.DayOfWeek)
@@ -47,8 +53,12 @@ namespace Quantum.Domain.MarketData
         /// <returns></returns>
         public static bool IsTradingTime(this DateTime self)
         {
-            TimeSpan time = self.TimeOfDay;
+            if(self.IsTradingDate() == false)
+            {
+                return false;
+            }
 
+            TimeSpan time = self.TimeOfDay;
             if (time < new TimeSpan(9, 30, 0))
             {
                 return false;
@@ -67,31 +77,58 @@ namespace Quantum.Domain.MarketData
         }
 
         /// <summary>
-        /// 获取当前日期之后的最近的一个交易日
+        /// 获取下一个交易日
         /// </summary>
         /// <param name="self"></param>
         /// <returns></returns>
-        public static DateTime GetNearestTradingDate(this DateTime self)
+        public static DateTime ToNextTradingDate(this DateTime self)
         {
-            if(self.IsTradingDate())
+            if (self < new DateTime(1990, 12, 19))
             {
-                return self;
+                return new DateTime(1990, 12, 19);
+            }
+
+            DateTime date = self.Date.AddDays(1);
+            if(date.IsTradingDate())
+            {
+                return date;
             }
             else
             {
-                return self.AddDays(1).GetNearestTradingDate();
+                return date.ToNextTradingDate();
             }
         }
 
         /// <summary>
-        /// 根据交易类型，将时间向后推进到下一个交易时间单位
+        /// 获取下一个交易分钟
         /// </summary>
         /// <param name="self"></param>
-        /// <param name="type"></param>
         /// <returns></returns>
-        public static DateTime Increase(this DateTime self, KLineType type)
+        public static DateTime ToNextTradingMinute(this DateTime self)
         {
+            if (self.IsTradingDate() == false)
+            {
+                self = self.ToNextTradingDate();
+                return self.AddHours(9).AddMinutes(31);
+            }
 
+            DateTime time = self.AddMinutes(1);
+            TimeSpan span = time.TimeOfDay;
+            if (span < new TimeSpan(9, 31, 0))
+            {
+                return time.Date.AddHours(9).AddMinutes(31);
+            }
+            else if (span > new TimeSpan(11, 30, 0)
+                && span < new TimeSpan(13, 0, 0))
+            {
+                return time.Date.AddHours(13).AddMinutes(1);
+            }
+            else if (span > new TimeSpan(15, 0, 0))
+            {
+                return time.Date.AddDays(1).ToNextTradingMinute();
+            }
+
+            return time;
         }
     }
 }

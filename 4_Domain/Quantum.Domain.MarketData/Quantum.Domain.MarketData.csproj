@@ -44,7 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Simulation.cs" />
+    <Compile Include="Common\PriceLimit.cs" />
+    <Compile Include="Simulation.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
     <Compile Include="Indicator\BuyAgainstSellExt.cs" />
     <Compile Include="Indicator\IBuyAgainstSell.cs" />
@@ -55,8 +56,8 @@
     <Compile Include="Converter\RealTimeConverter.cs" />
     <Compile Include="Converter\StockIntraday.cs" />
     <Compile Include="Converter\StockMinutesKLine.cs" />
-    <Compile Include="KLineConverter.cs" />
-    <Compile Include="KLineTypeExt.cs" />
+    <Compile Include="Converter\KLineConverter.cs" />
+    <Compile Include="Common\KLineTypeExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
