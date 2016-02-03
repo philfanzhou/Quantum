@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\PriceLimit.cs" />
+    <Compile Include="Entity\BuyAgainstSell.cs" />
     <Compile Include="Indicator\IMACD.cs" />
     <Compile Include="Indicator\IMA.cs" />
     <Compile Include="Indicator\IRiseAndFall.cs" />
@@ -53,7 +54,7 @@
     <Compile Include="Indicator\IPriceBookvalue.cs" />
     <Compile Include="Simulation.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
-    <Compile Include="Indicator\BuyAgainstSellExt.cs" />
+    <Compile Include="BuyAgainstSellExt.cs" />
     <Compile Include="Indicator\IBuyAgainstSell.cs" />
     <Compile Include="Converter\IntradayInfo.cs" />
     <Compile Include="Converter\KLine1MinuteInfo.cs" />
