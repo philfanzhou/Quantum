@@ -13,6 +13,9 @@ namespace Test.Domain.MarketData
         {
             var data = Simulation.CreateRandomKLines(KLineType.Day, DateTime.Now, 100000);
             Assert.IsNotNull(data);
+
+            data = Simulation.CreateRandomKLines(KLineType.Min1, DateTime.Now, 100000);
+            Assert.IsNotNull(data);
         }
     }
 }

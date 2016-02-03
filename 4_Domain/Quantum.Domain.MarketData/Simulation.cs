@@ -45,7 +45,7 @@ namespace Quantum.Domain.MarketData
 
                     if (type == KLineType.Min1)
                     {
-                        tradingTime = startTime.IsTradingTime() ? startTime : startTime.ToNextTradingMinute();
+                        tradingTime = startTime.IsTradingTime() ? startTime.Date.AddHours(startTime.Hour).AddMinutes(startTime.Minute) : startTime.ToNextTradingMinute();
                     }
                     else // 只有分钟线和日线的情况
                     {
@@ -73,6 +73,7 @@ namespace Quantum.Domain.MarketData
 
             return result;
         }
+
 
         private static double GetRandomPrice()
         {
