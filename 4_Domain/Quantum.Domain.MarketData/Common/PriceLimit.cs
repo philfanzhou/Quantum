@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ore.Infrastructure.MarketData;
+using System;
 
 namespace Quantum.Domain.MarketData
 {
@@ -8,43 +9,47 @@ namespace Quantum.Domain.MarketData
     public static class PriceLimit
     {
         /// <summary>
-        /// 计算股票涨停板价格
+        /// 计算涨停板价格
         /// </summary>
-        /// <param name="preClose">前收</param>
+        /// <param name="type"></param>
+        /// <param name="preClose"></param>
         /// <returns></returns>
-        public static double StockUpLimit(double preClose)
+        public static double UpLimit(SecurityType type, double preClose)
         {
-            return GetLimitPrice(preClose, true, 2);
+            if(type == SecurityType.Sotck)
+            {
+                return GetLimitPrice(preClose, true, 2);
+            }
+            else if(type == SecurityType.Fund)
+            {
+                return GetLimitPrice(preClose, true, 3);
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
         }
 
         /// <summary>
-        /// 计算基金涨停板价格
+        /// 计算跌停板价格
         /// </summary>
-        /// <param name="preClose">前收</param>
+        /// <param name="type"></param>
+        /// <param name="preClose"></param>
         /// <returns></returns>
-        public static double FundUpLimit(double preClose)
+        public static double DownLimit(SecurityType type, double preClose)
         {
-            return GetLimitPrice(preClose, true, 3);
-        }
-
-        /// <summary>
-        /// 计算股票跌停板价格
-        /// </summary>
-        /// <param name="preClose">前收</param>
-        /// <returns></returns>
-        public static double StockDownLimit(double preClose)
-        {
-            return GetLimitPrice(preClose, false, 2);
-        }
-
-        /// <summary>
-        /// 计算基金跌停板价格
-        /// </summary>
-        /// <param name="preClose">前收</param>
-        /// <returns></returns>
-        public static double FundDownLimit(double preClose)
-        {
-            return GetLimitPrice(preClose, false, 3);
+            if (type == SecurityType.Sotck)
+            {
+                return GetLimitPrice(preClose, false, 2);
+            }
+            else if (type == SecurityType.Fund)
+            {
+                return GetLimitPrice(preClose, false, 3);
+            }
+            else
+            {
+                throw new NotSupportedException();
+            }
         }
 
         private static double GetLimitPrice(double preClose, bool isUp, int digits)
@@ -58,8 +63,6 @@ namespace Quantum.Domain.MarketData
 
             // 考虑10% 以及上下浮动一分钱的情况
             decimal price1;
-            decimal price2;
-            decimal price3;
             if (isUp)
             {
                 // 计算涨停板
@@ -70,8 +73,13 @@ namespace Quantum.Domain.MarketData
                 // 计算跌停板
                 price1 = preClosePrice - (decimal)Math.Round(preClose * 0.1, digits, MidpointRounding.AwayFromZero);
             }
+
+            // 考虑上下浮动一个单位的情况
+            decimal price2;
+            decimal price3;
             if (digits == 2)
             {
+                // 股票的精度是0.01
                 price2 = price1 + 0.01m;
                 price3 = price1 - 0.01m;
             }

@@ -74,7 +74,7 @@ namespace Quantum.Domain.MarketData
             return result;
         }
 
-
+        #region Private Method
         private static double GetRandomPrice()
         {
             int ret = _random.Next(0, 10);
@@ -96,8 +96,8 @@ namespace Quantum.Domain.MarketData
         private static StockKLine CreateRandomItem(DateTime time, double preClose, double preVolume, int digits = 2)
         {
             // 计算涨停和跌停价格
-            double upLimit = PriceLimit.StockUpLimit(preClose);
-            double downLimit = PriceLimit.StockDownLimit(preClose);
+            double upLimit = PriceLimit.UpLimit(SecurityType.Sotck, preClose);
+            double downLimit = PriceLimit.DownLimit(SecurityType.Sotck, preClose);
 
             var kLine = new StockKLine();
             kLine.Time = time;
@@ -205,7 +205,8 @@ namespace Quantum.Domain.MarketData
             Up,
             None,
             Down
-        } 
+        }
+        #endregion
     }
 
     internal static class RandomExt

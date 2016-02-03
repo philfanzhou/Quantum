@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Quantum.Domain.MarketData
 {
-    public static class KLineTypeExt
+    internal static class KLineTypeExt
     {
         /// <summary>
         /// 获取K线的类型
