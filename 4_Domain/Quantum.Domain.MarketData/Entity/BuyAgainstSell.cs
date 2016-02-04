@@ -1,5 +1,4 @@
-﻿using Ore.Infrastructure.MarketData;
-using System;
+﻿using System;
 
 namespace Quantum.Domain.MarketData.Entity
 {

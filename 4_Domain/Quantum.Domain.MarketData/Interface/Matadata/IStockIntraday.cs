@@ -1,4 +1,6 @@
-﻿namespace Ore.Infrastructure.MarketData
+﻿using Ore.Infrastructure.MarketData;
+
+namespace Quantum.Domain.MarketData
 {
     /// <summary>
     /// 分时数据定义

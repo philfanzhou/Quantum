@@ -1,7 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Ore.Infrastructure.MarketData;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace Ore.Infrastructure.MarketData
+namespace Quantum.Domain.MarketData
 {
     public class StockIntraday : TimeSeries, IStockIntraday
     {
