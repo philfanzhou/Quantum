@@ -46,17 +46,19 @@
   <ItemGroup>
     <Compile Include="Common\PriceLimit.cs" />
     <Compile Include="Entity\BuyAgainstSell.cs" />
-    <Compile Include="Interface\Indicator\IMACD.cs" />
-    <Compile Include="Interface\Indicator\IMA.cs" />
-    <Compile Include="Interface\Indicator\IRiseAndFall.cs" />
-    <Compile Include="Interface\Indicator\ITurnover.cs" />
-    <Compile Include="Interface\Indicator\IPriceEarnings.cs" />
-    <Compile Include="Interface\Indicator\IPriceBookvalue.cs" />
-    <Compile Include="Interface\ITimeSeriesPackage.cs" />
-    <Compile Include="Interface\Matadata\IStockIntraday.cs" />
+    <Compile Include="Indicator\IMACD.cs" />
+    <Compile Include="Indicator\IMA.cs" />
+    <Compile Include="Indicator\IRiseAndFall.cs" />
+    <Compile Include="Indicator\ITurnover.cs" />
+    <Compile Include="Indicator\IPriceEarnings.cs" />
+    <Compile Include="Indicator\IPriceBookvalue.cs" />
+    <Compile Include="TimeSeries\ITimeSeriesPackage.cs" />
+    <Compile Include="Matadata\IStockIntraday.cs" />
+    <Compile Include="TimeSeries\Min5Packages.cs" />
+    <Compile Include="TimeSeries\PackageCollections.cs" />
     <Compile Include="Simulation.cs" />
     <Compile Include="Common\DateTimeExt.cs" />
-    <Compile Include="Interface\Indicator\IBuyAgainstSell.cs" />
+    <Compile Include="Indicator\IBuyAgainstSell.cs" />
     <Compile Include="Converter\IntradayInfo.cs" />
     <Compile Include="Converter\KLine1MinuteInfo.cs" />
     <Compile Include="Entity\RealTimeItemExt.cs" />
@@ -67,7 +69,7 @@
     <Compile Include="Converter\KLineConverter.cs" />
     <Compile Include="Common\KLineTypeExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Entity\TimeSeriesPackage.cs" />
+    <Compile Include="TimeSeries\TimeSeriesPackage.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

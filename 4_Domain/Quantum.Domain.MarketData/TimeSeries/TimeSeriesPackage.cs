@@ -8,7 +8,7 @@ namespace Quantum.Domain.MarketData
     /// 时间序列数据包裹
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class TimeSeriesPackage<T> : ITimeSeriesPackage<T>
+    internal class TimeSeriesPackage<T> : ITimeSeriesPackage<T>
         where T : ITimeSeries
     {
         #region Field
@@ -48,7 +48,7 @@ namespace Quantum.Domain.MarketData
         #region Public Method
         bool ITimeSeriesPackage<T>.ContainsTime(DateTime time)
         {
-            return (_startTime < time) && (time < _endTime);
+            return (_startTime < time) && (time <= _endTime);
         }
 
         void ITimeSeriesPackage<T>.Add(T item)

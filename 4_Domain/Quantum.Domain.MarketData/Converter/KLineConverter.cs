@@ -21,5 +21,19 @@ namespace Quantum.Domain.MarketData
         {
             throw new System.NotImplementedException();
         }
+
+        //private static IEnumerable<IStockKLine> Min1ToMin5(IEnumerable<IStockKLine> min1KLines)
+        //{
+        //    var packages = new List<ITimeSeriesPackage<IStockKLine>>();
+        //    ITimeSeriesPackage<IStockKLine> currentPackage;
+
+        //    foreach (var item in min1KLines)
+        //    {
+        //        if(currentPackage == null)
+        //        {
+        //            DateTime startTime = item.Time.m
+        //        }
+        //    }
+        //}
     }
 }
