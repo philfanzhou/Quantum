@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Ore.Infrastructure.MarketData;
 
 namespace Quantum.Domain.MarketData
 {
     /// <summary>
     /// 市净率接口
     /// </summary>
-    public interface IPriceBookvalue
+    public interface IPriceBookvalue : ITimeSeries
     {
-        /// <summary>
-        /// 当前数据的时间
-        /// </summary>
-        DateTime Time { get; }
-
         /// <summary>
         /// PB LYR
         /// </summary>

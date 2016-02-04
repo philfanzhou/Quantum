@@ -1,9 +1,5 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.MarketData.Entity
 {
@@ -11,7 +7,9 @@ namespace Quantum.Domain.MarketData.Entity
     {
         public BuyAgainstSell(IStockIntraday stockIntraday)
         {
-
+            this.Time = stockIntraday.Time;
+            this.BuyVolume = stockIntraday.BuyVolume;
+            this.SellVolume = stockIntraday.SellVolume;
         }
 
         public DateTime Time { get; private set; }
@@ -32,7 +30,7 @@ namespace Quantum.Domain.MarketData.Entity
         {
             get
             {
-                return Math.Round(CommissionDiff / (BuyVolume + SellVolume) * 100, 2);
+                return Math.Round(CommissionDiff / (BuyVolume + SellVolume) * 100, 2, MidpointRounding.AwayFromZero);
             }
         }
 
@@ -40,7 +38,7 @@ namespace Quantum.Domain.MarketData.Entity
         {
             get
             {
-                return Math.Round(BuyVolume / SellVolume, 2);
+                return Math.Round(BuyVolume / SellVolume, 2, MidpointRounding.AwayFromZero);
             }
         }
     }

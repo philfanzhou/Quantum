@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Ore.Infrastructure.MarketData;
 
 namespace Quantum.Domain.MarketData
 {
     /// <summary>
     /// 多空指标
     /// </summary>
-    public interface IBuyAgainstSell
+    public interface IBuyAgainstSell : ITimeSeries
     {
-        /// <summary>
-        /// 当前数据的时间
-        /// </summary>
-        DateTime Time { get; }
-
         /// <summary>
         /// 委卖
         /// </summary>

@@ -64,10 +64,6 @@ namespace Quantum.Domain.MarketData
                         realTimeItem.Time.Hour,
                         realTimeItem.Time.Minute,
                         0),
-
-                    Code = realTimeItem.Code,
-                    ShortName = realTimeItem.ShortName,
-                    Market = realTimeItem.Market
                 };
 
                 this._intradayItems.Add(newItem);
@@ -82,8 +78,8 @@ namespace Quantum.Domain.MarketData
             intradayItem.BuyVolume = realTimeItem.BuyVolume();
             intradayItem.SellVolume = realTimeItem.SellVolume();
 
-            intradayItem.CurrentTotalVolume = realTimeItem.Volume;
-            intradayItem.CurrentTotalAmount = realTimeItem.Amount;
+            //intradayItem.CurrentTotalVolume = realTimeItem.Volume;
+            //intradayItem.CurrentTotalAmount = realTimeItem.Amount;
 
             // 集合竞价期间需要对当前价格进行特殊处理,因为集合竞价期间不存在成交价，只存在委卖委买价
             intradayItem.Current = Math.Abs(realTimeItem.Current) < 0.00001
@@ -98,8 +94,8 @@ namespace Quantum.Domain.MarketData
             if (_intradayItems.Count > 1)
             {
                 StockIntraday previousDate = _intradayItems[_intradayItems.Count - 2];
-                intradayItem.Volume = realTimeItem.Volume - previousDate.CurrentTotalVolume;
-                intradayItem.Amount = realTimeItem.Amount - previousDate.CurrentTotalAmount;
+                //intradayItem.Volume = realTimeItem.Volume - previousDate.CurrentTotalVolume;
+                //intradayItem.Amount = realTimeItem.Amount - previousDate.CurrentTotalAmount;
             }
             else
             {

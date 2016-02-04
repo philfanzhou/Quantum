@@ -1,17 +1,12 @@
-﻿using System;
+﻿using Ore.Infrastructure.MarketData;
 
 namespace Quantum.Domain.MarketData
 {
     /// <summary>
     /// 指数平滑移动平均线
     /// </summary>
-    public interface IMACD
+    public interface IMACD : ITimeSeries
     {
-        /// <summary>
-        /// 当前数据的时间
-        /// </summary>
-        DateTime Time { get; }
-
         /// <summary>
         /// 快速移动平均值周期 默认12
         /// </summary>
