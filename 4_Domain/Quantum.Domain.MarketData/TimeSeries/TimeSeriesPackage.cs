@@ -70,5 +70,15 @@ namespace Quantum.Domain.MarketData
             return true;
         }
         #endregion
+
+        /// <summary>
+        /// 已重载
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            string format = "yyyy/MM/dd hh:mm:ss";
+            return string.Format("{0} -- {1}", _startTime.ToString(format), _endTime.ToString(format));
+        }
     }
 }

@@ -1,25 +1,42 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.MarketData
 {
     /// <summary>
-    /// 以5分钟作为时间片的数据包裹
+    /// 以5分钟作为时间片的数据包裹集合
     /// </summary>
-    public class Min5Packages<T> : PackageCollections<T>
+    public class Min5Collections<T> : PackageCollections<T>
         where T : ITimeSeries
     {
-        protected override DateTime GetStartTime(DateTime time)
+        protected override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
         {
-            throw new NotImplementedException();
+            // 取得分钟的10位数
+            int tenDigit = FindNum(currentTime.Minute, 2);
+            // 以分钟10位数构造一个临时时间
+            DateTime tmpTime = currentTime.Date
+                .AddHours(currentTime.Hour)
+                .AddMinutes(tenDigit * 10);
+
+            startTime = tmpTime;
+            if (currentTime - tmpTime > new TimeSpan(0, 5, 0))
+            {
+                startTime = startTime.AddMinutes(5);
+            }
+
+            endTime = startTime.AddMinutes(5);
         }
-        protected override DateTime GetEndTime(DateTime time)
+
+        /// <summary>
+        /// 求num在n位上的数字,取个位,取十位 
+        /// </summary>
+        /// <param name="num">正整数</param>
+        /// <param name="n">所求数字位置(个位 1,十位 2 依此类推)</param>
+        /// <returns></returns>
+        private int FindNum(int num, int n)
         {
-            throw new NotImplementedException();
+            int power = (int)Math.Pow(10, n);
+            return (num - (num / power) * power) * 10 / power;
         }
     }
 }

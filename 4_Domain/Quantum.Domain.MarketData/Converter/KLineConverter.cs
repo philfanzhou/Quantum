@@ -2,8 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.MarketData
 {
@@ -15,25 +13,47 @@ namespace Quantum.Domain.MarketData
         /// <param name="self"></param>
         /// <param name="type"></param>
         /// <returns></returns>
-        public static IEnumerable<IStockKLine> ToType(
+        public static IEnumerable<IStockKLine> ConvertTo(
             this IEnumerable<IStockKLine> self, 
             KLineType type)
         {
-            throw new System.NotImplementedException();
+            switch(type)
+            {
+                case KLineType.Min5:
+                    return Min1ToMin5(self);
+                default:
+                    throw new NotSupportedException();
+            }
         }
 
-        //private static IEnumerable<IStockKLine> Min1ToMin5(IEnumerable<IStockKLine> min1KLines)
-        //{
-        //    var packages = new List<ITimeSeriesPackage<IStockKLine>>();
-        //    ITimeSeriesPackage<IStockKLine> currentPackage;
+        private static IEnumerable<IStockKLine> Min1ToMin5(IEnumerable<IStockKLine> min1KLines)
+        {
+            // 构造每个数据包内包含5分钟数据的包裹集合
+            Min5Collections<IStockKLine> collections = new Min5Collections<IStockKLine>();
+            collections.SplitToPackages(min1KLines);
+            return collections.Packages.Select(p => p.Combine());
+        }
+    }
 
-        //    foreach (var item in min1KLines)
-        //    {
-        //        if(currentPackage == null)
-        //        {
-        //            DateTime startTime = item.Time.m
-        //        }
-        //    }
-        //}
+    internal static class CombineStockKLine
+    {
+        public static IStockKLine Combine(this ITimeSeriesPackage<IStockKLine> self)
+        {
+            StockKLine outputData = new StockKLine
+            {
+                Time = self.EndTime,
+
+                Open = self.Items.First().Open,
+                Close = self.Items.Last().Close,
+
+                Volume = self.Items.Sum(p => p.Volume),
+                Amount = self.Items.Sum(p => p.Amount),
+
+                High = self.Items.Max(p => p.High),
+                Low = self.Items.Min(p => p.Low),
+            };
+
+            return outputData;
+        }
     }
 }
