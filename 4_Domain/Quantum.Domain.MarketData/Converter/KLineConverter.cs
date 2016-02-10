@@ -26,12 +26,28 @@ namespace Quantum.Domain.MarketData
             }
         }
 
-        private static IEnumerable<IStockKLine> Min1ToMin5(IEnumerable<IStockKLine> min1KLines)
+        /// <summary>
+        /// 转换为1分钟K线
+        /// </summary>
+        /// <param name="self"></param>
+        /// <returns></returns>
+        public static IEnumerable<IStockKLine> ConvertToMin1(
+            this IEnumerable<IStockRealTime> self)
+        {
+            Min1Packages<IStockRealTime> collections = new Min1Packages<IStockRealTime>();
+            var packages = collections.SplitToPackages(self);
+
+            throw new NotImplementedException();
+
+        }
+
+        private static IEnumerable<IStockKLine> Min1ToMin5(
+            IEnumerable<IStockKLine> min1KLines)
         {
             // 构造每个数据包内包含5分钟数据的包裹集合
             Min5Collections<IStockKLine> collections = new Min5Collections<IStockKLine>();
-            collections.SplitToPackages(min1KLines);
-            return collections.Packages.Select(p => p.Combine());
+            var packages = collections.SplitToPackages(min1KLines);
+            return packages.Select(p => p.Combine());
         }
     }
 

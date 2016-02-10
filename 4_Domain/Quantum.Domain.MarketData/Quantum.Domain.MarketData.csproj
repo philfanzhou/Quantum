@@ -46,12 +46,14 @@
   <ItemGroup>
     <Compile Include="Common\PriceLimit.cs" />
     <Compile Include="Entity\BuyAgainstSell.cs" />
+    <Compile Include="Indicator\IAveragePrice.cs" />
     <Compile Include="Indicator\IMACD.cs" />
     <Compile Include="Indicator\IMA.cs" />
     <Compile Include="Indicator\IRiseAndFall.cs" />
     <Compile Include="Indicator\ITurnover.cs" />
     <Compile Include="Indicator\IPriceEarnings.cs" />
     <Compile Include="Indicator\IPriceBookvalue.cs" />
+    <Compile Include="TimeSeries\Min1Packages.cs" />
     <Compile Include="TimeSeries\ITimeSeriesPackage.cs" />
     <Compile Include="Matadata\IStockIntraday.cs" />
     <Compile Include="TimeSeries\Min5Packages.cs" />

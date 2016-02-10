@@ -11,41 +11,32 @@ namespace Quantum.Domain.MarketData
     /// <typeparam name="T"></typeparam>
     public abstract class PackageCollections<T> where T : ITimeSeries
     {
-        #region Field
-        private readonly List<ITimeSeriesPackage<T>> _packages
-            = new List<ITimeSeriesPackage<T>>();
-        #endregion
-
-        #region Property
-        /// <summary>
-        /// 获取所有数据包裹
-        /// </summary>
-        public IEnumerable<ITimeSeriesPackage<T>> Packages { get { return _packages; } }
-        #endregion
-
         #region Public Method
         /// <summary>
         /// 将数据拆分到数据包裹中
         /// </summary>
         /// <param name="datas"></param>
-        public void SplitToPackages(IEnumerable<T> datas)
+        public IEnumerable<ITimeSeriesPackage<T>> SplitToPackages(IEnumerable<T> datas)
         {
             IOrderedEnumerable<T> orderedDatas = datas.OrderBy(p => p.Time);
+            var packages = new List<ITimeSeriesPackage<T>>();
 
             foreach (var data in orderedDatas)
             {
-                if (_packages.Count < 1 ||
-                    _packages.Last().ContainsTime(data.Time) == false)
+                if (packages.Count < 1 ||
+                    packages.Last().ContainsTime(data.Time) == false)
                 {
                     DateTime startTime;
                     DateTime endTime;
                     GetTimeZone(data.Time, out startTime, out endTime);
 
-                    _packages.Add(new TimeSeriesPackage<T>(startTime, endTime));
+                    packages.Add(new TimeSeriesPackage<T>(startTime, endTime));
                 }
 
-                _packages.Last().Add(data);
+                packages.Last().Add(data);
             }
+
+            return packages;
         }
         #endregion
 

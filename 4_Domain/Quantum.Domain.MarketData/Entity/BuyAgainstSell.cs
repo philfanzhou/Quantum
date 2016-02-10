@@ -4,12 +4,12 @@ namespace Quantum.Domain.MarketData.Entity
 {
     internal class BuyAgainstSell : IBuyAgainstSell
     {
-        public BuyAgainstSell(IStockIntraday stockIntraday)
-        {
-            this.Time = stockIntraday.Time;
-            this.BuyVolume = stockIntraday.BuyVolume;
-            this.SellVolume = stockIntraday.SellVolume;
-        }
+        //public BuyAgainstSell(IStockIntraday stockIntraday)
+        //{
+        //    this.Time = stockIntraday.Time;
+        //    this.BuyVolume = stockIntraday.BuyVolume;
+        //    this.SellVolume = stockIntraday.SellVolume;
+        //}
 
         public DateTime Time { get; private set; }
 

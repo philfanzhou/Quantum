@@ -18,12 +18,14 @@ namespace Quantum.Domain.MarketData
                 .AddHours(currentTime.Hour)
                 .AddMinutes(tenDigit * 10);
 
+            // 当前时间在5分之后，起始时间为5分
             startTime = tmpTime;
             if (currentTime - tmpTime > new TimeSpan(0, 5, 0))
             {
                 startTime = startTime.AddMinutes(5);
             }
 
+            // 当前时间在5分之内，起始时间为10分整数
             endTime = startTime.AddMinutes(5);
         }
 
