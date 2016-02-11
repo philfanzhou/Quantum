@@ -9,7 +9,7 @@ namespace Quantum.Domain.MarketData
     public class Min5Collections<T> : PackageCollections<T>
         where T : ITimeSeries
     {
-        protected override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
+        public override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
         {
             // 取得分钟的10位数
             int tenDigit = FindNum(currentTime.Minute, 2);
@@ -27,18 +27,6 @@ namespace Quantum.Domain.MarketData
 
             // 当前时间在5分之内，起始时间为10分整数
             endTime = startTime.AddMinutes(5);
-        }
-
-        /// <summary>
-        /// 求num在n位上的数字,取个位,取十位 
-        /// </summary>
-        /// <param name="num">正整数</param>
-        /// <param name="n">所求数字位置(个位 1,十位 2 依此类推)</param>
-        /// <returns></returns>
-        private int FindNum(int num, int n)
-        {
-            int power = (int)Math.Pow(10, n);
-            return (num - (num / power) * power) * 10 / power;
         }
     }
 }

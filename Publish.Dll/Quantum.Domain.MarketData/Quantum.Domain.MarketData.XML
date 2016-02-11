@@ -4,35 +4,334 @@
         <name>Quantum.Domain.MarketData</name>
     </assembly>
     <members>
-        <member name="M:Quantum.Domain.Indicator.BuyAgainstSellExt.WeiCha(Quantum.Domain.Indicator.IBuyAgainstSell)">
+        <member name="T:Quantum.Domain.MarketData.PriceLimit">
             <summary>
-            委差
+            涨停板和跌停板计算
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.PriceLimit.UpLimit(Ore.Infrastructure.MarketData.SecurityType,System.Double)">
+            <summary>
+            计算涨停板价格
+            </summary>
+            <param name="type"></param>
+            <param name="preClose"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.PriceLimit.DownLimit(Ore.Infrastructure.MarketData.SecurityType,System.Double)">
+            <summary>
+            计算跌停板价格
+            </summary>
+            <param name="type"></param>
+            <param name="preClose"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IAveragePrice">
+            <summary>
+            均价线
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IAveragePrice.AveragePrice">
+            <summary>
+            均价 = 当前时刻总成交额 / 当前时刻总成交量
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IAveragePrice.Volume">
+            <summary>
+            成交量
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IAveragePrice.Amount">
+            <summary>
+            成交额
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IMACD">
+            <summary>
+            指数平滑移动平均线
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.SlowEMACycle">
+            <summary>
+            快速移动平均值周期 默认12
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.SlowEMA">
+            <summary>
+            快速移动平均值  EMA12 = 前一日EMA12 X 11/13 + 今日收盘 X 2/13
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.FastEMACycle">
+            <summary>
+            慢速移动平均值 默认26
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.FastEMA">
+            <summary>
+            慢速移动平均值  EMA26 = 前一日EMA26 X 25/27 + 今日收盘 X 2/27
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.DIF">
+            <summary>
+            差离值   DIF = EMA12 - EMA26
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.DEA">
+            <summary>
+            离差平均值   DEA = （前一日DEA X 8/10 + 今日DIF X 2/10）
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMACD.MACD">
+            <summary>
+            MACD 指数平滑移动平均线 （DIF-DEA）*2
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IMA">
+            <summary>
+            移动平均线
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMA.Cycle">
+            <summary>
+            均线周期 如：5，10，20，60
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IMA.Value">
+            <summary>
+            值
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IRiseAndFall">
+            <summary>
+            涨跌接口定义
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IRiseAndFall.RiseValue">
+            <summary>
+            涨跌值
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IRiseAndFall.RiseRatio">
+            <summary>
+            涨跌幅
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IRiseAndFall.Amplitude">
+            <summary>
+            震幅
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.ITurnover">
+            <summary>
+            换手率接口定义
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.ITurnover.TurnoverRatio">
+            <summary>
+            换手率
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IPriceEarnings">
+            <summary>
+            市盈率接口
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IPriceEarnings.PriceEarningsLYR">
+            <summary>
+            PE : 股价/最近年度报告
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IPriceEarnings.PriceEarningsTTM">
+            <summary>
+            PE : 股价/最近12个月(四个季度)
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IPriceBookvalue">
+            <summary>
+            市净率接口
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IPriceBookvalue.PriceBookValueLYR">
+            <summary>
+            PB LYR
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IPriceBookvalue.PriceBookValueTTM">
+            <summary>
+            PB TTM
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.ITimeSeriesPackage`1">
+            <summary>
+            时间序列数据包裹定义
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.ITimeSeriesPackage`1.StartTime">
+            <summary>
+            获取Package管理数据的起始时间
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.ITimeSeriesPackage`1.EndTime">
+            <summary>
+            获取Package管理数据的结束时间
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.ITimeSeriesPackage`1.Items">
+            <summary>
+            获取package内的所有Item
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.ITimeSeriesPackage`1.ContainsTime(System.DateTime)">
+            <summary>
+            判断指定时间是否在当前的管理范围内
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.ITimeSeriesPackage`1.Add(`0)">
+            <summary>
+            将数据添加到package中
+            </summary>
+            <exception cref="T:System.InvalidOperationException">如果当前package无法将数据加入，则抛出异常</exception>
+            <param name="item"></param>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.ITimeSeriesPackage`1.TryAdd(`0)">
+            <summary>
+            将数据添加到package中
+            </summary>
+            <param name="item"></param>
+            <returns>添加成功返回true</returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IStockIntraday">
+            <summary>
+            分时数据定义
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IStockIntraday.YesterdayClose">
+            <summary>
+            前一交易日收盘价
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.Min5Collections`1">
+            <summary>
+            以5分钟作为时间片的数据包裹集合
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.PackageCollections`1">
+            <summary>
+            时间序列数据包裹的集合类
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.PackageCollections`1.SplitToPackages(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+            将数据拆分到数据包裹中
+            </summary>
+            <param name="datas"></param>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.PackageCollections`1.GetTimeZone(System.DateTime,System.DateTime@,System.DateTime@)">
+            <summary>
+            获取当前时间应该处于的时间区域
+            </summary>
+            <param name="currentTime">当前时间</param>
+            <param name="startTime">起始时间</param>
+            <param name="endTime">结束时间</param>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.PackageCollections`1.FindNum(System.Int32,System.Int32)">
+            <summary>
+            求num在n位上的数字,取个位,取十位 
+            </summary>
+            <param name="num">正整数</param>
+            <param name="n">所求数字位置(个位 1,十位 2 依此类推)</param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.Simulation">
+            <summary>
+            为测试代码构造数据提供支持的类
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.Simulation.CreateRandomKLines(Ore.Infrastructure.MarketData.KLineType,System.DateTime,System.Int32)">
+            <summary>
+            构造一条模拟K线的数据
+            </summary>
+            <param name="type">只支持Day, Min1, Min5</param>
+            <param name="startTime"></param>
+            <param name="count"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.Simulation.GetDirection(System.Double)">
+            <summary>
+            根据前收盘价格，随机取得涨跌方向。
+            </summary>
+            <param name="preClose"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.Simulation.UpOrDown">
+            <summary>
+            涨跌枚举
+            </summary>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.DateTimeExt">
+            <summary>
+            根据股票交易业务逻辑对日期类型的扩展
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.DateTimeExt.IsTradingDate(System.DateTime)">
+            <summary>
+            判断当前日期是不是交易日
             </summary>
             <param name="self"></param>
             <returns></returns>
         </member>
-        <member name="M:Quantum.Domain.Indicator.BuyAgainstSellExt.WeiBi(Quantum.Domain.Indicator.IBuyAgainstSell)">
+        <member name="M:Quantum.Domain.MarketData.DateTimeExt.IsTradingTime(System.DateTime)">
             <summary>
-            委比
+            判断当前时间是不是交易时间
             </summary>
             <param name="self"></param>
             <returns></returns>
         </member>
-        <member name="M:Quantum.Domain.Indicator.BuyAgainstSellExt.DuoKongBi(Quantum.Domain.Indicator.IBuyAgainstSell)">
+        <member name="M:Quantum.Domain.MarketData.DateTimeExt.ToNextTradingDate(System.DateTime)">
             <summary>
-            多空比
+            获取下一个交易日
             </summary>
             <param name="self"></param>
             <returns></returns>
         </member>
-        <member name="T:Quantum.Domain.Indicator.IBuyAgainstSell">
+        <member name="M:Quantum.Domain.MarketData.DateTimeExt.ToNextTradingMinute(System.DateTime)">
+            <summary>
+            获取下一个交易分钟
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.IBuyAgainstSell">
             <summary>
             多空指标
             </summary>
         </member>
-        <member name="T:Quantum.Domain.MarketData.IntradayInfo">
+        <member name="P:Quantum.Domain.MarketData.IBuyAgainstSell.SellVolume">
             <summary>
-            分时数据信息类
+            委卖
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IBuyAgainstSell.BuyVolume">
+            <summary>
+            委买
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IBuyAgainstSell.CommissionDiff">
+            <summary>
+            委差
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IBuyAgainstSell.CommissionRatio">
+            <summary>
+            委比
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.MarketData.IBuyAgainstSell.MultiEmptyRatio">
+            <summary>
+            多空比
             </summary>
         </member>
         <member name="T:Quantum.Domain.MarketData.KLine1MinuteInfo">
@@ -54,16 +353,6 @@
             <param name="self"></param>
             <returns></returns>
         </member>
-        <member name="P:Quantum.Domain.MarketData.StockIntraday.CurrentTotalVolume">
-            <summary>
-            当前时刻的总成交量
-            </summary>
-        </member>
-        <member name="P:Quantum.Domain.MarketData.StockIntraday.CurrentTotalAmount">
-            <summary>
-            当前时刻的总成交额
-            </summary>
-        </member>
         <member name="P:Quantum.Domain.MarketData.StockMinutesKLine.CurrentTotalVolume">
             <summary>
             当前时刻的总成交量
@@ -72,6 +361,54 @@
         <member name="P:Quantum.Domain.MarketData.StockMinutesKLine.CurrentTotalAmount">
             <summary>
             当前时刻的总成交额
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.KLineConverter.ConvertTo(System.Collections.Generic.IEnumerable{Ore.Infrastructure.MarketData.IStockKLine},Ore.Infrastructure.MarketData.KLineType)">
+            <summary>
+            转换为其他类型的K线
+            </summary>
+            <param name="self"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.KLineConverter.ConvertToMin1(System.Collections.Generic.IEnumerable{Ore.Infrastructure.MarketData.IStockRealTime})">
+            <summary>
+            转换为1分钟K线
+            </summary>
+            <param name="self"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.KLineTypeExt.GetType(System.Collections.Generic.IEnumerable{Ore.Infrastructure.MarketData.IStockKLine},System.Int32)">
+            <summary>
+            获取K线的类型
+            </summary>
+            <param name="self"></param>
+            <param name="checkDataCount"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.TimeSeriesPackage`1">
+            <summary>
+            时间序列数据包裹
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.TimeSeriesPackage`1.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+            构造时间序列package
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+        </member>
+        <member name="M:Quantum.Domain.MarketData.TimeSeriesPackage`1.ToString">
+            <summary>
+            已重载
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Quantum.Domain.MarketData.Year1Packages`1">
+            <summary>
+            以1年作为时间片的数据包裹集合
             </summary>
         </member>
     </members>

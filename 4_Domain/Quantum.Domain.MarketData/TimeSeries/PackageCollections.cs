@@ -47,8 +47,22 @@ namespace Quantum.Domain.MarketData
         /// <param name="currentTime">当前时间</param>
         /// <param name="startTime">起始时间</param>
         /// <param name="endTime">结束时间</param>
-        protected abstract void GetTimeZone(
+        public abstract void GetTimeZone(
             DateTime currentTime, out DateTime startTime, out DateTime endTime);
+        #endregion
+
+        #region Protected Method
+        /// <summary>
+        /// 求num在n位上的数字,取个位,取十位 
+        /// </summary>
+        /// <param name="num">正整数</param>
+        /// <param name="n">所求数字位置(个位 1,十位 2 依此类推)</param>
+        /// <returns></returns>
+        protected int FindNum(int num, int n)
+        {
+            int power = (int)Math.Pow(10, n);
+            return (num - (num / power) * power) * 10 / power;
+        }
         #endregion
     }
 }
