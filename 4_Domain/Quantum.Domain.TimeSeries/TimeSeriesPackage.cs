@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Quantum.Domain.MarketData
+namespace Quantum.Domain.TimeSeries
 {
     /// <summary>
     /// 时间序列数据包裹

@@ -51,7 +51,6 @@ namespace Quantum.Domain.Trading
         /// 计算冻结数量
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="stockCode"></param>
         /// <returns></returns>
         int GetFrozenQuantity(DateTime time);
 
@@ -59,7 +58,6 @@ namespace Quantum.Domain.Trading
         /// 计算可卖数量
         /// </summary>
         /// <param name="time"></param>
-        /// <param name="stockCode"></param>
         /// <returns></returns>
         int GetAvailableQuantity(DateTime time);
         #endregion

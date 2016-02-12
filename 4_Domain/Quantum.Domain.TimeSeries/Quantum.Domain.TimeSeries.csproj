@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6CD428FE-9631-47B1-BA03-CF7491D8CB5C}</ProjectGuid>
+    <ProjectGuid>{BB4B1906-7F8E-4826-8486-B5DBE93C5515}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Quantum.Domain.MarketData</RootNamespace>
-    <AssemblyName>Quantum.Domain.MarketData</AssemblyName>
+    <RootNamespace>Quantum.Domain.TimeSeries</RootNamespace>
+    <AssemblyName>Quantum.Domain.TimeSeries</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -28,7 +28,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Quantum.Domain.MarketData.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Quantum.Domain.TimeSeries.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Ore.Infrastructure.MarketData">
@@ -44,35 +44,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\PriceLimit.cs" />
-    <Compile Include="Entity\BuyAgainstSell.cs" />
-    <Compile Include="Indicator\IAveragePrice.cs" />
-    <Compile Include="Indicator\IMACD.cs" />
-    <Compile Include="Indicator\IMA.cs" />
-    <Compile Include="Indicator\IRiseAndFall.cs" />
-    <Compile Include="Indicator\ITurnover.cs" />
-    <Compile Include="Indicator\IPriceEarnings.cs" />
-    <Compile Include="Indicator\IPriceBookvalue.cs" />
-    <Compile Include="Matadata\IStockIntraday.cs" />
-    <Compile Include="Simulation.cs" />
-    <Compile Include="Common\DateTimeExt.cs" />
-    <Compile Include="Indicator\IBuyAgainstSell.cs" />
-    <Compile Include="Converter\IntradayInfo.cs" />
-    <Compile Include="Converter\KLine1MinuteInfo.cs" />
-    <Compile Include="Entity\RealTimeItemExt.cs" />
-    <Compile Include="Converter\IntradayConverter.cs" />
-    <Compile Include="Converter\RealTimeConverter.cs" />
-    <Compile Include="Entity\StockIntraday.cs" />
-    <Compile Include="Entity\StockMinutesKLine.cs" />
-    <Compile Include="Converter\KLineConverter.cs" />
-    <Compile Include="Common\KLineTypeExt.cs" />
+    <Compile Include="ITimeSeriesPackage.cs" />
+    <Compile Include="Min1Collections.cs" />
+    <Compile Include="Min5Collections.cs" />
+    <Compile Include="PackageCollections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Quantum.Domain.TimeSeries\Quantum.Domain.TimeSeries.csproj">
-      <Project>{bb4b1906-7f8e-4826-8486-b5dbe93c5515}</Project>
-      <Name>Quantum.Domain.TimeSeries</Name>
-    </ProjectReference>
+    <Compile Include="TimeSeriesPackage.cs" />
+    <Compile Include="Year1Collections.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

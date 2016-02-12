@@ -1,4 +1,5 @@
 ﻿using Ore.Infrastructure.MarketData;
+using Quantum.Domain.TimeSeries;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ namespace Quantum.Domain.MarketData
         public static IEnumerable<IStockKLine> ConvertToMin1(
             this IEnumerable<IStockRealTime> self)
         {
-            Min1Packages<IStockRealTime> collections = new Min1Packages<IStockRealTime>();
+            Min1Collections<IStockRealTime> collections = new Min1Collections<IStockRealTime>();
             var packages = collections.SplitToPackages(self);
 
             throw new NotImplementedException();

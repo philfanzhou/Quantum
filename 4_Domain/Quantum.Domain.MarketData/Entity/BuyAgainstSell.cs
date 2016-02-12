@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Quantum.Domain.MarketData.Entity
+namespace Quantum.Domain.MarketData
 {
     internal class BuyAgainstSell : IBuyAgainstSell
     {

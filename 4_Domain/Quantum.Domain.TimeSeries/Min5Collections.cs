@@ -1,7 +1,7 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
 
-namespace Quantum.Domain.MarketData
+namespace Quantum.Domain.TimeSeries
 {
     /// <summary>
     /// 以5分钟作为时间片的数据包裹集合
@@ -9,7 +9,7 @@ namespace Quantum.Domain.MarketData
     public class Min5Collections<T> : PackageCollections<T>
         where T : ITimeSeries
     {
-        public override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
+        protected override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
         {
             // 取得分钟的10位数
             int tenDigit = FindNum(currentTime.Minute, 2);

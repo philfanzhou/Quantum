@@ -1,12 +1,15 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
 
-namespace Quantum.Domain.MarketData
+namespace Quantum.Domain.TimeSeries
 {
-    public class Min1Packages<T> : PackageCollections<T>
+    /// <summary>
+    /// 以1分钟作为时间片的数据包裹集合
+    /// </summary>
+    public class Min1Collections<T> : PackageCollections<T>
         where T : ITimeSeries
     {
-        public override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
+        protected override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
         {
             startTime = currentTime.Date
                 .AddHours(currentTime.Hour)

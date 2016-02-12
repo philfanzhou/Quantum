@@ -160,48 +160,6 @@
             PB TTM
             </summary>
         </member>
-        <member name="T:Quantum.Domain.MarketData.ITimeSeriesPackage`1">
-            <summary>
-            时间序列数据包裹定义
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="P:Quantum.Domain.MarketData.ITimeSeriesPackage`1.StartTime">
-            <summary>
-            获取Package管理数据的起始时间
-            </summary>
-        </member>
-        <member name="P:Quantum.Domain.MarketData.ITimeSeriesPackage`1.EndTime">
-            <summary>
-            获取Package管理数据的结束时间
-            </summary>
-        </member>
-        <member name="P:Quantum.Domain.MarketData.ITimeSeriesPackage`1.Items">
-            <summary>
-            获取package内的所有Item
-            </summary>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.ITimeSeriesPackage`1.ContainsTime(System.DateTime)">
-            <summary>
-            判断指定时间是否在当前的管理范围内
-            </summary>
-            <param name="time"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.ITimeSeriesPackage`1.Add(`0)">
-            <summary>
-            将数据添加到package中
-            </summary>
-            <exception cref="T:System.InvalidOperationException">如果当前package无法将数据加入，则抛出异常</exception>
-            <param name="item"></param>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.ITimeSeriesPackage`1.TryAdd(`0)">
-            <summary>
-            将数据添加到package中
-            </summary>
-            <param name="item"></param>
-            <returns>添加成功返回true</returns>
-        </member>
         <member name="T:Quantum.Domain.MarketData.IStockIntraday">
             <summary>
             分时数据定义
@@ -211,39 +169,6 @@
             <summary>
             前一交易日收盘价
             </summary>
-        </member>
-        <member name="T:Quantum.Domain.MarketData.Min5Collections`1">
-            <summary>
-            以5分钟作为时间片的数据包裹集合
-            </summary>
-        </member>
-        <member name="T:Quantum.Domain.MarketData.PackageCollections`1">
-            <summary>
-            时间序列数据包裹的集合类
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.PackageCollections`1.SplitToPackages(System.Collections.Generic.IEnumerable{`0})">
-            <summary>
-            将数据拆分到数据包裹中
-            </summary>
-            <param name="datas"></param>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.PackageCollections`1.GetTimeZone(System.DateTime,System.DateTime@,System.DateTime@)">
-            <summary>
-            获取当前时间应该处于的时间区域
-            </summary>
-            <param name="currentTime">当前时间</param>
-            <param name="startTime">起始时间</param>
-            <param name="endTime">结束时间</param>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.PackageCollections`1.FindNum(System.Int32,System.Int32)">
-            <summary>
-            求num在n位上的数字,取个位,取十位 
-            </summary>
-            <param name="num">正整数</param>
-            <param name="n">所求数字位置(个位 1,十位 2 依此类推)</param>
-            <returns></returns>
         </member>
         <member name="T:Quantum.Domain.MarketData.Simulation">
             <summary>
@@ -385,31 +310,6 @@
             <param name="self"></param>
             <param name="checkDataCount"></param>
             <returns></returns>
-        </member>
-        <member name="T:Quantum.Domain.MarketData.TimeSeriesPackage`1">
-            <summary>
-            时间序列数据包裹
-            </summary>
-            <typeparam name="T"></typeparam>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.TimeSeriesPackage`1.#ctor(System.DateTime,System.DateTime)">
-            <summary>
-            构造时间序列package
-            </summary>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
-            <param name="startTime"></param>
-            <param name="endTime"></param>
-        </member>
-        <member name="M:Quantum.Domain.MarketData.TimeSeriesPackage`1.ToString">
-            <summary>
-            已重载
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:Quantum.Domain.MarketData.Year1Packages`1">
-            <summary>
-            以1年作为时间片的数据包裹集合
-            </summary>
         </member>
     </members>
 </doc>

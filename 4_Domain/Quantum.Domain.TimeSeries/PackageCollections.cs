@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Quantum.Domain.MarketData
+namespace Quantum.Domain.TimeSeries
 {
     /// <summary>
     /// 时间序列数据包裹的集合类
@@ -47,7 +47,7 @@ namespace Quantum.Domain.MarketData
         /// <param name="currentTime">当前时间</param>
         /// <param name="startTime">起始时间</param>
         /// <param name="endTime">结束时间</param>
-        public abstract void GetTimeZone(
+        protected abstract void GetTimeZone(
             DateTime currentTime, out DateTime startTime, out DateTime endTime);
         #endregion
 
