@@ -9,10 +9,12 @@ namespace Quantum.Domain.TimeSeries
     public class Year1Collections<T> : PackageCollections<T>
         where T : ITimeSeries
     {
-        protected override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
+        protected override ITimeZone GetTimeZone(DateTime currentTime)
         {
-            startTime = new DateTime(currentTime.Year, 0, 0);
-            endTime = startTime.AddYears(1);
+            DateTime startTime = new DateTime(currentTime.Year, 0, 0);
+            DateTime endTime = startTime.AddYears(1);
+
+            return new TimeZone(startTime, endTime);
         }
     }
 }

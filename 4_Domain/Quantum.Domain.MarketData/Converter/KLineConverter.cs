@@ -58,7 +58,7 @@ namespace Quantum.Domain.MarketData
         {
             StockKLine outputData = new StockKLine
             {
-                Time = self.EndTime,
+                Time = self.Zone.EndTime,
 
                 Open = self.Items.First().Open,
                 Close = self.Items.Last().Close,

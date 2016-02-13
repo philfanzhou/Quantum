@@ -45,11 +45,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ITimeSeriesPackage.cs" />
+    <Compile Include="ITimeZone.cs" />
     <Compile Include="Min1Collections.cs" />
     <Compile Include="Min5Collections.cs" />
     <Compile Include="PackageCollections.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TimeSeriesPackage.cs" />
+    <Compile Include="Internal\TimeSeriesPackage.cs" />
+    <Compile Include="Internal\TimeZone.cs" />
     <Compile Include="Year1Collections.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

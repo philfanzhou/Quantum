@@ -10,27 +10,15 @@
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="P:Quantum.Domain.TimeSeries.ITimeSeriesPackage`1.StartTime">
+        <member name="P:Quantum.Domain.TimeSeries.ITimeSeriesPackage`1.Zone">
             <summary>
-            获取Package管理数据的起始时间
-            </summary>
-        </member>
-        <member name="P:Quantum.Domain.TimeSeries.ITimeSeriesPackage`1.EndTime">
-            <summary>
-            获取Package管理数据的结束时间
+            获取package的时间区域
             </summary>
         </member>
         <member name="P:Quantum.Domain.TimeSeries.ITimeSeriesPackage`1.Items">
             <summary>
             获取package内的所有Item
             </summary>
-        </member>
-        <member name="M:Quantum.Domain.TimeSeries.ITimeSeriesPackage`1.ContainsTime(System.DateTime)">
-            <summary>
-            判断指定时间是否在当前的管理范围内
-            </summary>
-            <param name="time"></param>
-            <returns></returns>
         </member>
         <member name="M:Quantum.Domain.TimeSeries.ITimeSeriesPackage`1.Add(`0)">
             <summary>
@@ -45,6 +33,28 @@
             </summary>
             <param name="item"></param>
             <returns>添加成功返回true</returns>
+        </member>
+        <member name="T:Quantum.Domain.TimeSeries.ITimeZone">
+            <summary>
+            时间序列数据包裹的时间区域
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.TimeSeries.ITimeZone.StartTime">
+            <summary>
+            起始时间
+            </summary>
+        </member>
+        <member name="P:Quantum.Domain.TimeSeries.ITimeZone.EndTime">
+            <summary>
+            结束时间
+            </summary>
+        </member>
+        <member name="M:Quantum.Domain.TimeSeries.ITimeZone.ContainsTime(System.DateTime)">
+            <summary>
+            判断指定时间是否在区域内
+            </summary>
+            <param name="time"></param>
+            <returns></returns>
         </member>
         <member name="T:Quantum.Domain.TimeSeries.Min1Collections`1">
             <summary>
@@ -68,13 +78,12 @@
             </summary>
             <param name="datas"></param>
         </member>
-        <member name="M:Quantum.Domain.TimeSeries.PackageCollections`1.GetTimeZone(System.DateTime,System.DateTime@,System.DateTime@)">
+        <member name="M:Quantum.Domain.TimeSeries.PackageCollections`1.GetTimeZone(System.DateTime)">
             <summary>
-            获取当前时间应该处于的时间区域
+            根据指定的时间和当前Package的TimeZone大小，获取一个TimeZone
             </summary>
-            <param name="currentTime">当前时间</param>
-            <param name="startTime">起始时间</param>
-            <param name="endTime">结束时间</param>
+            <param name="currentTime">指定的时间</param>
+            <returns></returns>
         </member>
         <member name="M:Quantum.Domain.TimeSeries.PackageCollections`1.FindNum(System.Int32,System.Int32)">
             <summary>
@@ -84,21 +93,33 @@
             <param name="n">所求数字位置(个位 1,十位 2 依此类推)</param>
             <returns></returns>
         </member>
+        <member name="M:Quantum.Domain.TimeSeries.PackageCollections`1.GetTimeZone(System.DateTime,System.DateTime)">
+            <summary>
+            获取指定时间区间包含的所有时间区域
+            </summary>
+            <param name="startTime"></param>
+            <param name="endTime"></param>
+            <returns></returns>
+        </member>
         <member name="T:Quantum.Domain.TimeSeries.TimeSeriesPackage`1">
             <summary>
             时间序列数据包裹
             </summary>
             <typeparam name="T"></typeparam>
         </member>
-        <member name="M:Quantum.Domain.TimeSeries.TimeSeriesPackage`1.#ctor(System.DateTime,System.DateTime)">
+        <member name="M:Quantum.Domain.TimeSeries.TimeSeriesPackage`1.#ctor(Quantum.Domain.TimeSeries.ITimeZone)">
             <summary>
             构造时间序列package
             </summary>
-            <exception cref="T:System.ArgumentOutOfRangeException"></exception>
-            <param name="startTime"></param>
-            <param name="endTime"></param>
+            <param name="zone"></param>
         </member>
         <member name="M:Quantum.Domain.TimeSeries.TimeSeriesPackage`1.ToString">
+            <summary>
+            已重载
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Quantum.Domain.TimeSeries.TimeZone.ToString">
             <summary>
             已重载
             </summary>

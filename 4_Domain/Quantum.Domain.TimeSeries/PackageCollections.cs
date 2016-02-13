@@ -24,13 +24,10 @@ namespace Quantum.Domain.TimeSeries
             foreach (var data in orderedDatas)
             {
                 if (packages.Count < 1 ||
-                    packages.Last().ContainsTime(data.Time) == false)
+                    packages.Last().Zone.ContainsTime(data.Time) == false)
                 {
-                    DateTime startTime;
-                    DateTime endTime;
-                    GetTimeZone(data.Time, out startTime, out endTime);
-
-                    packages.Add(new TimeSeriesPackage<T>(startTime, endTime));
+                    ITimeZone zone = GetTimeZone(data.Time);
+                    packages.Add(new TimeSeriesPackage<T>(zone));
                 }
 
                 packages.Last().Add(data);
@@ -42,13 +39,11 @@ namespace Quantum.Domain.TimeSeries
 
         #region Abstract Method
         /// <summary>
-        /// 获取当前时间应该处于的时间区域
+        /// 根据指定的时间和当前Package的TimeZone大小，获取一个TimeZone
         /// </summary>
-        /// <param name="currentTime">当前时间</param>
-        /// <param name="startTime">起始时间</param>
-        /// <param name="endTime">结束时间</param>
-        protected abstract void GetTimeZone(
-            DateTime currentTime, out DateTime startTime, out DateTime endTime);
+        /// <param name="currentTime">指定的时间</param>
+        /// <returns></returns>
+        protected abstract ITimeZone GetTimeZone(DateTime currentTime);
         #endregion
 
         #region Protected Method
@@ -62,6 +57,30 @@ namespace Quantum.Domain.TimeSeries
         {
             int power = (int)Math.Pow(10, n);
             return (num - (num / power) * power) * 10 / power;
+        }
+
+        /// <summary>
+        /// 获取指定时间区间包含的所有时间区域
+        /// </summary>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        protected IEnumerable<ITimeZone> GetTimeZone(DateTime startTime, DateTime endTime)
+        {
+            if (endTime < startTime)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            List<ITimeZone> result = new List<ITimeZone>();
+            do
+            {
+                ITimeZone zone = GetTimeZone(startTime);
+                result.Add(zone);
+                startTime = zone.EndTime;
+            } while (startTime <= endTime);
+
+            return result;
         }
         #endregion
     }

@@ -7,10 +7,10 @@ using System.Linq;
 namespace Test.Domain.MarketData
 {
     [TestClass]
-    public class TestTimeSeries
+    public class TestKLineConverter
     {
         [TestMethod]
-        public void TestMin5Packages()
+        public void TestMin1ToMin5()
         {
             // 构造从2月1日 -- 2月4日的数据
             // 每小时60条，每天4个小时，4天总计960条数据

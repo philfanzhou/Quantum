@@ -9,13 +9,15 @@ namespace Quantum.Domain.TimeSeries
     public class Min1Collections<T> : PackageCollections<T>
         where T : ITimeSeries
     {
-        protected override void GetTimeZone(DateTime currentTime, out DateTime startTime, out DateTime endTime)
+        protected override ITimeZone GetTimeZone(DateTime currentTime)
         {
-            startTime = currentTime.Date
+            DateTime startTime = currentTime.Date
                 .AddHours(currentTime.Hour)
                 .AddMinutes(currentTime.Minute);
 
-            endTime = startTime.AddMinutes(1);
+            DateTime endTime = startTime.AddMinutes(1);
+
+            return new TimeZone(startTime, endTime);
         }
     }
 }

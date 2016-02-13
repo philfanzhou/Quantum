@@ -12,8 +12,7 @@ namespace Quantum.Domain.TimeSeries
         where T : ITimeSeries
     {
         #region Field
-        private readonly DateTime _startTime;
-        private readonly DateTime _endTime;
+        private readonly ITimeZone _zone;
 
         private List<T> _items = new List<T>();
         #endregion
@@ -22,34 +21,20 @@ namespace Quantum.Domain.TimeSeries
         /// <summary>
         /// 构造时间序列package
         /// </summary>
-        /// <exception cref="System.ArgumentOutOfRangeException"></exception>
-        /// <param name="startTime"></param>
-        /// <param name="endTime"></param>
-        public TimeSeriesPackage(DateTime startTime, DateTime endTime)
+        /// <param name="zone"></param>
+        public TimeSeriesPackage(ITimeZone zone)
         {
-            if(startTime > endTime)
-            {
-                throw new ArgumentOutOfRangeException();
-            }
-
-            _startTime = startTime;
-            _endTime = endTime;
+            _zone = zone;
         }
         #endregion
 
         #region Property
-        DateTime ITimeSeriesPackage<T>.StartTime { get { return _startTime; } }
-
-        DateTime ITimeSeriesPackage<T>.EndTime { get { return _endTime; } }
+        ITimeZone ITimeSeriesPackage<T>.Zone { get { return _zone; } }
 
         IEnumerable<T> ITimeSeriesPackage<T>.Items { get { return _items; } }
         #endregion
 
         #region Public Method
-        bool ITimeSeriesPackage<T>.ContainsTime(DateTime time)
-        {
-            return (_startTime < time) && (time <= _endTime);
-        }
 
         void ITimeSeriesPackage<T>.Add(T item)
         {
@@ -61,7 +46,7 @@ namespace Quantum.Domain.TimeSeries
 
         bool ITimeSeriesPackage<T>.TryAdd(T item)
         {
-            if (!(this as ITimeSeriesPackage<T>).ContainsTime(item.Time))
+            if (!_zone.ContainsTime(item.Time))
             {
                 return false;
             }
@@ -77,8 +62,14 @@ namespace Quantum.Domain.TimeSeries
         /// <returns></returns>
         public override string ToString()
         {
-            string format = "yyyy/MM/dd hh:mm:ss";
-            return string.Format("{0} -- {1}", _startTime.ToString(format), _endTime.ToString(format));
+            if(_zone == null)
+            {
+                return base.ToString();
+            }
+            else
+            {
+                return _zone.ToString();
+            }
         }
     }
 }

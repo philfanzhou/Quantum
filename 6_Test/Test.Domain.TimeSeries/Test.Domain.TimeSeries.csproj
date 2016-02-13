@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B8F54790-FA90-464D-8881-9841A711A7B0}</ProjectGuid>
+    <ProjectGuid>{BD7B9E13-E4DD-4BD4-AAEA-86E0CB33E6C8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Test.Domain.MarketData</RootNamespace>
-    <AssemblyName>Test.Domain.MarketData</AssemblyName>
+    <RootNamespace>Test.Domain.TimeSeries</RootNamespace>
+    <AssemblyName>Test.Domain.TimeSeries</AssemblyName>
     <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,24 +48,18 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
-          <Private>False</Private>
-        </Reference>
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="PriceLimitTest.cs" />
-    <Compile Include="TestSimulationData.cs" />
-    <Compile Include="TestTradingDate.cs" />
-    <Compile Include="UnitTest1.cs" />
+    <Compile Include="TestTimeZone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestKLineConverter.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\4_Domain\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj">
-      <Project>{6cd428fe-9631-47b1-ba03-cf7491d8cb5c}</Project>
-      <Name>Quantum.Domain.MarketData</Name>
+    <ProjectReference Include="..\..\4_Domain\Quantum.Domain.TimeSeries\Quantum.Domain.TimeSeries.csproj">
+      <Project>{bb4b1906-7f8e-4826-8486-b5dbe93c5515}</Project>
+      <Name>Quantum.Domain.TimeSeries</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
