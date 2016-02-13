@@ -11,7 +11,7 @@ namespace Quantum.Domain.TimeSeries
     {
         protected override ITimeZone GetTimeZone(DateTime currentTime)
         {
-            DateTime startTime = new DateTime(currentTime.Year, 0, 0);
+            DateTime startTime = new DateTime(currentTime.Year, 1, 1);
             DateTime endTime = startTime.AddYears(1);
 
             return new TimeZone(startTime, endTime);
