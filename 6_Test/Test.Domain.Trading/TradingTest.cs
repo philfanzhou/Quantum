@@ -32,5 +32,27 @@ namespace Test.Domain.Trading
             Assert.IsTrue(tradingRecord.Quantity == 1000);
             Assert.IsTrue(tradingRecord.Price == 15.98);
         }
+
+        [TestMethod]
+        public void TestTrading()
+        {
+            IAccount account = Broker.CreateAccount("MyAccount");
+            account.TransferIn(100000);
+            DateTime time = new DateTime(2016, 2, 22, 9, 35, 0);
+            string stockCode = "600036";
+            ITradingRecord tradingRecord = null;
+            IHoldingsRecord holdingsRecord = null;
+
+            account.Buy(time, stockCode, 10, 100);
+            tradingRecord = account.GetAllTradingRecord().Last();
+            Assert.AreEqual(tradingRecord.StampDuty, 0m);
+            //Assert.AreEqual(tradingRecord.TransferFees, 0.002m);
+            Assert.AreEqual(tradingRecord.Commissions, 5m);
+            //Assert.AreEqual(tradingRecord.GetAmount(), 5.0002m);
+            holdingsRecord = account.GetHoldingsRecord(stockCode);
+            Assert.AreEqual(holdingsRecord.Quantity, 100);
+            Assert.AreEqual(holdingsRecord.GetAvailableQuantity(time), 0);
+            Assert.AreEqual(holdingsRecord.GetFrozenQuantity(time), 100);
+        }
     }
 }

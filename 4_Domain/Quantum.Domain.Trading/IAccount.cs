@@ -68,6 +68,13 @@ namespace Quantum.Domain.Trading
         IEnumerable<IHoldingsRecord> GetAllHoldingsRecord();
 
         /// <summary>
+        /// 获取指定股票的持仓记录
+        /// </summary>
+        /// <param name="stockCode"></param>
+        /// <returns></returns>
+        IHoldingsRecord GetHoldingsRecord(string stockCode);
+
+        /// <summary>
         /// 获取所有交易记录
         /// </summary>
         /// <returns></returns>

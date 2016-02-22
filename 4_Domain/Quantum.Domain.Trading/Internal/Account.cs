@@ -92,6 +92,16 @@ namespace Quantum.Domain.Trading
             return _holdingsRecords.Values;
         }
 
+        public IHoldingsRecord GetHoldingsRecord(string stockCode)
+        {
+            if(string.IsNullOrEmpty(stockCode) || !_holdingsRecords.ContainsKey(stockCode))
+            {
+                return null;
+            }
+
+            return _holdingsRecords[stockCode];
+        }
+
         public IEnumerable<ITradingRecord> GetAllTradingRecord()
         {
             List<ITradingRecord> tradingRecords = new List<ITradingRecord>();
