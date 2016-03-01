@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ore.Infrastructure.MarketData">
+      <HintPath>..\..\..\Ore\Publish.Dll\Ore.Infrastructure.MarketData\Ore.Infrastructure.MarketData.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IKey.cs" />
     <Compile Include="Key.cs" />
     <Compile Include="Neo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ore.Infrastructure.MarketData;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,9 +16,9 @@ namespace Quantum.Domain.Decision
             _key = key;
         }
 
-        //public void Decide(IStockRealTime realTimeItem)
-        //{
+        public void Decide()
+        {
 
-        //}
+        }
     }
 }

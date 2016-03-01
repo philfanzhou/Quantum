@@ -262,6 +262,13 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Quantum.Domain.Trading.IAccount.GetHoldingsRecord(System.String)">
+            <summary>
+            获取指定股票的持仓记录
+            </summary>
+            <param name="stockCode"></param>
+            <returns></returns>
+        </member>
         <member name="M:Quantum.Domain.Trading.IAccount.GetAllTradingRecord">
             <summary>
             获取所有交易记录
