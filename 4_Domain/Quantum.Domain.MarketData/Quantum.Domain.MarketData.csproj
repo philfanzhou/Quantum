@@ -46,7 +46,11 @@
   <ItemGroup>
     <Compile Include="Common\PriceLimit.cs" />
     <Compile Include="Entity\BuyAgainstSell.cs" />
+    <Compile Include="Entity\KDJIndicator.cs" />
+    <Compile Include="Entity\MAIndicator.cs" />
+    <Compile Include="Entity\MACDIndicator.cs" />
     <Compile Include="Indicator\IAveragePrice.cs" />
+    <Compile Include="Indicator\IKDJ.cs" />
     <Compile Include="Indicator\IMACD.cs" />
     <Compile Include="Indicator\IMA.cs" />
     <Compile Include="Indicator\IRiseAndFall.cs" />

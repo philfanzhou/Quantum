@@ -4,6 +4,7 @@ namespace Quantum.Domain.MarketData
 {
     /// <summary>
     /// 移动平均线
+    /// 计算方法：N日移动平均线 = N日收市价之和 / N
     /// </summary>
     public interface IMA : ITimeSeries
     {
