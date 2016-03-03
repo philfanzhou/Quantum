@@ -71,6 +71,7 @@
     <Compile Include="Converter\KLineConverter.cs" />
     <Compile Include="Common\KLineTypeExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Extension\StockKLineExt.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quantum.Domain.TimeSeries\Quantum.Domain.TimeSeries.csproj">
