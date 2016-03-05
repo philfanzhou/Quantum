@@ -43,7 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Battleship.cs" />
+    <Compile Include="IBattleship.cs" />
+    <Compile Include="ITradingAction.cs" />
     <Compile Include="Keys\IKey.cs" />
     <Compile Include="Keys\Key.cs" />
     <Compile Include="Keys\KeyMaker.cs" />
