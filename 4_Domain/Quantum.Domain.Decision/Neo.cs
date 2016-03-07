@@ -37,7 +37,7 @@ namespace Quantum.Domain.Decision
 
         #region Property
         /// <summary>
-        /// 获取决策所需数据的所有类型
+        /// 获取Neo持有的所有能打开Matrix后门的钥匙
         /// </summary>
         public IEnumerable<IKey> Keys
         {
@@ -46,7 +46,7 @@ namespace Quantum.Domain.Decision
         #endregion
 
         #region Event
-        // 下单事件
+        public EventHandler<ITradingAction> TradingRequested;
         #endregion
 
         #region Public Method
@@ -66,16 +66,48 @@ namespace Quantum.Domain.Decision
             if (!_logined || _link == null) return;
 
             // 存储新来的数据
-
-            // 运行决策判断
-
-            // 触发下单事件
+            _link.AddNewData(type, kLine);
         }
         #endregion
 
+        #region Private Method
         private void Decide()
         {
-
+            // 运行决策判断，所有的买Key满足，就买，购买数量另外考虑
+            // 所有的卖Key满足，就卖，卖出数量另外考虑
+            if (_keys.Where(p => p.Type == ActionType.Buy).All(p => p.Match(_link)))
+            {
+                TradingAction action = new TradingAction
+                {
+                    Quantity = GetQuantity(ActionType.Buy),
+                    Type = ActionType.Buy
+                };
+                OnTradingRequested(action);
+            }
+            else if (_keys.Where(p => p.Type == ActionType.Sell).All(p => p.Match(_link)))
+            {
+                TradingAction action = new TradingAction
+                {
+                    Quantity = GetQuantity(ActionType.Sell),
+                    Type = ActionType.Sell
+                };
+                OnTradingRequested(action);
+            }
         }
+
+        private int GetQuantity(ActionType type)
+        {
+            return 100;
+        }
+
+        private void OnTradingRequested(ITradingAction e)
+        {
+            EventHandler<ITradingAction> handler = TradingRequested;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        #endregion
     }
 }

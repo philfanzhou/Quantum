@@ -36,14 +36,14 @@ namespace Quantum.Domain.Decision
         {
             if(!_history.ContainsKey(type))
             {
-                throw new ArgumentOutOfRangeException("type");
+                _history.Add(type, new List<IStockKLine>());
             }
 
             _history[type].Add(kLine);
         }
 
         /// <summary>
-        /// 获取管理的数据
+        /// 获取指定类型的数据，如果无法获取到数据，返回null
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>

@@ -1,13 +1,10 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
 
 namespace Quantum.Domain.Decision.Keys
 {
-    public interface IKey
+    public interface IKey : ISerializable
     {
         KLineType DataType { get; }
 
@@ -28,10 +25,11 @@ namespace Quantum.Domain.Decision.Keys
         /// <returns></returns>
         DateTime GetDataStartTime(DateTime time);
 
-        // bool Match();
-
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="link"></param>
+        /// <returns></returns>
+        bool Match(Link link);
     }
-
-
 }

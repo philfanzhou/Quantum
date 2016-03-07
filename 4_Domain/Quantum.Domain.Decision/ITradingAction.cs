@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Quantum.Domain.Decision
+﻿namespace Quantum.Domain.Decision
 {
     public interface ITradingAction
     {
@@ -26,5 +20,12 @@ namespace Quantum.Domain.Decision
         /// 卖出
         /// </summary>
         Sell
+    }
+
+    internal class TradingAction : ITradingAction
+    {
+        public int Quantity { get; set; }
+
+        public ActionType Type { get; set; }
     }
 }
