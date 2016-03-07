@@ -20,7 +20,8 @@ namespace Test.Domain.MarketData
             IEnumerable<IStockBonus> bonus = clientApi.GetStockBonus("002498");
             IEnumerable<IStockKLine> kLines = clientApi.GetStockKLine(KLineType.Day, "002498", new DateTime(2013, 8, 1), new DateTime(2016, 2, 1));
             IStockKLine testDayKLine = kLines.FirstOrDefault(p => (p.Time.Year == 2013 && p.Time.Month == 8 && p.Time.Day == 27));
-            double prePrice = testDayKLine.KLinePreRestoration(bonus);
+            IStockKLine newStockKLine = testDayKLine.KLinePreRestoration(bonus);
+            Assert.AreEqual(1.84, newStockKLine.Close);
         }
     }
 }
