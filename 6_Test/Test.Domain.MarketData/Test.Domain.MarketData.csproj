@@ -59,6 +59,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="PriceLimitTest.cs" />
+    <Compile Include="TestRestoration.cs" />
     <Compile Include="TestSimulationData.cs" />
     <Compile Include="TestTradingDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

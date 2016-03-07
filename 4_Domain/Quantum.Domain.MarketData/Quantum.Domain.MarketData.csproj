@@ -49,6 +49,7 @@
     <Compile Include="Entity\KDJIndicator.cs" />
     <Compile Include="Entity\MAIndicator.cs" />
     <Compile Include="Entity\MACDIndicator.cs" />
+    <Compile Include="Extension\KLineRestoration.cs" />
     <Compile Include="Indicator\IAveragePrice.cs" />
     <Compile Include="Indicator\IKDJ.cs" />
     <Compile Include="Indicator\IMACD.cs" />
