@@ -26,11 +26,6 @@ namespace Quantum.Domain.MarketData
     public interface IKDJ : ITimeSeries
     {
         /// <summary>
-        /// 计算周期（n日、n周等）
-        /// </summary>
-        int Cycle { get; }
-
-        /// <summary>
         /// 周期（n日、n周等）的RSV值，即未成熟随机指标值
         /// 计算公式: n日RSV =（Cn－Ln）/（Hn－Ln）×100
         /// </summary>

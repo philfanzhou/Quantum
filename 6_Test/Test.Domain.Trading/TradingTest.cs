@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Quantum.Domain.Trading;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace Test.Domain.Trading
 {
