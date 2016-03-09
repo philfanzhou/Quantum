@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Battlefield.cs" />
+    <Compile Include="Morpheus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SimulationBattleship.cs" />
   </ItemGroup>
@@ -51,6 +52,10 @@
     <ProjectReference Include="..\..\4_Domain\Quantum.Domain.Decision\Quantum.Domain.Decision.csproj">
       <Project>{97d9e8f2-9163-4846-a914-9b82c377e7a1}</Project>
       <Name>Quantum.Domain.Decision</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj">
+      <Project>{6cd428fe-9631-47b1-ba03-cf7491d8cb5c}</Project>
+      <Name>Quantum.Domain.MarketData</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

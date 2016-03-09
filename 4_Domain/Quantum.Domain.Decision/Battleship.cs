@@ -7,14 +7,14 @@ namespace Quantum.Domain.Decision
 {
     public abstract class Battleship : IBattleship
     {
-        private DateTime _dataStartTime;
+        private DateTime _tradingStartTime;
 
-        public Battleship(DateTime dataStartTime)
+        public Battleship(DateTime tradingStartTime)
         {
-            _dataStartTime = dataStartTime;
+            _tradingStartTime = tradingStartTime;
         }
 
-        public Link GetLink(Neo neo)
+        public virtual Link GetLink(Neo neo)
         {
             var security = neo.Security;
             var keys = neo.Keys.ToList();
@@ -25,9 +25,9 @@ namespace Quantum.Domain.Decision
             {
                 // 获取Key对数据的要求
                 var kLineType = key.DataType;
-                var dataStartTime = key.GetDataStartTime(_dataStartTime);
+                var dataStartTime = key.GetDataStartTime(_tradingStartTime);
                 // 获取数据
-                var data = GetData(kLineType, dataStartTime).ToList();
+                var data = GetData(kLineType, dataStartTime, _tradingStartTime).ToList();
                 if(data == null)
                 {
                     data = new List<IStockKLine>();
@@ -53,6 +53,6 @@ namespace Quantum.Domain.Decision
             return link;
         }
 
-        protected abstract IEnumerable<IStockKLine> GetData(KLineType type, DateTime startTime);
+        protected abstract IEnumerable<IStockKLine> GetData(KLineType type, DateTime startTime, DateTime endTime);
     }
 }

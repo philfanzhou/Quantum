@@ -28,6 +28,25 @@ namespace Quantum.Domain.Decision
         }
 
         /// <summary>
+        /// 判断数据是否已经存在
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="kLine"></param>
+        /// <returns></returns>
+        internal bool ExistData(KLineType type, IStockKLine kLine)
+        {
+            if (_history.ContainsKey(type) 
+                && _history[type].Contains(kLine))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
         /// 添加新的数据
         /// </summary>
         /// <param name="type"></param>

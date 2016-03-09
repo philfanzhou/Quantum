@@ -1,6 +1,7 @@
 ﻿using Ore.Infrastructure.MarketData;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Quantum.Domain.MarketData
 {
@@ -29,78 +30,89 @@ namespace Quantum.Domain.MarketData
                 throw new ArgumentOutOfRangeException("count");
             }
 
-            List<StockKLine> result = new List<StockKLine>();
-            
-            for (int i = 0; i < count; i++)
+            List<IStockKLine> result = new List<IStockKLine>();
+
+            result.Add(CreateFirstData(type, startTime));
+
+            for (int i = 1; i < count; i++)
             {
-                // 取得昨收
-                double preClose;
-                double preVolume;
-                DateTime tradingTime;
-
-                if (i == 0)
-                {
-                    preClose = GetRandomPrice();
-                    preVolume = _random.Next(100000, 10000000);
-
-                    if (type == KLineType.Min1)
-                    {
-                        tradingTime = startTime.IsTradingTime() ? startTime.Date.AddHours(startTime.Hour).AddMinutes(startTime.Minute) : startTime.ToNextTradingMinute();
-                    }
-                    else // 只有分钟线和日线的情况
-                    {
-                        tradingTime = startTime.IsTradingDate() ? startTime.Date : startTime.ToNextTradingDate();
-                    }
-                }
-                else
-                {
-                    preClose = result[i - 1].Close;
-                    preVolume = result[i - 1].Volume;
-
-                    if (type == KLineType.Min1)
-                    {
-                        tradingTime = result[i - 1].Time.ToNextTradingMinute();
-                    }
-                    else
-                    {
-                        tradingTime = result[i - 1].Time.ToNextTradingDate();
-                    }
-                }
-
-                var kLine = CreateRandomItem(tradingTime, preClose, preVolume);
-                result.Add(kLine);
+                AppendNewData(type, ref result);
             }
 
             return result;
         }
 
-        #region Private Method
-        private static double GetRandomPrice()
+        public static IEnumerable<IStockKLine> CreateRandomKLines(KLineType type, DateTime startTime, DateTime endTime)
         {
-            int ret = _random.Next(0, 10);
-
-            if(ret < 2)
+            if (type != KLineType.Day && type != KLineType.Min1)
             {
-                return _random.Next(100.00, 350.00);
+                throw new NotSupportedException(string.Format("Only support {0}, {1}", KLineType.Day, KLineType.Min1));
             }
-            else if(ret < 7)
+            if (startTime > endTime)
             {
-                return _random.Next(15.00, 100.00);
+                throw new ArgumentOutOfRangeException("endTime");
+            }
+
+            List<IStockKLine> result = new List<IStockKLine>();
+
+            result.Add(CreateFirstData(type, startTime));
+
+            do
+            {
+                AppendNewData(type, ref result);
+            } while (result.Last().Time <= endTime);
+
+            result.RemoveAt(result.Count - 1);
+
+            return result;
+        }
+
+        #region Private Method
+        private static IStockKLine CreateFirstData(KLineType type, DateTime startTime)
+        {
+            double preClose = GetRandomPrice();
+            double preVolume = _random.Next(100000, 10000000);
+            DateTime tradingTime;
+            if (type == KLineType.Min1)
+            {
+                tradingTime = startTime.IsTradingTime() ? startTime.Date.AddHours(startTime.Hour).AddMinutes(startTime.Minute) : startTime.ToNextTradingMinute();
             }
             else
             {
-                return _random.Next(1.00, 15.00);
+                tradingTime = startTime.IsTradingDate() ? startTime.Date : startTime.ToNextTradingDate();
             }
+
+            var kLine = CreateRandomItem(tradingTime, preClose, preVolume);
+            return kLine;
         }
 
-        private static StockKLine CreateRandomItem(DateTime time, double preClose, double preVolume, int digits = 2)
+        private static void AppendNewData(KLineType type, ref List<IStockKLine> existData)
+        {
+            var preData = existData.Last();
+
+            DateTime tradingTime;
+            if (type == KLineType.Min1)
+            {
+                tradingTime = preData.Time.ToNextTradingMinute();
+            }
+            else
+            {
+                tradingTime = preData.Time.ToNextTradingDate();
+            }
+            
+            var newData = CreateRandomItem(tradingTime, preData.Close, preData.Volume);
+
+            existData.Add(newData);
+        }
+
+        private static StockKLine CreateRandomItem(DateTime tradingTime, double preClose, double preVolume, int digits = 2)
         {
             // 计算涨停和跌停价格
             double upLimit = PriceLimit.UpLimit(SecurityType.Sotck, preClose);
             double downLimit = PriceLimit.DownLimit(SecurityType.Sotck, preClose);
 
             var kLine = new StockKLine();
-            kLine.Time = time;
+            kLine.Time = tradingTime;
             kLine.Volume = (int)_random.Next(preVolume * 0.5, preVolume * 1.5);
 
             // 随机涨跌平
@@ -108,12 +120,12 @@ namespace Quantum.Domain.MarketData
             if (upOrDown == UpOrDown.Down)// 跌
             {
                 // 3%的机会一字跌
-                if(_random.Next(0, 100) > 96)
+                if (_random.Next(0, 100) > 96)
                 {
                     kLine.Open = downLimit;
                     kLine.Close = downLimit;
                 }
-                else if(_random.Next(0, 100) > 90) //  10%机会跌停板
+                else if (_random.Next(0, 100) > 90) //  10%机会跌停板
                 {
                     kLine.Close = downLimit;
                     kLine.Open = _random.Next(downLimit, preClose, digits);
@@ -124,7 +136,7 @@ namespace Quantum.Domain.MarketData
                     kLine.Close = _random.Next(downLimit, preClose, digits);
                 }
             }
-            else if(upOrDown == UpOrDown.Up)// 涨
+            else if (upOrDown == UpOrDown.Up)// 涨
             {
                 // 3%的机会一字涨
                 if (_random.Next(0, 100) > 96)
@@ -149,7 +161,7 @@ namespace Quantum.Domain.MarketData
                 kLine.Close = _random.Next(downLimit, upLimit, digits);
             }
 
-         
+
             kLine.High = _random.Next(kLine.Open, upLimit, digits);
             kLine.Low = _random.Next(downLimit, kLine.Open, digits);
 
@@ -158,6 +170,24 @@ namespace Quantum.Domain.MarketData
             kLine.Amount = average * kLine.Volume;
 
             return kLine;
+        }
+
+        private static double GetRandomPrice()
+        {
+            int ret = _random.Next(0, 10);
+
+            if(ret < 2)
+            {
+                return _random.Next(100.00, 350.00);
+            }
+            else if(ret < 7)
+            {
+                return _random.Next(15.00, 100.00);
+            }
+            else
+            {
+                return _random.Next(1.00, 15.00);
+            }
         }
 
         /// <summary>

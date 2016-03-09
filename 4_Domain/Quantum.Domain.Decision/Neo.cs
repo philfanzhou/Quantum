@@ -67,15 +67,23 @@ namespace Quantum.Domain.Decision
             _logined = true;
         }
 
+        /// <summary>
+        /// 当新数据到来的时候，调用此方法
+        /// </summary>
+        /// <param name="kLine"></param>
+        /// <param name="type"></param>
         public void OnKLineComing(IStockKLine kLine, KLineType type)
         {
             // 未登陆和没有设定接线员，都无法处理新数据
             if (!_logined || _link == null) return;
 
-            // 存储新来的数据
-            _link.AddNewData(type, kLine);
+            if (!_link.ExistData(type, kLine))
+            {
+                // 存储新来的数据
+                _link.AddNewData(type, kLine);
 
-            Decide();
+                Decide();
+            }
         }
         #endregion
 

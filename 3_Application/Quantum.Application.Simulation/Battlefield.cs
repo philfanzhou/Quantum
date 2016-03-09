@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Quantum.Application.Simulation
 {
-    internal class Battlefield
+    public class Battlefield
     {
         private readonly List<IStockRealTime> _realTimeItems;
 
