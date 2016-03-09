@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Ore.Infrastructure.MarketData;
+using Quantum.Domain.MarketData;
+using System;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
-using Ore.Infrastructure.MarketData;
 
 namespace Quantum.Domain.Decision.Keys
 {
@@ -39,7 +37,20 @@ namespace Quantum.Domain.Decision.Keys
 
         public ActionType Match(Link link)
         {
-            throw new NotImplementedException();
+            var latestMin1Data = link.GetData(this.DataType).Last().AveragePrice();
+
+            if(latestMin1Data.Eccentricity > _sellArgs)
+            {
+                return ActionType.Sell;
+            }
+            else if(latestMin1Data.Eccentricity < _buyArgs)
+            {
+                return ActionType.Buy;
+            }
+            else
+            {
+                return ActionType.None;
+            }
         }
     }
 }

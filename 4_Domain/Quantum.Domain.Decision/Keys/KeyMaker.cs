@@ -13,5 +13,11 @@ namespace Quantum.Domain.Decision.Keys
     /// </summary>
     public class KeyMaker
     {
+        public IEnumerable<IKey> CreateKeys()
+        {
+            List<IKey> result = new List<IKey>();
+            result.Add(new AveragePriceKey(-2, 2));
+            return result;
+        }
     }
 }

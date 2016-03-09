@@ -59,6 +59,7 @@
     <Compile Include="Indicator\ITurnover.cs" />
     <Compile Include="Indicator\IPriceEarnings.cs" />
     <Compile Include="Indicator\IPriceBookvalue.cs" />
+    <Compile Include="Extension\KLineAveragePrice.cs" />
     <Compile Include="Matadata\IStockIntraday.cs" />
     <Compile Include="Simulation.cs" />
     <Compile Include="Common\DateTimeExt.cs" />

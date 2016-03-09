@@ -37,6 +37,13 @@ namespace Quantum.Domain.Decision
 
         #region Property
         /// <summary>
+        /// 获取Neo关注的标的
+        /// </summary>
+        public ISecurity Security
+        {
+            get { return _security; }
+        }
+        /// <summary>
         /// 获取Neo持有的所有能打开Matrix后门的钥匙
         /// </summary>
         public IEnumerable<IKey> Keys
@@ -51,12 +58,12 @@ namespace Quantum.Domain.Decision
 
         #region Public Method
         /// <summary>
-        /// 通过接线员登陆到Matrix
+        /// 通过战舰联系到操作员登陆到Matrix
         /// </summary>
-        /// <param name="link"></param>
-        public void Login(Link link)
+        /// <param name="battleship"></param>
+        public void Login(IBattleship battleship)
         {
-            _link = link;
+            _link = battleship.GetLink(this);
             _logined = true;
         }
 

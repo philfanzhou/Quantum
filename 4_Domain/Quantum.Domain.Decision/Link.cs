@@ -32,7 +32,7 @@ namespace Quantum.Domain.Decision
         /// </summary>
         /// <param name="type"></param>
         /// <param name="kLine"></param>
-        public void AddNewData(KLineType type, IStockKLine kLine)
+        internal void AddNewData(KLineType type, IStockKLine kLine)
         {
             if(!_history.ContainsKey(type))
             {
@@ -47,7 +47,7 @@ namespace Quantum.Domain.Decision
         /// </summary>
         /// <param name="type"></param>
         /// <returns></returns>
-        public IEnumerable<IStockKLine> GetData(KLineType type)
+        internal IEnumerable<IStockKLine> GetData(KLineType type)
         {
             if(_history.ContainsKey(type))
             {
