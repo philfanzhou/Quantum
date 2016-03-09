@@ -6,12 +6,10 @@ namespace Quantum.Domain.Decision.Keys
 {
     public interface IKey : ISerializable
     {
-        KLineType DataType { get; }
-
         /// <summary>
-        /// 指示当前Key是作为买判断还是卖判断
+        /// 获取当前Key所需要的数据类型
         /// </summary>
-        ActionType Type { get; }
+        KLineType DataType { get; }
 
         /// <summary>
         /// 根据指定的时间，和当前依赖的数据类型，
@@ -24,12 +22,12 @@ namespace Quantum.Domain.Decision.Keys
         /// <param name="time"></param>
         /// <returns></returns>
         DateTime GetDataStartTime(DateTime time);
-
+        
         /// <summary>
-        /// 
+        /// 尝试根据Key逻辑和现有数据，去Match一种交易动作
         /// </summary>
         /// <param name="link"></param>
         /// <returns></returns>
-        bool Match(Link link);
+        ActionType Match(Link link);
     }
 }

@@ -67,6 +67,8 @@ namespace Quantum.Domain.Decision
 
             // 存储新来的数据
             _link.AddNewData(type, kLine);
+
+            Decide();
         }
         #endregion
 
@@ -75,24 +77,23 @@ namespace Quantum.Domain.Decision
         {
             // 运行决策判断，所有的买Key满足，就买，购买数量另外考虑
             // 所有的卖Key满足，就卖，卖出数量另外考虑
-            if (_keys.Where(p => p.Type == ActionType.Buy).All(p => p.Match(_link)))
+            var result = _keys.Select(p => p.Match(_link)).Distinct().ToList();
+            if(result.Count > 1)
             {
-                TradingAction action = new TradingAction
-                {
-                    Quantity = GetQuantity(ActionType.Buy),
-                    Type = ActionType.Buy
-                };
-                OnTradingRequested(action);
+                return;
             }
-            else if (_keys.Where(p => p.Type == ActionType.Sell).All(p => p.Match(_link)))
+
+            if(result[0] == ActionType.None)
             {
-                TradingAction action = new TradingAction
-                {
-                    Quantity = GetQuantity(ActionType.Sell),
-                    Type = ActionType.Sell
-                };
-                OnTradingRequested(action);
+                return;
             }
+
+            TradingAction action = new TradingAction
+            {
+                Quantity = GetQuantity(result[0]),
+                Type = result[0]
+            };
+            OnTradingRequested(action);
         }
 
         private int GetQuantity(ActionType type)

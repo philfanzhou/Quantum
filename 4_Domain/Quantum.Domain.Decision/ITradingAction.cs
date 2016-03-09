@@ -13,6 +13,10 @@
     public enum ActionType
     {
         /// <summary>
+        /// 不进行操作
+        /// </summary>
+        None,
+        /// <summary>
         /// 买入
         /// </summary>
         Buy,

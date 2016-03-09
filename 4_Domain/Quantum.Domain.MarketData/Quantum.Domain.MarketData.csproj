@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entity\AveragePrice.cs" />
     <Compile Include="Common\PriceLimit.cs" />
     <Compile Include="Entity\BuyAgainstSell.cs" />
     <Compile Include="Entity\KDJIndicator.cs" />
