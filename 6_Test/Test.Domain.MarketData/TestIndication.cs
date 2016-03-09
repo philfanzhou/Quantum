@@ -107,31 +107,14 @@ namespace Test.Domain.MarketData
             using (var client = new ClientApi(serverAddress))
             {
                 // 从Pitman获取K线数据
-                //600036
                 var lstKLine = client.GetStockKLine(KLineType.Day, "300500", new DateTime(2015, 6, 1), new DateTime(2016, 3, 1));
-
-                //List<double> lstEma12;
-                //List<double> lstEma26;
-                //List<double> lstDif;
-                //List<double> lstDea;
-                //List<double> lstMacd;
-                //SampleMacdDatas(lstKLine.ToList(), out lstEma12, out lstEma26, out lstDif, out lstDea, out lstMacd);
-
+                
                 // 调用K线扩展方法获取MACD指标的值
                 var lstMACD = lstKLine.MACD().ToList();
 
                 // 判断值的正确性
-                //int i = 0;
-                //foreach (var macd in lstMACD)
-                //{
-                //    Assert.AreEqual(macd.DIF, lstDif[i]);
-                //    Assert.AreEqual(macd.DEA, lstDea[i]);
-                //    Assert.AreEqual(macd.MACD, lstMacd[i]);
-                //    i++;
-                //}                
-
                 //I DIF DEA MACD
-                //0   0   0   0
+                //0 
                 Assert.AreEqual(lstMACD[0].DIF, 0);
                 Assert.AreEqual(lstMACD[0].DEA, 0);
                 Assert.AreEqual(lstMACD[0].MACD, 0);
@@ -213,7 +196,7 @@ namespace Test.Domain.MarketData
                 //18       
                 Assert.AreEqual(Math.Round(lstMACD[18].DIF, 2), 9.02);
                 Assert.AreEqual(Math.Round(lstMACD[18].DEA, 2), 9.14);
-                Assert.AreEqual(Math.Round(lstMACD[18].MACD, 2), -0.25);
+                Assert.AreEqual(Math.Round(lstMACD[18].MACD, 2), -0.25);                
             }
         }
 

@@ -12,6 +12,86 @@ namespace Quantum.Domain.MarketData
     /// </summary>
     public static class KLineIndicatior
     {
+        private static bool IsContians(this IEnumerable<ITimeSeries> lstIndex, DateTime dt)
+        {
+            if (lstIndex == null)
+                return false;
+
+            var lstContians = from index in lstIndex
+                              where index.Time.CompareTo(dt) == 0
+                              select index;
+
+            return (lstContians != null && lstContians.Count() > 0);
+        }
+
+        private static IEnumerable<IStockKLine> GetCycleKLine(this IEnumerable<IStockKLine> self, int index, int cycle)
+        {
+            if (self == null || self.Count() < 1)
+                return null;
+
+            return self.Skip((index - cycle) < 0 ? 0 : (index - cycle + 1)).Take((index - cycle) < 0 ? index + 1 : cycle);
+        }
+
+        private static Double MinPrice(this IEnumerable<IStockKLine> self)
+        {
+            if (self == null || self.Count() < 1)
+                return 0;
+            return self.Select(k => k.Low).Min();
+        }
+
+        private static Double MaxPrice(this IEnumerable<IStockKLine> self)
+        {
+            if (self == null || self.Count() < 1)
+                return 0;
+            return self.Select(k => k.High).Max();
+        }
+
+        private static IKDJ KDJ(this IEnumerable<IStockKLine> self, int index, IKDJ preKDJ = null, int N = 9)
+        {
+            if (self == null || self.Count() <= index)
+                return null;
+
+            var lstStockKLine = self.ToList();
+            var lstSub = self.GetCycleKLine(index, N).ToList();
+            var minPrice = lstSub.MinPrice();
+            var maxPrice = lstSub.MaxPrice();
+            if (index == 0)
+            {
+                return new KDJIndicator(lstStockKLine[index].Time, lstStockKLine[index].Close, minPrice, maxPrice);
+            }
+            else
+            {
+                return new KDJIndicator(lstStockKLine[index].Time, lstStockKLine[index].Close, minPrice, maxPrice, preKDJ);
+            }
+        }
+
+        private static IMACD MACD(this IEnumerable<IStockKLine> self, int index, IMACD preMACD = null)
+        {
+            if (self == null || self.Count() <= index)
+                return null;
+
+            var lstStockKLine = self.ToList();
+            if (index == 0)
+            {
+                return new MACDIndicator(lstStockKLine[index].Time, lstStockKLine[index].Close);
+            }
+            else
+            {
+                return new MACDIndicator(lstStockKLine[index].Time, lstStockKLine[index].Close, preMACD);
+            }
+        }
+
+        private static IMA MA(this IEnumerable<IStockKLine> self, int index, int cycle)
+        {
+            if (self == null || self.Count() <= index)
+                return null;
+
+            var lstStockKLine = self.ToList();
+            var lstSub = lstStockKLine.GetCycleKLine(index, cycle).ToList();
+            double valMA = lstSub.Average(x => x.Close);
+            return new MAIndicator(lstStockKLine[index].Time, cycle, valMA);
+        }
+
         /// <summary>
         /// 获取KDJ指标
         /// </summary>
@@ -24,21 +104,9 @@ namespace Quantum.Domain.MarketData
 
             var lstStockKLine = self.ToList();
             List<IKDJ> lstKDJ = new List<IKDJ>();
-            int N = 9;
             for (int i = 0; i < lstStockKLine.Count; i++)
             {
-                var lstSub = lstStockKLine.Skip((i - N) < 0 ? 0 : (i - N + 1)).Take((i - N) < 0 ? i + 1 : N).ToList();
-                var minPrice = (lstSub != null && lstSub.Count != 0) ? lstSub.Select(k => k.Low).Min() : lstStockKLine[i].Low;
-                var maxPrice = (lstSub != null && lstSub.Count != 0) ? lstSub.Select(k => k.High).Max() : lstStockKLine[i].High;
-
-                if (i == 0)
-                {
-                    lstKDJ.Add(new KDJIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close, minPrice, maxPrice));
-                }
-                else
-                {
-                    lstKDJ.Add(new KDJIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close, minPrice, maxPrice, lstKDJ[i - 1]));
-                }
+                lstKDJ.Add(lstStockKLine.KDJ(i, (i < 1 ? null : lstKDJ[i - 1])));
             }
 
             return lstKDJ;
@@ -64,26 +132,11 @@ namespace Quantum.Domain.MarketData
 
             var lstStockKLine = self.ToList();
             List<IKDJ> lstKDJ = current.ToList();
-            int N = 9;
             for (int i = 0; i < lstStockKLine.Count; i++)
             {
-                var lstContians = from kdj in lstKDJ
-                                  where kdj.Time.CompareTo(lstStockKLine[i].Time) == 0
-                                  select kdj;
-                if (lstContians == null || lstContians.Count() < 1)
+                if(!lstKDJ.IsContians(lstStockKLine[i].Time))
                 {
-                    var lstSub = lstStockKLine.Skip((i - N) < 0 ? 0 : (i - N + 1)).Take((i - N) < 0 ? i + 1 : N).ToList();
-                    var minPrice = (lstSub != null && lstSub.Count != 0) ? lstSub.Select(k => k.Low).Min() : lstStockKLine[i].Low;
-                    var maxPrice = (lstSub != null && lstSub.Count != 0) ? lstSub.Select(k => k.High).Max() : lstStockKLine[i].High;
-
-                    if (i == 0)
-                    {
-                        lstKDJ.Insert(i, new KDJIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close, minPrice, maxPrice));
-                    }
-                    else
-                    {
-                        lstKDJ.Insert(i, new KDJIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close, minPrice, maxPrice, lstKDJ[i - 1]));
-                    }
+                    lstKDJ.Insert(i, lstStockKLine.KDJ(i, (i < 1 ? null : lstKDJ[i - 1])));
                 }
             }
 
@@ -104,14 +157,7 @@ namespace Quantum.Domain.MarketData
             List<IMACD> lstMACD = new List<IMACD>();
             for (int i = 0; i < lstStockKLine.Count; i++)
             {
-                if (i == 0)
-                {
-                    lstMACD.Add(new MACDIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close));
-                }
-                else
-                {
-                    lstMACD.Add(new MACDIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close, lstMACD[i - 1]));
-                }
+                lstMACD.Add(lstStockKLine.MACD(i, (i < 1 ? null : lstMACD[i - 1])));
             }
 
             return lstMACD;
@@ -131,19 +177,9 @@ namespace Quantum.Domain.MarketData
             var lstMACD = current.ToList();
             for (int i = 0; i < lstStockKLine.Count; i++)
             {
-                var lstContians = from macd in lstMACD
-                                  where macd.Time.CompareTo(lstStockKLine[i].Time) == 0
-                                  select macd;
-                if (lstContians == null || lstContians.Count() < 1)
+                if (!lstMACD.IsContians(lstStockKLine[i].Time))
                 {
-                    if (i == 0)
-                    {
-                        lstMACD.Insert(i, new MACDIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close));
-                    }
-                    else
-                    {
-                        lstMACD.Insert(i, new MACDIndicator(lstStockKLine[i].Time, lstStockKLine[i].Close, lstMACD[i - 1]));
-                    }
+                    lstMACD.Insert(i, lstStockKLine.MACD(i, (i < 1 ? null : lstMACD[i - 1])));
                 }
             }
 
@@ -159,24 +195,20 @@ namespace Quantum.Domain.MarketData
         public static IEnumerable<IMA> MA(this IEnumerable<IStockKLine> self, int cycle)
         {
             if(cycle <= 1)
-            {
                 throw new ArgumentOutOfRangeException("Can not calculate MA due to Cycle <= 1");
-            }
 
             if (self == null)
                 throw new ArgumentOutOfRangeException("Can not calculate MA due to no kline datas");
 
-            var lstStockKLine = self.ToList();
-            if (lstStockKLine.Count < cycle)
+            if (self.Count() < cycle)
                 throw new ArgumentOutOfRangeException("Can not calculate MA due to the kline data number < Cycle");
 
+            var lstStockKLine = self.ToList();
             List<IMA> lstMA = new List<IMA>();
-            for (int i = cycle - 1; i < lstStockKLine.Count; i++)
+            int start = cycle - 1;//可以从0开始，但是前cycle个数据不准确
+            for (int i = start; i < lstStockKLine.Count; i++)
             {
-                var kline = lstStockKLine[i];
-                var lstSub = lstStockKLine.Skip(i - cycle + 1).Take(cycle).ToList();
-                double valMA = lstSub.Average(x => x.Close);
-                lstMA.Add(new MAIndicator(kline.Time, cycle, valMA));
+                lstMA.Add(lstStockKLine.MA(i, cycle));
             }
             return lstMA;
         }
@@ -191,22 +223,17 @@ namespace Quantum.Domain.MarketData
             if (self == null)
                 throw new ArgumentOutOfRangeException("Can not calculate MA due to no kline datas");
 
-            var lstStockKLine = self.ToList();
-            if (lstStockKLine.Count < cycle)
+            if (self.Count() < cycle)
                 throw new ArgumentOutOfRangeException("Can not calculate MA due to the kline data number < Cycle");
 
+            var lstStockKLine = self.ToList();
             var lstMA = current.ToList();
-            for (int i = cycle - 1; i < lstStockKLine.Count; i++)
+            int start = cycle - 1;//可以从0开始，但是前cycle个数据不准确
+            for (int i = start; i < lstStockKLine.Count; i++)
             {
-                var lstContians = from ma in lstMA
-                                  where ma.Time.CompareTo(lstStockKLine[i].Time) == 0
-                                  select ma;
-                if (lstContians == null || lstContians.Count() < 1)
+                if (!lstMA.IsContians(lstStockKLine[i].Time))
                 {
-                    var skipCount = i - cycle + 1;
-                    var lstSub = lstStockKLine.Skip(skipCount).Take(cycle).ToList();
-                    double valMA = lstSub.Average(x => x.Close);
-                    lstMA.Insert(skipCount, new MAIndicator(lstStockKLine[i].Time, cycle, valMA));
+                    lstMA.Insert(i - cycle + 1, lstStockKLine.MA(i, cycle));
                 }
             }
             return lstMA;
