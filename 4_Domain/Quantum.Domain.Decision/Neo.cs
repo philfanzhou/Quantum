@@ -53,6 +53,7 @@ namespace Quantum.Domain.Decision
         #endregion
 
         #region Event
+        // 修改为Shoot
         public EventHandler<ITradingAction> TradingRequested;
         #endregion
 

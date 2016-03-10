@@ -52,6 +52,7 @@
     <Compile Include="Link.cs" />
     <Compile Include="Neo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Trinity.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Quantum.Domain.MarketData\Quantum.Domain.MarketData.csproj">

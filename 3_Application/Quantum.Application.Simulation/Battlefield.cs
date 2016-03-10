@@ -9,18 +9,34 @@ namespace Quantum.Application.Simulation
 {
     public class Battlefield
     {
-        private readonly List<IStockRealTime> _realTimeItems;
+        private readonly ISecurity _security;
 
-        public Battlefield(IEnumerable<IStockRealTime> realTimeItems)
+        private Dictionary<KLineType, IEnumerable<IStockKLine>> _datas = new Dictionary<KLineType, IEnumerable<IStockKLine>>();
+
+        public Battlefield(ISecurity security)
         {
-            _realTimeItems = realTimeItems.ToList();
+            _security = security;
         }
 
-        public void Practice()
+        public void Practice(DateTime beginTime, DateTime endTime)
         {
+            var battleship = new SimulationBattleship(beginTime);
+            var morpheus = new Morpheus();
+            var candidate = morpheus.FindCandidate(_security).ToList();
+
+            candidate.ForEach(p => p.Login(battleship));
+
             /*
             在这里遍历每一条数据，每条数据的时间作为当前时间
             */
+            var datas = Domain.MarketData.Simulation.CreateRandomKLines(KLineType.Min1, beginTime, endTime);
+            foreach(var dataItem in datas)
+            {
+                // todo 进度修改
+                candidate.ForEach(p => p.OnKLineComing(dataItem, KLineType.Min1));
+            }
         }
+
+        // 写一个时间机器，查询出所有数据的最小单位，以最小单位的数据，进行数据推送，当前时间以推送数据时间为准。
     }
 }

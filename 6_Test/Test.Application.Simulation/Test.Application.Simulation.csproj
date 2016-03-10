@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Ore.Infrastructure.MarketData">
+      <HintPath>..\..\..\Ore\Publish.Dll\Ore.Infrastructure.MarketData\Ore.Infrastructure.MarketData.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -52,6 +55,12 @@
   <ItemGroup>
     <Compile Include="TestSimulation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\3_Application\Quantum.Application.Simulation\Quantum.Application.Simulation.csproj">
+      <Project>{2edb22d4-6c48-4256-a017-8e47a5088c49}</Project>
+      <Name>Quantum.Application.Simulation</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

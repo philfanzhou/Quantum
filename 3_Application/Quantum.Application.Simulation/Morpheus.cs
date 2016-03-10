@@ -14,21 +14,21 @@ namespace Quantum.Application.Simulation
         /// <summary>
         /// 寻找出候选人
         /// </summary>
+        /// <param name="security"></param>
         /// <returns></returns>
-        public IEnumerable<Neo> FindCandidate()
+        public IEnumerable<Neo> FindCandidate(ISecurity security)
         {
+            // 传入需要Key的描述信息
+            // 获取各种类型的Key的集合
+            // 将各种Key组合到Neo里面去。
             var keys = new KeyMaker().CreateKeys();
-            ISecurity security = new Security
-            {
-                Code = "600036",
-                Market = Market.XSHG,
-                ShortName = "招商银行",
-                Type = SecurityType.Sotck
-            };
-
             Neo neo = new Neo(security, keys);
-
             return new List<Neo> { neo };
+        }
+
+        public Neo ChoiceTheOne(IEnumerable<Neo> candidate)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
