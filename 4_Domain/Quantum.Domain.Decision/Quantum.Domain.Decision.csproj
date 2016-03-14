@@ -48,6 +48,7 @@
     <Compile Include="ITradingAction.cs" />
     <Compile Include="Keys\IKey.cs" />
     <Compile Include="Keys\AveragePriceKey.cs" />
+    <Compile Include="Keys\KeyDescription.cs" />
     <Compile Include="Keys\KeyMaker.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Neo.cs" />
