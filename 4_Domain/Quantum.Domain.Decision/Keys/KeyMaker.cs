@@ -21,7 +21,8 @@ namespace Quantum.Domain.Decision.Keys
         public IEnumerable<IKey> CreateKeys()
         {
             List<IKey> result = new List<IKey>();
-            result.Add(new AveragePriceKey(2, KeyType.Buy));
+            result.Add(new AveragePriceKey(-2, KeyType.Buy));
+            result.Add(new AveragePriceKey(2, KeyType.Sell));
             return result;
         }
     }

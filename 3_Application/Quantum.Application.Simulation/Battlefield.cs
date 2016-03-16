@@ -1,4 +1,5 @@
 ﻿using Ore.Infrastructure.MarketData;
+using Quantum.Domain.Decision;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,29 +12,34 @@ namespace Quantum.Application.Simulation
     {
         private readonly ISecurity _security;
 
-        private Dictionary<KLineType, IEnumerable<IStockKLine>> _datas = new Dictionary<KLineType, IEnumerable<IStockKLine>>();
-
         public Battlefield(ISecurity security)
         {
             _security = security;
         }
 
-        public void Practice(DateTime beginTime, DateTime endTime)
+        public void Practice(IBattleship battleship, DateTime beginTime, DateTime endTime)
         {
-            var battleship = new SimulationBattleship(beginTime);
             var morpheus = new Morpheus();
-            var candidate = morpheus.FindCandidate(_security).ToList();
 
+            // 创造出所有的候选人，并登录Matrix
+            var candidate = morpheus.FindCandidate(_security).ToList();
             candidate.ForEach(p => p.Login(battleship));
 
             /*
             在这里遍历每一条数据，每条数据的时间作为当前时间
             */
-            var datas = Domain.MarketData.Simulation.CreateRandomKLines(KLineType.Min1, beginTime, endTime);
+            KLineType type = KLineType.Min1;
+            var datas = Domain.MarketData.Simulation.CreateRandomKLines(type, beginTime, endTime);
             foreach(var dataItem in datas)
             {
+                if (!battleship.Link.ExistData(type, dataItem))
+                {
+                    // 存储新来的数据
+                    battleship.Link.AddNewData(type, dataItem);
+                }
+
                 // todo 进度修改
-                candidate.ForEach(p => p.OnKLineComing(dataItem, KLineType.Min1));
+                candidate.ForEach(p => p.OnKLineComing());
             }
         }
 

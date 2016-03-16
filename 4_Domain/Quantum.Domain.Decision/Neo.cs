@@ -24,7 +24,7 @@ namespace Quantum.Domain.Decision
         [NonSerialized]
         private bool _logined;
         [NonSerialized]
-        private Link _link;
+        private IBattleship _battleship;
         #endregion
 
         #region Constructor
@@ -63,7 +63,8 @@ namespace Quantum.Domain.Decision
         /// <param name="battleship"></param>
         public void Login(IBattleship battleship)
         {
-            _link = battleship.GetLink(this);
+            _battleship = battleship;
+            _battleship.UpgradeOperator(this);
             _logined = true;
         }
 
@@ -72,18 +73,11 @@ namespace Quantum.Domain.Decision
         /// </summary>
         /// <param name="kLine"></param>
         /// <param name="type"></param>
-        public void OnKLineComing(IStockKLine kLine, KLineType type)
+        public void OnKLineComing()
         {
-            // 未登陆和没有设定接线员，都无法处理新数据
-            if (!_logined || _link == null) return;
-
-            // todo: 需要把数据的操作，放到外面去做
-            if (!_link.ExistData(type, kLine))
-            {
-                // 存储新来的数据
-                _link.AddNewData(type, kLine);
-            }
-
+            // 未登陆和没有飞船，都无法处理新数据
+            if (!_logined || _battleship == null) return;
+            
             Decide();
         }
         #endregion
@@ -97,7 +91,7 @@ namespace Quantum.Domain.Decision
             // 运算所有买指标的结果
             var buyResult = _keys
                 .Where(p => p.KeyType == KeyType.Buy)
-                .Select(p => p.Match(_link))
+                .Select(p => p.Match(_battleship.Link))
                 .Distinct().ToList();
             if(buyResult.Count == 1 &&
                 buyResult[0] == true)
@@ -109,7 +103,7 @@ namespace Quantum.Domain.Decision
             {
                 var sellResult = _keys
                     .Where(p => p.KeyType == KeyType.Sell)
-                    .Select(p => p.Match(_link))
+                    .Select(p => p.Match(_battleship.Link))
                     .Distinct().ToList();
 
                 if (sellResult.Count == 1 &&

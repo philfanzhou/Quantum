@@ -7,9 +7,9 @@ namespace Quantum.Application.Simulation
 {
     public class SimulationBattleship : Battleship
     {
-        public SimulationBattleship(DateTime tradingStartTime) : base(tradingStartTime) { }
+        public SimulationBattleship(ISecurity security, DateTime tradingStartTime) : base(security, tradingStartTime) { }
 
-        protected override IEnumerable<IStockKLine> GetData(KLineType type, DateTime startTime, DateTime endTime)
+        protected override IEnumerable<IStockKLine> GetKLines(ISecurity security, KLineType type, DateTime startTime, DateTime endTime)
         {
             return Domain.MarketData.Simulation.CreateRandomKLines(type, startTime, endTime);
         }

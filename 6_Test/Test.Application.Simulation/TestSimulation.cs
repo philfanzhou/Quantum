@@ -19,9 +19,13 @@ namespace Test.Application.Simulation
                 Type = SecurityType.Sotck
             };
 
+            DateTime beginTime = DateTime.Now.AddDays(-15);
+            DateTime endTime = DateTime.Now;
+
+            var battleship = new SimulationBattleship(security, beginTime);
             var battlefield = new Battlefield(security);
 
-            battlefield.Practice(DateTime.Now.AddDays(-15), DateTime.Now);
+            battlefield.Practice(battleship, beginTime, endTime);
         }
     }
 }

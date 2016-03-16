@@ -18,22 +18,14 @@ namespace Quantum.Domain.Decision
         /// </summary>
         private readonly Dictionary<KLineType, List<IStockKLine>> _history
             = new Dictionary<KLineType, List<IStockKLine>>();
-
-        public Link(IDictionary<KLineType, IEnumerable<IStockKLine>> history)
-        {
-            foreach(var item in history)
-            {
-                _history.Add(item.Key, item.Value.ToList());
-            }
-        }
-
+        
         /// <summary>
         /// 判断数据是否已经存在
         /// </summary>
         /// <param name="type"></param>
         /// <param name="kLine"></param>
         /// <returns></returns>
-        internal bool ExistData(KLineType type, IStockKLine kLine)
+        public bool ExistData(KLineType type, IStockKLine kLine)
         {
             if (_history.ContainsKey(type) 
                 && _history[type].Contains(kLine))
@@ -51,7 +43,7 @@ namespace Quantum.Domain.Decision
         /// </summary>
         /// <param name="type"></param>
         /// <param name="kLine"></param>
-        internal void AddNewData(KLineType type, IStockKLine kLine)
+        public void AddNewData(KLineType type, IStockKLine kLine)
         {
             if(!_history.ContainsKey(type))
             {
@@ -59,6 +51,27 @@ namespace Quantum.Domain.Decision
             }
 
             _history[type].Add(kLine);
+        }
+
+        internal void AddDatas(KLineType type, IEnumerable<IStockKLine> kLines)
+        {
+            var datas = kLines.ToList();
+            if (_history.ContainsKey(type))
+            {
+                // 将数据补充进去
+                var existData = _history[type];
+                var needAddData = datas.Except(existData);
+                _history[type].AddRange(needAddData);
+            }
+            else
+            {
+                _history.Add(type, datas);
+            }
+        }
+
+        internal bool ContainsType(KLineType type)
+        {
+            return _history.ContainsKey(type);
         }
 
         /// <summary>

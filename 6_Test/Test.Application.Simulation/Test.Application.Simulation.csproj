@@ -61,6 +61,10 @@
       <Project>{2edb22d4-6c48-4256-a017-8e47a5088c49}</Project>
       <Name>Quantum.Application.Simulation</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\4_Domain\Quantum.Domain.Decision\Quantum.Domain.Decision.csproj">
+      <Project>{97d9e8f2-9163-4846-a914-9b82c377e7a1}</Project>
+      <Name>Quantum.Domain.Decision</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

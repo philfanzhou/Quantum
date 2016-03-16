@@ -7,52 +7,42 @@ namespace Quantum.Domain.Decision
 {
     public abstract class Battleship : IBattleship
     {
+        private ISecurity _security;
         private DateTime _tradingStartTime;
+        private Link _link = new Link();
 
-        public Battleship(DateTime tradingStartTime)
+        public Link Link { get { return _link; } }
+
+        public Battleship(ISecurity security, DateTime tradingStartTime)
         {
+            _security = security;
             _tradingStartTime = tradingStartTime;
         }
 
-        public virtual Link GetLink(Neo neo)
+        public void UpgradeOperator(Neo neo)
         {
-            var security = neo.Security;
+            if (neo.Security.Code != _security.Code)
+            {
+                throw new ArgumentOutOfRangeException("neo");
+            }
+
             var keys = neo.Keys.ToList();
-
-            var historyData = new Dictionary<KLineType, IEnumerable<IStockKLine>>();
-
-            foreach(var key in keys)
+            foreach (var key in keys)
             {
                 // 获取Key对数据的要求
                 var kLineType = key.DataType;
                 var dataStartTime = key.GetDataStartTime(_tradingStartTime);
                 // 获取数据
-                var data = GetData(kLineType, dataStartTime, _tradingStartTime).ToList();
-                if(data == null)
+                var datas = GetKLines(_security, kLineType, dataStartTime, _tradingStartTime).ToList();
+                if (datas == null)
                 {
-                    data = new List<IStockKLine>();
+                    datas = new List<IStockKLine>();
                 }
 
-
-                if(historyData.ContainsKey(kLineType))
-                {
-                    // 将数据补充进去
-                    var existData = historyData[kLineType].ToList();
-                    var needAddData = data.Except(existData);
-                    var newData = existData;
-                    newData.AddRange(needAddData);
-                    historyData[kLineType] = newData;
-                }
-                else
-                {
-                    historyData.Add(kLineType, data);
-                }
+                _link.AddDatas(kLineType, datas);
             }
-
-            var link = new Link(historyData);
-            return link;
         }
 
-        protected abstract IEnumerable<IStockKLine> GetData(KLineType type, DateTime startTime, DateTime endTime);
+        protected abstract IEnumerable<IStockKLine> GetKLines(ISecurity security, KLineType type, DateTime startTime, DateTime endTime);
     }
 }

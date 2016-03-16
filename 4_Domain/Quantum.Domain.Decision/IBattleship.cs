@@ -1,8 +1,4 @@
-﻿using Ore.Infrastructure.MarketData;
-using Quantum.Domain.Decision.Keys;
-using System.Collections.Generic;
-
-namespace Quantum.Domain.Decision
+﻿namespace Quantum.Domain.Decision
 {
     /// <summary>
     /// Nebuchadnezzar号飞船
@@ -10,10 +6,15 @@ namespace Quantum.Domain.Decision
     public interface IBattleship
     {
         /// <summary>
-        /// 根据Neo对数据的要求，给他分配对应的接线员
+        /// 获取Link操作员
+        /// </summary>
+        Link Link { get; }
+
+        /// <summary>
+        /// 根据Neo对数据的要求，升级飞船上的接线员
         /// </summary>
         /// <param name="neo"></param>
         /// <returns></returns>
-        Link GetLink(Neo neo);
+        void UpgradeOperator(Neo neo);
     }
 }
