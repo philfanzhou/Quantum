@@ -18,6 +18,11 @@ namespace Quantum.Domain.Decision
         /// </summary>
         private readonly Dictionary<KLineType, List<IStockKLine>> _history
             = new Dictionary<KLineType, List<IStockKLine>>();
+
+        public IEnumerable<KLineType> DataTypes
+        {
+            get { return _history.Keys; }
+        }
         
         /// <summary>
         /// 判断数据是否已经存在

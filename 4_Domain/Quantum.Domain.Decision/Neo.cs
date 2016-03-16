@@ -3,8 +3,6 @@ using Quantum.Domain.Decision.Keys;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Quantum.Domain.Decision
 {
@@ -20,6 +18,8 @@ namespace Quantum.Domain.Decision
         private ISecurity _security;
 
         private List<IKey> _keys;
+
+        private Trinity _trinity;
 
         [NonSerialized]
         private bool _logined;
@@ -54,6 +54,15 @@ namespace Quantum.Domain.Decision
 
         #region Event
         public EventHandler<IBullet> Shootted;
+
+        private void OnShootted(IBullet e)
+        {
+            EventHandler<IBullet> handler = Shootted;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
         #endregion
 
         #region Public Method
@@ -71,19 +80,18 @@ namespace Quantum.Domain.Decision
         /// <summary>
         /// 当新数据到来的时候，调用此方法
         /// </summary>
-        /// <param name="kLine"></param>
-        /// <param name="type"></param>
-        public void OnKLineComing()
+        /// <param name="kLineType"></param>
+        public void OnKLineComing(KLineType kLineType)
         {
             // 未登陆和没有飞船，都无法处理新数据
             if (!_logined || _battleship == null) return;
             
-            Decide();
+            Decide(kLineType);
         }
         #endregion
 
         #region Private Method
-        private void Decide()
+        private void Decide(KLineType kLineType)
         {
             bool isBuy = false;
             bool isSell = false;
@@ -123,21 +131,16 @@ namespace Quantum.Domain.Decision
                 Quantity = GetQuantity(isBuy),
                 IsUp = isBuy
             };
+
+            // todo: 内部系统的交易
+            // Trinity
+
             OnShootted(bullet);
         }
 
         private int GetQuantity(bool isBuy)
         {
             return 100;
-        }
-
-        private void OnShootted(IBullet e)
-        {
-            EventHandler<IBullet> handler = Shootted;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
         }
         #endregion
     }

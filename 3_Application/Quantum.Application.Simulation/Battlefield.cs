@@ -25,22 +25,33 @@ namespace Quantum.Application.Simulation
             var candidate = morpheus.FindCandidate(_security).ToList();
             candidate.ForEach(p => p.Login(battleship));
 
-            /*
-            在这里遍历每一条数据，每条数据的时间作为当前时间
-            */
-            KLineType type = KLineType.Min1;
-            var datas = Domain.MarketData.Simulation.CreateRandomKLines(type, beginTime, endTime);
-            foreach(var dataItem in datas)
-            {
-                if (!battleship.Link.ExistData(type, dataItem))
-                {
-                    // 存储新来的数据
-                    battleship.Link.AddNewData(type, dataItem);
-                }
+            // 构造出未来的数据
+            var futureDatas = GetFutureDatas(battleship, beginTime, endTime);
+            
+            //foreach(var dataItem in datas)
+            //{
+            //    if (!battleship.Link.ExistData(type, dataItem))
+            //    {
+            //        // 存储新来的数据
+            //        battleship.Link.AddNewData(type, dataItem);
+            //    }
 
-                // todo 进度修改
-                candidate.ForEach(p => p.OnKLineComing());
+            //    // todo 进度修改
+            //    candidate.ForEach(p => p.OnKLineComing());
+            //}
+        }
+
+        private Dictionary<KLineType, List<IStockKLine>> GetFutureDatas(IBattleship battleship, DateTime beginTime, DateTime endTime)
+        {
+            var result = new Dictionary<KLineType, List<IStockKLine>>();
+
+            foreach(var kLineType in battleship.Link.DataTypes)
+            {
+                var datas = battleship.GetKLines(_security, kLineType, beginTime, endTime).ToList();
+                result.Add(kLineType, datas);
             }
+
+            return result;
         }
 
         // 写一个时间机器，查询出所有数据的最小单位，以最小单位的数据，进行数据推送，当前时间以推送数据时间为准。

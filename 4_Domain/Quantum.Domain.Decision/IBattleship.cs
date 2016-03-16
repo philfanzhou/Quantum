@@ -1,4 +1,8 @@
-﻿namespace Quantum.Domain.Decision
+﻿using Ore.Infrastructure.MarketData;
+using System;
+using System.Collections.Generic;
+
+namespace Quantum.Domain.Decision
 {
     /// <summary>
     /// Nebuchadnezzar号飞船
@@ -16,5 +20,15 @@
         /// <param name="neo"></param>
         /// <returns></returns>
         void UpgradeOperator(Neo neo);
+
+        /// <summary>
+        /// 获取K线数据
+        /// </summary>
+        /// <param name="security"></param>
+        /// <param name="type"></param>
+        /// <param name="startTime"></param>
+        /// <param name="endTime"></param>
+        /// <returns></returns>
+        IEnumerable<IStockKLine> GetKLines(ISecurity security, KLineType type, DateTime startTime, DateTime endTime);
     }
 }

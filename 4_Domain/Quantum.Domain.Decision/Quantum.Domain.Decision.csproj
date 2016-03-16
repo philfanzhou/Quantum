@@ -61,6 +61,10 @@
       <Project>{6cd428fe-9631-47b1-ba03-cf7491d8cb5c}</Project>
       <Name>Quantum.Domain.MarketData</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Quantum.Domain.Trading\Quantum.Domain.Trading.csproj">
+      <Project>{2bfb63c0-2d7a-425a-b284-a34c5297ed2b}</Project>
+      <Name>Quantum.Domain.Trading</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

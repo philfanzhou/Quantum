@@ -43,6 +43,6 @@ namespace Quantum.Domain.Decision
             }
         }
 
-        protected abstract IEnumerable<IStockKLine> GetKLines(ISecurity security, KLineType type, DateTime startTime, DateTime endTime);
+        public abstract IEnumerable<IStockKLine> GetKLines(ISecurity security, KLineType type, DateTime startTime, DateTime endTime);
     }
 }
