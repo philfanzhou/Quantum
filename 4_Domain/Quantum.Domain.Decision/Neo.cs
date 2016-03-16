@@ -53,8 +53,7 @@ namespace Quantum.Domain.Decision
         #endregion
 
         #region Event
-        // 修改为Shoot
-        public EventHandler<ITradingAction> TradingRequested;
+        public EventHandler<IBullet> Shootted;
         #endregion
 
         #region Public Method
@@ -78,48 +77,69 @@ namespace Quantum.Domain.Decision
             // 未登陆和没有设定接线员，都无法处理新数据
             if (!_logined || _link == null) return;
 
+            // todo: 需要把数据的操作，放到外面去做
             if (!_link.ExistData(type, kLine))
             {
                 // 存储新来的数据
                 _link.AddNewData(type, kLine);
-
-                Decide();
             }
+
+            Decide();
         }
         #endregion
 
         #region Private Method
         private void Decide()
         {
-            // 运行决策判断，所有的买Key满足，就买，购买数量另外考虑
-            // 所有的卖Key满足，就卖，卖出数量另外考虑
-            var result = _keys.Select(p => p.Match(_link)).Distinct().ToList();
-            if(result.Count > 1)
+            bool isBuy = false;
+            bool isSell = false;
+
+            // 运算所有买指标的结果
+            var buyResult = _keys
+                .Where(p => p.KeyType == KeyType.Buy)
+                .Select(p => p.Match(_link))
+                .Distinct().ToList();
+            if(buyResult.Count == 1 &&
+                buyResult[0] == true)
             {
-                return;
+                isBuy = true;
             }
 
-            if(result[0] == ActionType.None)
+            if(isBuy == false) // 如果已经决定要买了，就不用判断卖了
             {
-                return;
+                var sellResult = _keys
+                    .Where(p => p.KeyType == KeyType.Sell)
+                    .Select(p => p.Match(_link))
+                    .Distinct().ToList();
+
+                if (sellResult.Count == 1 &&
+                sellResult[0] == true)
+                {
+                    isSell = true;
+                }
+            }
+            
+            if(!isBuy && !isSell)
+            {
+                return; // 不买不卖就不进行操作了
             }
 
-            TradingAction action = new TradingAction
+            Bullet bullet = new Bullet
             {
-                Quantity = GetQuantity(result[0]),
-                Type = result[0]
+                Quantity = GetQuantity(isBuy),
+                IsUp = isBuy
             };
-            OnTradingRequested(action);
+            OnShootted(bullet);
         }
 
-        private int GetQuantity(ActionType type)
+        private int GetQuantity(bool isBuy)
         {
             return 100;
         }
 
-        private void OnTradingRequested(ITradingAction e)
+        private void OnShootted(IBullet e)
         {
-            EventHandler<ITradingAction> handler = TradingRequested;
+            EventHandler<IBullet> handler = Shootted;
             if (handler != null)
             {
                 handler(this, e);

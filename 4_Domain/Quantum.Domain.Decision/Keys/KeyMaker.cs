@@ -13,10 +13,15 @@ namespace Quantum.Domain.Decision.Keys
     /// </summary>
     public class KeyMaker
     {
+        public IEnumerable<IKeyDescription> GetAllDescription()
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<IKey> CreateKeys()
         {
             List<IKey> result = new List<IKey>();
-            result.Add(new AveragePriceKey(-2, 2));
+            result.Add(new AveragePriceKey(2, KeyType.Buy));
             return result;
         }
     }

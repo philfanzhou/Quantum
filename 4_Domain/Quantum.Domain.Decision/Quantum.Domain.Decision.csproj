@@ -45,11 +45,12 @@
   <ItemGroup>
     <Compile Include="Battleship.cs" />
     <Compile Include="IBattleship.cs" />
-    <Compile Include="ITradingAction.cs" />
+    <Compile Include="IBullet.cs" />
     <Compile Include="Keys\IKey.cs" />
-    <Compile Include="Keys\AveragePriceKey.cs" />
-    <Compile Include="Keys\KeyDescription.cs" />
+    <Compile Include="Keys\IKeyDescription.cs" />
+    <Compile Include="Keys\Implement\AveragePriceKey.cs" />
     <Compile Include="Keys\KeyMaker.cs" />
+    <Compile Include="Keys\KeyType.cs" />
     <Compile Include="Link.cs" />
     <Compile Include="Neo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
